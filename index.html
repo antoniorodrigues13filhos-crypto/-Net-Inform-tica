@@ -74,6 +74,20 @@
                 filter: blur(0px);
                 pointer-events: auto;
             }
+
+            /* --- NOVAS ANIMAÇÕES DE TRANSIÇÃO --- */
+            .card-reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+            .card-reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .delay-1 { transition-delay: 0.1s; }
+            .delay-2 { transition-delay: 0.2s; }
+            .delay-3 { transition-delay: 0.3s; }
         }
 
         .hero-sticky-container {
@@ -144,38 +158,41 @@
         </div>
     </section>
 
-    <section id="produtos" class="py-32 bg-tech-bg relative z-20">
+    <section id="produtos" class="py-32 bg-tech-bg relative z-20 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16 card-reveal">
                 Produtos de <span class="text-tech-primary">Alta Performance</span>
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="group border border-white/10 p-8 bg-white/5 backdrop-blur-sm hover:border-tech-primary/50 transition-all duration-500">
-                    <div class="mb-6 overflow-hidden h-48 bg-black flex items-center justify-center">
-                        <img src="vitrine-assets/icons-entrega.png" alt="Workstation" class="w-24 group-hover:scale-110 transition-transform">
+                <div class="product-card card-reveal delay-1 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="mb-6 h-48 flex items-center justify-center relative z-10">
+                        <img src="vitrine-assets/icons-entrega.png" alt="Workstation" class="w-24 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4">Workstation Pro</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed">Configurações otimizadas para edição 4K, engenharia e multitarefa extrema.</p>
-                    <a href="#contato" class="text-tech-primary font-black uppercase tracking-widest text-xs hover:text-white transition-colors">Solicitar Orçamento →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Workstation Pro</h3>
+                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Configurações otimizadas para edição 4K, engenharia e multitarefa extrema.</p>
+                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Solicitar Orçamento →</a>
                 </div>
 
-                <div class="group border border-white/10 p-8 bg-white/5 backdrop-blur-sm hover:border-tech-primary/50 transition-all duration-500">
-                    <div class="mb-6 overflow-hidden h-48 bg-black flex items-center justify-center">
-                        <img src="vitrine-assets/icons-entrega.png" alt="Gamer" class="w-24 group-hover:scale-110 transition-transform">
+                <div class="product-card card-reveal delay-2 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="mb-6 h-48 flex items-center justify-center relative z-10">
+                        <img src="vitrine-assets/icons-entrega.png" alt="Gamer" class="w-24 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4">Gamer High-End</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed">O poder das placas RTX aliado a um sistema de refrigeração de última geração.</p>
-                    <a href="#contato" class="text-tech-primary font-black uppercase tracking-widest text-xs hover:text-white transition-colors">Ver Disponibilidade →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Gamer High-End</h3>
+                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">O poder das placas RTX aliado a um sistema de refrigeração de última geração.</p>
+                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Ver Disponibilidade →</a>
                 </div>
 
-                <div class="group border border-white/10 p-8 bg-white/5 backdrop-blur-sm hover:border-tech-primary/50 transition-all duration-500">
-                    <div class="mb-6 overflow-hidden h-48 bg-black flex items-center justify-center">
-                        <img src="vitrine-assets/icons-entrega.png" alt="Manutenção" class="w-24 group-hover:scale-110 transition-transform">
+                <div class="product-card card-reveal delay-3 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
+                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="mb-6 h-48 flex items-center justify-center relative z-10">
+                        <img src="vitrine-assets/icons-entrega.png" alt="Suporte" class="w-24 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4">Suporte Elite</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed">Manutenção preventiva e corretiva para manter seu setup sempre em 100%.</p>
-                    <a href="#contato" class="text-tech-primary font-black uppercase tracking-widest text-xs hover:text-white transition-colors">Falar com Técnico →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Suporte Elite</h3>
+                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Manutenção preventiva e corretiva para manter seu setup sempre em 100%.</p>
+                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Falar com Técnico →</a>
                 </div>
             </div>
         </div>
@@ -247,6 +264,18 @@
                 s3.classList.add('active');
             }
         });
+
+        // Trigger para os Cards Animados
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-reveal').forEach(el => observer.observe(el));
 
         function resize() {
             canvas.width = window.innerWidth;
