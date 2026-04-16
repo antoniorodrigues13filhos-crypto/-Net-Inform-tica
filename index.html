@@ -27,207 +27,156 @@
         @layer base {
             body {
                 @apply bg-tech-bg text-tech-text antialiased overflow-x-hidden;
-                background-image: radial-gradient(circle at 50% 0%, rgba(0, 194, 168, 0.05) 0%, transparent 50%);
             }
         }
 
         @layer utilities {
-            .premium-blur {
-                backdrop-filter: blur(20px) saturate(180%);
-                background: rgba(13, 27, 42, 0.4);
-                border: 1px solid rgba(255, 255, 255, 0.08);
+            .hero-static-gradient {
+                background: radial-gradient(circle at 50% 50%, rgba(0, 194, 168, 0.12) 0%, rgba(3, 7, 8, 1) 70%);
             }
-            .text-glow-green { text-shadow: 0 0 20px rgba(0, 194, 168, 0.4); }
-            .hero-heading { 
-                letter-spacing: -0.05em; 
-                line-height: 0.85; /* Ajuste cirúrgico da altura do texto */
+            .glow-primary {
+                filter: drop-shadow(0 0 15px rgba(0, 194, 168, 0.4));
+            }
+            .btn-cta {
+                @apply bg-tech-primary text-tech-bg font-black uppercase tracking-widest transition-all duration-300;
+                box-shadow: 0 0 20px rgba(0, 194, 168, 0.3);
+            }
+            .btn-cta:hover {
+                @apply scale-105;
+                box-shadow: 0 0 40px rgba(0, 194, 168, 0.6);
             }
             
-            /* --- HARDWARE LINE REDONDA E FLUTUANTE --- */
-            #hardware-line-container {
-                position: absolute;
-                inset: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 25;
+            /* Keyframes para entrada suave */
+            @keyframes fadeSlideUp {
+                from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+                to { opacity: 1; transform: translateY(0); filter: blur(0); }
+            }
+
+            .animate-hero {
+                animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
                 opacity: 0;
-                pointer-events: none;
-            }
-            .hardware-circle {
-                width: 300px;
-                height: 300px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(255, 122, 0, 0.1) 0%, transparent 70%);
-                border: 2px solid rgba(255, 122, 0, 0.4);
-                box-shadow: 0 0 50px rgba(255, 122, 0, 0.2), inset 0 0 20px rgba(255, 122, 0, 0.1);
-                position: relative;
-                transform: translateX(25%) translateY(-10%);
-                animation: floatCircle 6s ease-in-out infinite;
-            }
-            @keyframes floatCircle {
-                0%, 100% { transform: translateX(25%) translateY(-10%) scale(1); }
-                50% { transform: translateX(27%) translateY(-13%) scale(1.05); }
             }
         }
-        
-        body { overflow-y: hidden; }
-        .hero-text-block { position: absolute; inset: 0; display: flex; align-items: center; opacity: 0; pointer-events: none; z-index: 30; }
-        .hero-text-block.active { pointer-events: auto; }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    <div id="loader" class="fixed inset-0 bg-tech-bg z-[9999] flex flex-col justify-center items-center">
-        <div class="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
-            <div id="progress-bar" class="h-full bg-tech-action w-0 shadow-[0_0_15px_#FF7A00]"></div>
-        </div>
-        <p id="loading-text" class="text-[10px] tracking-[0.3em] text-white/40 mt-4 uppercase">System Load 0%</p>
-    </div>
-
-    <nav class="fixed top-0 left-0 w-full z-50 h-24 flex items-center transition-all duration-500" id="navbar">
+    <nav class="fixed top-0 left-0 w-full z-50 h-20 flex items-center bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
                 <span class="font-black text-2xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
             </div>
-            <a href="#contato" class="bg-tech-action text-tech-bg px-8 py-3 text-xs font-black uppercase tracking-widest shadow-xl">WhatsApp Elite</a>
+            <a href="#contato" class="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-5 py-2 text-[10px] font-black uppercase tracking-widest transition-all">Menu</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative h-[650vh]">
-        <div class="sticky top-0 h-screen w-full overflow-hidden bg-tech-bg">
-            <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover opacity-50"></canvas>
+    <section id="scroll-hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden hero-static-gradient">
+        
+        <div id="hero-bg-parallax" class="absolute inset-0 pointer-events-none opacity-40">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-tech-primary/20 blur-[120px] rounded-full"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-tech-action/10 blur-[100px] rounded-full"></div>
+        </div>
+
+        <div class="relative z-20 max-w-5xl mx-auto px-6 py-12 text-center">
             
-            <div id="hardware-line-container">
-                <div class="hardware-circle"></div>
+            <h1 class="animate-hero text-4xl md:text-7xl font-black mb-6 leading-[0.95] tracking-tighter uppercase" style="animation-delay: 0.1s;">
+                Seu computador lento está te fazendo <span class="text-tech-primary glow-primary italic">perder dinheiro.</span>
+            </h1>
+
+            <p class="animate-hero text-lg md:text-2xl text-white/60 max-w-3xl mx-auto mb-10 font-light leading-relaxed" style="animation-delay: 0.2s;">
+                Na Center Net Informática você encontra PCs, notebooks e manutenção profissional para trabalhar rápido, com segurança e sem dor de cabeça.
+            </p>
+
+            <div class="animate-hero grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-12 text-left" style="animation-delay: 0.3s;">
+                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
+                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> PCs e Notebooks de alta performance
+                </div>
+                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
+                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> Periféricos e sistemas de segurança
+                </div>
+                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
+                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> Montagem profissional e upgrades
+                </div>
+                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
+                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> Manutenção rápida e confiável
+                </div>
             </div>
 
-            <div class="absolute inset-0 bg-gradient-to-b from-tech-bg via-transparent to-tech-bg z-10"></div>
-
-            <div id="hero-container" class="relative z-30 h-full px-6 max-w-7xl mx-auto w-full">
-                
-                <div id="hero-text-1" class="hero-text-block active">
-                    <div class="max-w-4xl">
-                        <h1 class="text-6xl md:text-9xl hero-heading font-black mb-10 uppercase">
-                            TECNOLOGIA QUE <br/> <span class="text-tech-primary italic text-glow-green">TRABALHA</span> POR VOCÊ.
-                        </h1>
-                        <p class="text-xl md:text-2xl text-white/50 max-w-2xl font-light leading-tight mb-12">
-                            Seu computador não pode travar. Não pode ser lento. <br/> <span class="text-white font-medium">Aqui você tem performance de verdade.</span>
-                        </p>
-                        <a href="#contato" class="inline-flex bg-tech-action px-10 py-5 text-tech-bg font-black uppercase text-sm">Quero Parar de Perder Tempo</a>
-                    </div>
-                </div>
-
-                <div id="hero-text-2" class="hero-text-block">
-                    <div class="max-w-4xl">
-                        <h2 class="text-6xl md:text-9xl hero-heading font-black mb-10 uppercase">
-                            PERFORMANCE <span class="text-tech-primary">REAL</span>. <br/> SEM LIMITES.
-                        </h2>
-                        <p class="text-xl md:text-2xl text-white/50 max-w-2xl font-light leading-tight mb-12">
-                            Montagem profissional e configuração otimizada para quem exige o máximo do hardware todos os dias.
-                        </p>
-                    </div>
-                </div>
-
-                <div id="hero-text-3" class="hero-text-block">
-                    <div class="max-w-4xl">
-                        <h2 class="text-6xl md:text-9xl hero-heading font-black mb-10 uppercase">
-                            MÁQUINA DE <br/> <span class="text-tech-action">RESULTADO.</span>
-                        </h2>
-                        <p class="text-xl md:text-2xl text-white/50 max-w-2xl font-light leading-tight mb-12">
-                            Projetado para durar e entregar desempenho acima do padrão. <br/> <span class="text-white">Sem improvisos.</span>
-                        </p>
-                    </div>
-                </div>
-
+            <div class="animate-hero" style="animation-delay: 0.4s;">
+                <a href="https://wa.me/SEUNUMERO" class="btn-cta inline-flex items-center gap-3 px-10 py-6 text-sm md:text-base rounded-sm group">
+                    <i data-lucide="message-circle" class="w-6 h-6 fill-current"></i>
+                    Falar no WhatsApp agora
+                </a>
             </div>
         </div>
     </section>
 
+    <section id="servicos" class="py-24 bg-tech-bg relative z-30">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-black uppercase tracking-widest mb-12 border-l-4 border-tech-primary pl-6">Nossos Serviços</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-tech-surface p-8 border border-white/5 hover:border-tech-primary/20 transition-all">
+                    <i data-lucide="monitor" class="w-10 h-10 text-tech-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Vendas</h3>
+                    <p class="text-white/40">Hardware selecionado para máxima durabilidade.</p>
+                </div>
+                <div class="bg-tech-surface p-8 border border-white/5 hover:border-tech-primary/20 transition-all">
+                    <i data-lucide="wrench" class="w-10 h-10 text-tech-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Manutenção</h3>
+                    <p class="text-white/40">Reparos ágeis com garantia técnica.</p>
+                </div>
+                <div class="bg-tech-surface p-8 border border-white/5 hover:border-tech-primary/20 transition-all">
+                    <i data-lucide="shield-check" class="w-10 h-10 text-tech-primary mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Segurança</h3>
+                    <p class="text-white/40">Monitoramento e proteção de ativos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="py-24 bg-tech-surface/30">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-black uppercase mb-8">Dúvidas?</h2>
+            <p class="text-white/60 mb-10">Fale diretamente com um técnico especializado e resolva seu problema hoje mesmo.</p>
+            <a href="https://wa.me/SEUNUMERO" class="inline-block bg-white text-tech-bg px-12 py-5 font-black uppercase tracking-widest hover:bg-tech-primary transition-all">Enviar Mensagem</a>
+        </div>
+    </section>
+
     <script>
-        function initLucide(){ if(window.lucide){ lucide.createIcons(); } else { setTimeout(initLucide, 200); } }
-        initLucide();
+        // Inicialização do Lucide
+        lucide.createIcons();
 
-        // CONFIGURAÇÃO DOS FRAMES (3 DÍGITOS)
-        const baseUrl = "./hardline/ezgif-frame-";
-        const frameCount = 100;
-        const images = [];
-        let loadedCount = 0;
-        let canvasObj = { frame: 0 };
+        // DESATIVAÇÃO DO GSAP HERO E CANVAS
+        // As funções de carregamento de frames e renderização do canvas foram removidas
+        // Mantemos o ScrollTrigger apenas para as outras seções do site
+        
+        gsap.registerPlugin(ScrollTrigger);
 
-        const loader = document.getElementById('loader');
-        const canvas = document.getElementById('hero-canvas');
-        const context = canvas.getContext('2d', { alpha: false });
-
-        function finalizeLoading() {
-            gsap.to(loader, { opacity: 0, duration: 0.8, onComplete: () => {
-                loader.style.visibility = 'hidden';
-                document.body.style.overflowY = 'auto';
-                initGSAP();
-            }});
-        }
-
-        for (let i = 1; i <= frameCount; i++) {
-            const img = new Image();
-            let numStr = i.toString().padStart(3, '0');
-            img.src = `${baseUrl}${numStr}.jpg`;
-            img.onload = () => {
-                loadedCount++;
-                document.getElementById('progress-bar').style.width = `${Math.floor((loadedCount / frameCount) * 100)}%`;
-                if (loadedCount === 1) { resizeCanvas(); drawCover(img); }
-                if (loadedCount === frameCount) finalizeLoading();
-            };
-            img.onerror = () => { loadedCount++; if (loadedCount === frameCount) finalizeLoading(); };
-            images.push(img);
-        }
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            if(images[canvasObj.frame]) drawCover(images[canvasObj.frame]);
-        }
-        window.addEventListener('resize', resizeCanvas);
-
-        function drawCover(img) {
-            if (!img) return;
-            const canvasRatio = canvas.width / canvas.height;
-            const imgRatio = img.width / img.height;
-            let rw, rh, ox = 0, oy = 0;
-            if (canvasRatio > imgRatio) {
-                rw = canvas.width; rh = img.height * (canvas.width / img.width);
-                oy = (canvas.height - rh) / 2;
-            } else {
-                rh = canvas.height; rw = img.width * (canvas.height / img.height);
-                ox = (canvas.width - rw) / 2;
+        // EFEITO PARALLAX LEVE CSS/GSAP PARA O BACKGROUND DO HERO
+        gsap.to("#hero-bg-parallax", {
+            y: 100,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#scroll-hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
             }
-            context.drawImage(img, ox, oy, rw, rh);
-        }
+        });
 
-        function initGSAP() {
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // Scroll do Canvas
-            gsap.to(canvasObj, {
-                frame: frameCount - 1,
-                snap: "frame",
-                ease: "none",
-                scrollTrigger: { trigger: "#scroll-hero", start: "top top", end: "bottom bottom", scrub: 1 },
-                onUpdate: () => { if(images[canvasObj.frame]) requestAnimationFrame(() => drawCover(images[canvasObj.frame])); }
+        // ANIMAÇÕES DAS SEÇÕES RESTANTES
+        gsap.utils.toArray('section:not(#scroll-hero)').forEach(section => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
             });
-
-            const tl = gsap.timeline({
-                scrollTrigger: { trigger: "#scroll-hero", start: "top top", end: "bottom bottom", scrub: 1 }
-            });
-
-            // Timeline de Texto e Linha Flutuante
-            tl.to("#hero-text-1", { opacity: 0, y: -50, filter: "blur(10px)", duration: 1 })
-              .to("#hardware-line-container", { opacity: 1, duration: 1 }, "<")
-              .to("#hero-text-2", { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, onStart: () => document.getElementById('hero-text-2').classList.add('active') })
-              .to("#hero-text-2", { opacity: 0, y: -50, filter: "blur(10px)", duration: 1 })
-              .to("#hero-text-3", { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, onStart: () => document.getElementById('hero-text-3').classList.add('active') })
-              .to("#hero-text-3", { opacity: 0, y: -50, filter: "blur(10px)", duration: 1 })
-              .to("#hardware-line-container", { opacity: 0, duration: 1 }, "<");
-        }
+        });
     </script>
 </body>
 </html>
