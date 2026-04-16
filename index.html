@@ -50,7 +50,7 @@
 
             .headline-main {
                 @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Sombra leve para garantir leitura no colorido */
+                text-shadow: 0 2px 10px rgba(0,0,0,0.5);
             }
 
             .subheadline-main {
@@ -92,11 +92,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Filtros de grayscale e brightness removidos para manter cores originais */
             opacity: 1; 
         }
 
-        /* Overlay sutil apenas para garantir que o texto branco seja legível independente das cores do vídeo */
         .hero-overlay {
             position: absolute;
             inset: 0;
@@ -122,26 +120,63 @@
             <div class="hero-grid relative z-10">
                 
                 <div id="step-1" class="text-group">
-                    <h2 class="headline-main">Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando demais ou desligando sozinho no meio do trabalho?</h2>
+                    <h2 class="headline-main">O seu fluxo de trabalho <span class="text-tech-primary">não pode parar</span> por limitações técnicas.</h2>
                 </div>
 
                 <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Pouco espaço no SSD ou HD, <span class="text-white/80">lentidão constante</span> e programas que demoram uma eternidade pra abrir?</h2>
+                    <h2 class="headline-main">Esqueça a lentidão e os <span class="text-white/80">travamentos</span> que interrompem sua produtividade.</h2>
                 </div>
 
                 <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:</h2>
-                    <p class="subheadline-main text-white">PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.</p>
+                    <h2 class="headline-main">Na Center Net, unimos <span class="text-tech-primary">Hardware de Elite</span> e manutenção especializada.</h2>
+                    <p class="subheadline-main text-white">Performance máxima. Estabilidade absoluta. Soluções sob medida para o seu resultado.</p>
                     <div class="flex flex-col sm:flex-row gap-5">
                         <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
                             Falar no WhatsApp agora
                         </a>
-                        <a href="#contato" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
-                            Solicitar Orçamento
+                        <a href="#produtos" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
+                            Conheça nossos produtos
                         </a>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <section id="produtos" class="py-32 bg-tech-bg relative z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16">
+                Produtos de <span class="text-tech-primary">Alta Performance</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group border border-white/10 p-8 bg-white/5 backdrop-blur-sm hover:border-tech-primary/50 transition-all duration-500">
+                    <div class="mb-6 overflow-hidden h-48 bg-black flex items-center justify-center">
+                        <img src="vitrine-assets/icons-entrega.png" alt="Workstation" class="w-24 group-hover:scale-110 transition-transform">
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4">Workstation Pro</h3>
+                    <p class="text-white/60 mb-8 leading-relaxed">Configurações otimizadas para edição 4K, engenharia e multitarefa extrema.</p>
+                    <a href="#contato" class="text-tech-primary font-black uppercase tracking-widest text-xs hover:text-white transition-colors">Solicitar Orçamento →</a>
+                </div>
+
+                <div class="group border border-white/10 p-8 bg-white/5 backdrop-blur-sm hover:border-tech-primary/50 transition-all duration-500">
+                    <div class="mb-6 overflow-hidden h-48 bg-black flex items-center justify-center">
+                        <img src="vitrine-assets/icons-entrega.png" alt="Gamer" class="w-24 group-hover:scale-110 transition-transform">
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4">Gamer High-End</h3>
+                    <p class="text-white/60 mb-8 leading-relaxed">O poder das placas RTX aliado a um sistema de refrigeração de última geração.</p>
+                    <a href="#contato" class="text-tech-primary font-black uppercase tracking-widest text-xs hover:text-white transition-colors">Ver Disponibilidade →</a>
+                </div>
+
+                <div class="group border border-white/10 p-8 bg-white/5 backdrop-blur-sm hover:border-tech-primary/50 transition-all duration-500">
+                    <div class="mb-6 overflow-hidden h-48 bg-black flex items-center justify-center">
+                        <img src="vitrine-assets/icons-entrega.png" alt="Manutenção" class="w-24 group-hover:scale-110 transition-transform">
+                    </div>
+                    <h3 class="text-2xl font-bold uppercase mb-4">Suporte Elite</h3>
+                    <p class="text-white/60 mb-8 leading-relaxed">Manutenção preventiva e corretiva para manter seu setup sempre em 100%.</p>
+                    <a href="#contato" class="text-tech-primary font-black uppercase tracking-widest text-xs hover:text-white transition-colors">Falar com Técnico →</a>
+                </div>
             </div>
         </div>
     </section>
