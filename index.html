@@ -94,20 +94,6 @@
         </div>
     </section>
 
-    <section class="py-24 bg-[#121212] relative z-10 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-black uppercase mb-12">Destaques <span class="text-tech-primary">Elite</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-10 bg-tech-bg border border-white/5 group hover:border-tech-primary/40 transition-all">
-                    <p class="text-[10px] text-white/30 uppercase tracking-[0.4em] mb-4">Workstation Pro</p>
-                    <h3 class="text-2xl font-bold mb-6">Upgrade de SSD + RAM</h3>
-                    <p class="price-highlight text-3xl mb-8 uppercase">Sob Consulta</p>
-                    <button class="w-full py-4 border border-tech-primary text-tech-primary font-black uppercase text-[10px] tracking-widest group-hover:bg-tech-primary group-hover:text-tech-bg transition-all">Consultar agora</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <script>
         lucide.createIcons();
 
@@ -126,7 +112,8 @@
             
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
-                img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
+                let numStr = i.toString().padStart(3, '0');
+                img.src = `${baseUrl}${numStr}.jpg`;
                 img.onload = () => {
                     loaded++;
                     if (loaded === 1) draw(0);
