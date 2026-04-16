@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Center Net Informática | Performance Elite</title>
+    <title>Center Net | Performance Elite</title>
     
     <meta name="google" content="notranslate">
     
@@ -12,34 +12,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* CSS NATIVO - Aqui o Tailwind não mexe, então não dá erro */
+        /* CSS NATIVO - À PROVA DE ERROS */
         :root {
-            --tech-primary: #FF7A00;
-            --tech-bg: #0D0D0D;
+            --primary: #FF7A00;
+            --bg: #0D0D0D;
         }
 
         body {
-            background-color: var(--tech-bg);
+            background-color: var(--bg);
             color: white;
             font-family: 'Space Grotesk', sans-serif;
             margin: 0;
             overflow-x: hidden;
         }
 
-        /* MOTOR DE REVELAÇÃO DAS FRASES */
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Container das Frases */
         .text-group {
-            opacity: 0;
-            transform: translateY(40px);
-            filter: blur(15px);
-            transition: opacity 1s, transform 1s, filter 1s;
-            transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
             position: absolute;
             width: 90%;
             max-width: 800px;
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(15px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 10;
         }
 
         .text-group.active {
@@ -49,195 +57,167 @@
             pointer-events: auto;
         }
 
-        /* GLASS CARD */
-        .glass-container {
-            padding: 2rem;
+        .glass-card {
+            padding: 2.5rem;
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* SCANNER DE PRODUTOS */
-        .product-card {
+        /* Seção de Produtos */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .item-card {
             position: relative;
-            overflow: hidden;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.7s ease-out;
+            padding: 2rem;
+            overflow: hidden;
+            transition: 0.5s;
         }
 
-        .product-card::after {
+        .item-card::after {
             content: '';
             position: absolute;
             top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 122, 0, 0.3), transparent);
+            background: linear-gradient(to right, transparent, rgba(255, 122, 0, 0.2), transparent);
             transform: skewX(-25deg);
         }
 
-        .product-card.active::after {
-            animation: scan 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        .item-card.active::after {
+            animation: scan-effect 1.5s ease-in-out forwards;
         }
 
-        @keyframes scan {
+        @keyframes scan-effect {
             0% { left: -100%; }
             100% { left: 150%; }
         }
 
-        #hero-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .highlight { color: var(--primary); }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div id="preloader" style="position: fixed; inset: 0; z-index: 100; background: #0D0D0D; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.7s;">
-        <div style="margin-bottom: 1rem; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.4);">Sistemas Center Net</div>
-        <div style="width: 192px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative;">
-            <div id="load-fill" style="height: 100%; background: #FF7A00; width: 0%; transition: width 0.5s; box-shadow: 0 0 15px #FF7A00;"></div>
+    <div id="preloader" style="position: fixed; inset: 0; z-index: 100; background: #0D0D0D; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s;">
+        <div style="width: 200px; height: 2px; background: rgba(255,255,255,0.1);">
+            <div id="load-fill" style="width: 0%; height: 100%; background: var(--primary); transition: 0.5s; box-shadow: 0 0 15px var(--primary);"></div>
         </div>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-[#0D0D0D]/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-[#FF7A00]">Net</span></span>
-            <a href="#contato" class="bg-[#FF7A00] text-black px-6 py-2 text-[10px] font-black uppercase tracking-widest">WhatsApp Elite</a>
-        </div>
+    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-black/50 backdrop-blur-md border-b border-white/10">
+        <div class="font-black text-xl uppercase tracking-tighter">Center<span class="highlight">Net</span></div>
+        <a href="#" class="bg-primary text-black px-6 py-2 font-bold text-xs uppercase tracking-widest">WhatsApp Elite</a>
     </nav>
 
-    <section id="scroll-hero" style="position: relative; height: 600vh;">
-        <div style="position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center;">
+    <section id="hero-trigger" style="height: 600vh; position: relative;">
+        <div style="position: sticky; top: 0; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center;">
             <canvas id="hero-canvas"></canvas>
             
-            <div class="w-full max-w-7xl mx-auto px-6 relative z-10">
+            <div class="relative z-10 w-full max-w-7xl px-6">
                 <div id="step-1" class="text-group">
-                    <div class="glass-container">
-                        <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-none">O seu fluxo de trabalho <span class="text-[#FF7A00]">não pode parar</span>.</h2>
+                    <div class="glass-card">
+                        <h2 class="text-4xl md:text-6xl font-black uppercase leading-none">Seu fluxo <span class="highlight">não pode parar</span>.</h2>
                     </div>
                 </div>
                 <div id="step-2" class="text-group">
-                    <div class="glass-container">
-                        <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-none">Adeus lentidão e <span class="text-[#FF7A00]">travamentos</span> constantes.</h2>
+                    <div class="glass-card">
+                        <h2 class="text-4xl md:text-6xl font-black uppercase leading-none">Hardware de <span class="highlight">Elite</span>.</h2>
                     </div>
                 </div>
                 <div id="step-3" class="text-group">
-                    <div class="glass-container">
-                        <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-none">Poder de <span class="text-[#FF7A00]">Hardware Elite</span> em suas mãos.</h2>
-                        <p class="text-white/70 uppercase tracking-widest text-[10px] font-bold mt-4">Performance Máxima • Estabilidade Absoluta</p>
+                    <div class="glass-card">
+                        <h2 class="text-4xl md:text-6xl font-black uppercase leading-none">Performance <span class="highlight">Absoluta</span>.</h2>
+                        <p class="mt-4 text-white/50 uppercase tracking-widest text-xs">Center Net Informática</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="produtos" class="py-32 bg-[#0D0D0D] relative z-20 border-t border-white/5">
+    <section id="produtos" class="relative z-20 py-32 bg-[#0D0D0D]">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16">Produtos <span class="text-[#FF7A00]">Alta Performance</span></h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="product-card p-8 group">
-                    <div class="mb-6 h-48 flex items-center justify-center">
-                        <img src="produtos/amdryzen5.png" alt="Ryzen" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4">amd rayzen 5 5600gt</h3>
-                    <a href="#contato" class="text-[#FF7A00] text-[10px] font-black uppercase tracking-widest">Orçamento Online →</a>
+            <h2 class="text-5xl font-black uppercase mb-16">Produtos</h2>
+            <div class="product-grid">
+                <div class="item-card">
+                    <img src="produtos/amdryzen5.png" class="h-40 mx-auto mb-6 object-contain">
+                    <h3 class="text-xl font-bold uppercase">AMD Ryzen 5</h3>
                 </div>
-
-                <div class="product-card p-8 group">
-                    <div class="mb-6 h-48 flex items-center justify-center">
-                        <img src="produtos/nitrov5.png" alt="Nitro" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4">nitro v intel core</h3>
-                    <a href="#contato" class="text-[#FF7A00] text-[10px] font-black uppercase tracking-widest">Ver Estoque →</a>
+                <div class="item-card">
+                    <img src="produtos/nitrov5.png" class="h-40 mx-auto mb-6 object-contain">
+                    <h3 class="text-xl font-bold uppercase">Acer Nitro V</h3>
                 </div>
-
-                <div class="product-card p-8 group">
-                    <div class="mb-6 h-48 flex items-center justify-center">
-                        <img src="produtos/rtx3090.png" alt="RTX" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4">rtx 3060 elite</h3>
-                    <a href="#contato" class="text-[#FF7A00] text-[10px] font-black uppercase tracking-widest">Ver Preços →</a>
+                <div class="item-card">
+                    <img src="produtos/rtx3090.png" class="h-40 mx-auto mb-6 object-contain">
+                    <h3 class="text-xl font-bold uppercase">RTX 3060</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
-        // Inicialização limpa
-        window.addEventListener('load', () => {
-            const pre = document.getElementById('preloader');
-            pre.style.opacity = '0';
-            setTimeout(() => pre.style.display = 'none', 700);
-        });
-
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
         const images = [];
-        let loadedCount = 0;
-        const baseUrl = "./hardline/ezgif-frame-"; 
+        let loaded = 0;
+        const baseUrl = "./hardline/ezgif-frame-";
 
         let currentFrame = 0, targetFrame = 0, lastTime = 0;
-        const speed = 0.012; 
 
-        function preloadImages() {
+        function preload() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
                 img.onload = () => {
-                    loadedCount++;
-                    document.getElementById('load-fill').style.width = `${(loadedCount / frameCount) * 100}%`;
-                    if (loadedCount === 1) renderFrame(0);
-                    if (loadedCount === frameCount) requestAnimationFrame(mainLoop);
+                    loaded++;
+                    document.getElementById('load-fill').style.width = (loaded/frameCount)*100 + "%";
+                    if(loaded === frameCount) {
+                        document.getElementById('preloader').style.opacity = '0';
+                        setTimeout(() => document.getElementById('preloader').style.display = 'none', 800);
+                        requestAnimationFrame(renderLoop);
+                    }
                 };
                 images.push(img);
             }
         }
 
-        function mainLoop(timestamp) {
-            const deltaTime = timestamp - lastTime;
-            lastTime = timestamp;
-            const diff = targetFrame - currentFrame;
-            currentFrame += diff * Math.min(1, speed * deltaTime);
-            if (Math.abs(diff) > 0.01) renderFrame(Math.round(currentFrame));
-            requestAnimationFrame(mainLoop);
-        }
-
-        function renderFrame(index) {
-            const img = images[index];
-            if (!img || !img.complete) return;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const canvasRatio = canvas.width / canvas.height, imgRatio = img.width / img.height;
-            let rw, rh, ox = 0, oy = 0;
-            if (canvasRatio > imgRatio) { rw = canvas.width; rh = img.height * (canvas.width / img.width); oy = (canvas.height - rh) / 2; }
-            else { rh = canvas.height; rw = img.width * (canvas.height / img.height); ox = (canvas.width - rw) / 2; }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, ox, oy, rw, rh);
+        function renderLoop(time) {
+            const dt = time - lastTime;
+            lastTime = time;
+            currentFrame += (targetFrame - currentFrame) * Math.min(1, 0.012 * dt);
+            
+            const img = images[Math.round(currentFrame)];
+            if(img) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
+                const w = img.width * ratio, h = img.height * ratio;
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+            }
+            requestAnimationFrame(renderLoop);
         }
 
         window.addEventListener('scroll', () => {
-            const scrollArea = document.getElementById('scroll-hero');
-            const scrollFraction = Math.max(0, Math.min(1, window.pageYOffset / (scrollArea.scrollHeight - window.innerHeight)));
-            targetFrame = scrollFraction * (frameCount - 1);
+            const section = document.getElementById('hero-trigger');
+            const progress = window.pageYOffset / (section.scrollHeight - window.innerHeight);
+            targetFrame = Math.max(0, Math.min(frameCount - 1, progress * frameCount));
 
-            const steps = [document.getElementById('step-1'), document.getElementById('step-2'), document.getElementById('step-3')];
-            steps.forEach(s => s?.classList.remove('active'));
+            const s1 = document.getElementById('step-1'), s2 = document.getElementById('step-2'), s3 = document.getElementById('step-3');
+            s1.classList.toggle('active', progress > 0.05 && progress < 0.3);
+            s2.classList.toggle('active', progress > 0.35 && progress < 0.6);
+            s3.classList.toggle('active', progress > 0.65);
 
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) steps[0]?.classList.add('active');
-            else if (scrollFraction >= 0.35 && scrollFraction < 0.6) steps[1]?.classList.add('active');
-            else if (scrollFraction >= 0.65) steps[2]?.classList.add('active');
-
-            if (scrollFraction >= 0.93) {
-                document.querySelectorAll('.product-card').forEach(el => el.classList.add('active'));
-            }
+            if(progress > 0.9) document.querySelectorAll('.item-card').forEach(c => c.classList.add('active'));
         });
 
-        window.addEventListener('resize', () => renderFrame(Math.round(currentFrame)));
-        preloadImages();
+        preload();
     </script>
 </body>
 </html>
