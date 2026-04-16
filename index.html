@@ -11,8 +11,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style type="text/tailwindcss">
         @theme {
@@ -58,24 +56,34 @@
                 @apply text-lg md:text-xl text-white/50 font-light mb-10 max-w-2xl leading-relaxed;
             }
 
+            /* Estilos para controle via Scroll Puro */
             .text-group {
                 grid-column: 1 / span 10;
                 text-align: left;
                 opacity: 0;
                 transform: translateY(50px);
                 filter: blur(20px);
-                will-change: transform, opacity, filter;
+                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+                pointer-events: none;
+            }
+
+            .text-group.active {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+                pointer-events: auto;
             }
         }
 
-        .sticky-hero {
+        /* Hero Travado com Sticky Nativo */
+        .hero-sticky-container {
             position: sticky;
             top: 0;
             height: 100vh;
+            width: 100%;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            overflow: hidden;
-            background-color: #0D0D0D;
         }
 
         #hero-canvas {
@@ -98,8 +106,8 @@
         </div>
     </nav>
 
-    <section id="scroll-hero" style="height: 900vh; position: relative;">
-        <div class="sticky-hero">
+    <section id="scroll-hero" style="height: 600vh; position: relative;">
+        <div class="hero-sticky-container">
             <canvas id="hero-canvas"></canvas>
             
             <div class="hero-grid relative z-10">
@@ -115,7 +123,7 @@
                 <div id="step-3" class="text-group absolute">
                     <h2 class="headline-main">Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:</h2>
                     <p class="subheadline-main">PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.</p>
-                    <div class="flex flex-col sm:flex-row gap-5 pointer-events-auto">
+                    <div class="flex flex-col sm:flex-row gap-5">
                         <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
                             Falar no WhatsApp agora
                         </a>
@@ -132,36 +140,33 @@
     <script>
         lucide.createIcons();
 
-        // Canvas Motion Control
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
         const images = [];
-        let loaded = 0;
-        const canvasObj = { frame: 0 };
+        let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Preload Nativo
+        function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
                 img.onload = () => {
-                    loaded++;
-                    if (loaded === 1) draw(0);
-                    if (loaded === frameCount) startGSAP();
+                    loadedCount++;
+                    if (loadedCount === 1) renderFrame(0);
                 };
                 images.push(img);
             }
         }
 
-        function draw(index) {
+        function renderFrame(index) {
             if (!images[index]) return;
             const img = images[index];
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
+
             if (canvasRatio > imgRatio) {
                 rw = canvas.width; rh = img.height * (canvas.width / img.width);
                 oy = (canvas.height - rh) / 2;
@@ -173,43 +178,48 @@
             ctx.drawImage(img, ox, oy, rw, rh);
         }
 
-        function startGSAP() {
-            gsap.registerPlugin(ScrollTrigger);
+        // Controle de Scroll e Motion Hero (Substituindo GSAP)
+        window.addEventListener('scroll', () => {
+            const scrollArea = document.getElementById('scroll-hero');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#scroll-hero",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1,
-                    pin: true
-                }
-            });
+            // Fração do scroll dentro da seção hero (0 a 1)
+            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-            // Sincroniza Frames do Canvas com o ritmo
-            tl.to(canvasObj, {
-                frame: frameCount - 1,
-                snap: "frame",
-                ease: "none",
-                onUpdate: () => draw(canvasObj.frame)
-            }, 0);
+            // 1. Atualiza Frames do Canvas
+            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
+            requestAnimationFrame(() => renderFrame(frameIndex));
 
-            // Motion dos Textos acompanhando o ritmo
-            tl.to("#step-1", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 }, 0.1)
-              .to("#step-1", { opacity: 0, y: -60, filter: "blur(20px)", duration: 2 }, 2.5)
-              
-              .to("#step-2", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 }, 3.5)
-              .to("#step-2", { opacity: 0, y: -60, filter: "blur(20px)", duration: 2 }, 5.5)
-              
-              .to("#step-3", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 }, 6.5);
-        }
+            // 2. Lógica de Ritmo de Texto (Motion Hero)
+            const s1 = document.getElementById('step-1');
+            const s2 = document.getElementById('step-2');
+            const s3 = document.getElementById('step-3');
 
-        initCanvas();
-        window.addEventListener('resize', () => {
+            // Reset
+            s1.classList.remove('active');
+            s2.classList.remove('active');
+            s3.classList.remove('active');
+
+            // Ativação baseada no progresso do scroll
+            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
+                s1.classList.add('active');
+            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
+                s2.classList.add('active');
+            } else if (scrollFraction >= 0.65) {
+                s3.classList.add('active');
+            }
+        });
+
+        function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            draw(canvasObj.frame);
-        });
+            renderFrame(0);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        preloadImages();
     </script>
 </body>
 </html>
