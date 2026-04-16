@@ -16,9 +16,9 @@
         @theme {
             --color-tech-bg: #0D0D0D; 
             --color-tech-primary: #FF7A00; 
-            --color-tech-primary-light: #FFA726;
-            --color-tech-accent: #FFC107;
             --font-sans: 'Space Grotesk', sans-serif;
+            /* 1. Ajustar Easing (Premium Ease-out) */
+            --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @layer base {
@@ -29,6 +29,29 @@
         }
 
         @layer utilities {
+            /* 2. Delay em Cascata e 5. Distância Reduzida (20px) */
+            .animate-step {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s var(--ease-premium), transform 0.6s var(--ease-premium);
+                will-change: opacity, transform;
+            }
+
+            .animate-step.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .delay-title { transition-delay: 0.1s; }
+            .delay-subtitle { transition-delay: 0.2s; }
+            .delay-button { transition-delay: 0.3s; }
+
+            /* 3. Micro interação no botão */
+            .btn-interaction:active {
+                transform: scale(0.96);
+                transition: transform 0.1s var(--ease-premium);
+            }
+
             .hero-grid {
                 display: grid;
                 grid-template-columns: repeat(12, 1fr);
@@ -38,52 +61,20 @@
                 margin: 0 auto;
                 padding: 0 2rem;
             }
-
-            .btn-glow {
-                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
-                transition: all 0.3s ease;
-            }
-            .btn-glow:hover {
-                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
-                transform: translateY(-2px);
-            }
-
-            .headline-main {
-                @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Sombra leve para garantir leitura no colorido */
-            }
-
-            .subheadline-main {
-                @apply text-lg md:text-xl text-white font-medium mb-10 max-w-2xl leading-relaxed;
-                text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            }
-
-            .text-group {
-                grid-column: 1 / span 10;
-                text-align: left;
-                opacity: 0;
-                transform: translateY(50px);
-                filter: blur(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
-                pointer-events: none;
-            }
-
-            .text-group.active {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-                pointer-events: auto;
-            }
         }
 
-        .hero-sticky-container {
+        /* 4. Efeito de fluidez no scroll (SÓ no hero) */
+        .hero-main-container {
             position: sticky;
             top: 0;
             height: 100vh;
             width: 100%;
-            overflow: hidden;
             display: flex;
             align-items: center;
+            overflow: hidden;
+            background-color: #0D0D0D;
+            /* Garante fluidez visual inicial */
+            will-change: transform, opacity;
         }
 
         #hero-canvas {
@@ -92,53 +83,62 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Filtros de grayscale e brightness removidos para manter cores originais */
-            opacity: 1; 
+            opacity: 1;
         }
 
-        /* Overlay sutil apenas para garantir que o texto branco seja legível independente das cores do vídeo */
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);
+            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 70%);
             z-index: 5;
+        }
+
+        .text-group {
+            grid-column: 1 / span 10;
+            text-align: left;
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
     <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
+            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-interaction transition-transform">WhatsApp Elite</a>
         </div>
     </nav>
 
     <section id="scroll-hero" class="relative" style="height: 600vh;">
-        <div class="hero-sticky-container">
+        
+        <div class="hero-main-container" id="hero-fluid-target">
             <canvas id="hero-canvas"></canvas>
             <div class="hero-overlay"></div>
             
             <div class="hero-grid relative z-10">
                 
                 <div id="step-1" class="text-group">
-                    <h2 class="headline-main">Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando demais ou desligando sozinho no meio do trabalho?</h2>
+                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
+                        Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho?
+                    </h2>
                 </div>
 
-                <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Pouco espaço no SSD ou HD, <span class="text-white/80">lentidão constante</span> e programas que demoram uma eternidade pra abrir?</h2>
+                <div id="step-2" class="text-group absolute inset-0 flex items-center px-8 lg:px-20 hidden">
+                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
+                        Pouco espaço, <span class="text-white/40">lentidão constante</span> e programas que não abrem?
+                    </h2>
                 </div>
 
-                <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:</h2>
-                    <p class="subheadline-main text-white">PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.</p>
-                    <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
-                            Falar no WhatsApp agora
-                        </a>
-                        <a href="#contato" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
-                            Solicitar Orçamento
-                        </a>
+                <div id="step-3" class="text-group absolute inset-0 flex flex-col justify-center px-8 lg:px-20 hidden">
+                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
+                        Solução <span class="text-tech-primary">completa</span> Center Net:
+                    </h2>
+                    <p class="text-lg md:text-xl text-white font-medium mt-6 max-w-2xl animate-step delay-subtitle">
+                        Máquinas de alta performance e manutenção profissional para velocidade absoluta.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-5 mt-10 animate-step delay-button pointer-events-auto">
+                        <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-interaction">WhatsApp</a>
+                        <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm btn-interaction">Orçamento</a>
                     </div>
                 </div>
 
@@ -151,6 +151,7 @@
 
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
+        const heroFluidTarget = document.getElementById('hero-fluid-target');
         const frameCount = 100;
         const images = [];
         let loadedCount = 0;
@@ -174,7 +175,6 @@
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
-
             if (canvasRatio > imgRatio) {
                 rw = canvas.width; rh = img.height * (canvas.width / img.width);
                 oy = (canvas.height - rh) / 2;
@@ -188,28 +188,44 @@
 
         window.addEventListener('scroll', () => {
             const scrollArea = document.getElementById('scroll-hero');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollTop = window.scrollY;
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
-            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
+            // Só executa se estiver dentro do Hero
+            if (scrollTop <= scrollArea.scrollHeight) {
+                const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
-            requestAnimationFrame(() => renderFrame(frameIndex));
+                // 4. Efeito de fluidez no scroll (Acompanhar dedo e sumir suave)
+                // Movimento curto (0.2) e Fade out proporcional
+                heroFluidTarget.style.transform = `translateY(${scrollTop * 0.2}px)`;
+                heroFluidTarget.style.opacity = 1 - (scrollTop / 1000);
 
-            const s1 = document.getElementById('step-1');
-            const s2 = document.getElementById('step-2');
-            const s3 = document.getElementById('step-3');
+                // Frame Sync
+                const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
+                requestAnimationFrame(() => renderFrame(frameIndex));
 
-            s1.classList.remove('active');
-            s2.classList.remove('active');
-            s3.classList.remove('active');
+                // Lógica de Ativação dos Steps
+                const steps = [
+                    { id: 'step-1', range: [0.05, 0.3] },
+                    { id: 'step-2', range: [0.35, 0.6] },
+                    { id: 'step-3', range: [0.65, 0.95] }
+                ];
 
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
-                s1.classList.add('active');
-            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
-                s2.classList.add('active');
-            } else if (scrollFraction >= 0.65) {
-                s3.classList.add('active');
+                steps.forEach(step => {
+                    const el = document.getElementById(step.id);
+                    const anims = el.querySelectorAll('.animate-step');
+                    
+                    if (scrollFraction >= step.range[0] && scrollFraction <= step.range[1]) {
+                        el.classList.remove('hidden');
+                        requestAnimationFrame(() => {
+                            anims.forEach(a => a.classList.add('active'));
+                        });
+                    } else {
+                        anims.forEach(a => a.classList.remove('active'));
+                        // Pequeno delay para esconder o elemento após a animação de saída
+                        setTimeout(() => { if (!anims[0].classList.contains('active')) el.classList.add('hidden'); }, 600);
+                    }
+                });
             }
         });
 
