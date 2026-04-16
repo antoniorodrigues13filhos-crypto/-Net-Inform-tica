@@ -232,6 +232,11 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
+        // Variáveis para suavização (Smooth Inércia)
+        let currentFrame = 0;
+        let targetFrame = 0;
+        const lerpFactor = 0.1; // Ajuste entre 0.05 e 0.2 para mais ou menos suavidade
+
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
@@ -240,15 +245,28 @@
                     loadedCount++;
                     const progress = (loadedCount / frameCount) * 100;
                     document.getElementById('load-fill').style.width = `${progress}%`;
-                    if (loadedCount === 1) renderFrame(0);
+                    if (loadedCount === frameCount) {
+                        requestAnimationFrame(animate); // Inicia o loop de animação suave
+                    }
                 };
                 images.push(img);
             }
         }
 
+        // Loop principal de renderização com interpolação
+        function animate() {
+            // Interpolação Linear (LERP) para suavizar o movimento
+            currentFrame += (targetFrame - currentFrame) * lerpFactor;
+            
+            renderFrame(Math.round(currentFrame));
+            requestAnimationFrame(animate);
+        }
+
         function renderFrame(index) {
-            if (!images[index]) return;
-            const img = images[index];
+            const safeIndex = Math.max(0, Math.min(frameCount - 1, index));
+            if (!images[safeIndex]) return;
+            
+            const img = images[safeIndex];
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
@@ -270,46 +288,38 @@
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
             const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
-            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
             
-            requestAnimationFrame(() => renderFrame(frameIndex));
+            // Atualiza apenas o alvo, a função 'animate' cuida da suavidade
+            targetFrame = scrollFraction * (frameCount - 1);
 
+            // Controle dos textos (mantido conforme original)
             const s1 = document.getElementById('step-1');
             const s2 = document.getElementById('step-2');
             const s3 = document.getElementById('step-3');
 
-            s1.classList.remove('active');
-            s2.classList.remove('active');
-            s3.classList.remove('active');
+            s1.classList.remove('active'); s2.classList.remove('active'); s3.classList.remove('active');
 
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
-                s1.classList.add('active');
-            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
-                s2.classList.add('active');
-            } else if (scrollFraction >= 0.65) {
-                s3.classList.add('active');
-            }
+            if (scrollFraction > 0.05 && scrollFraction < 0.3) s1.classList.add('active');
+            else if (scrollFraction >= 0.35 && scrollFraction < 0.6) s2.classList.add('active');
+            else if (scrollFraction >= 0.65) s3.classList.add('active');
 
-            if (frameIndex >= 93) {
+            if (scrollFraction >= 0.93) {
                 document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
             }
         });
 
-        const observerOptions = { threshold: 0.15 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card-reveal').forEach(el => observer.observe(el));
-
         function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            renderFrame(0);
+            // Otimização para Mobile: Ajuste de escala de pixel
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+            
+            // Força o estilo visual a ocupar 100% da tela
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            
+            renderFrame(Math.round(currentFrame));
         }
 
         window.addEventListener('resize', resize);
