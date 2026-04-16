@@ -50,21 +50,24 @@
 
             .headline-main {
                 @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                background: linear-gradient(135deg, #FFF 30%, rgba(255,255,255,0.5) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             }
 
-            .subheadline-main {
-                @apply text-lg md:text-xl text-white font-medium mb-10 max-w-2xl leading-relaxed;
-                text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            .text-highlight {
+                -webkit-text-fill-color: var(--color-tech-primary) !important;
+                @apply text-tech-primary;
             }
 
             .text-group {
                 grid-column: 1 / span 10;
                 text-align: left;
                 opacity: 0;
-                transform: translateY(50px);
-                filter: blur(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+                transform: translateY(40px);
+                filter: blur(15px);
+                transition: all 0.9s ease-out;
                 pointer-events: none;
             }
 
@@ -75,10 +78,39 @@
                 pointer-events: auto;
             }
 
+            .glass-container {
+                @apply relative p-8 md:p-12 overflow-hidden;
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .product-card {
+                @apply relative overflow-hidden transition-all duration-700 ease-out bg-white/5 border border-white/10;
+            }
+
+            .product-card::after {
+                content: '';
+                position: absolute;
+                top: 0; left: -100%; width: 50%; height: 100%;
+                background: linear-gradient(to right, transparent, rgba(255, 122, 0, 0.3), transparent);
+                transform: skewX(-25deg);
+            }
+
+            .product-card.active::after {
+                animation: scan 1.5s ease-in-out forwards;
+            }
+
+            @keyframes scan {
+                0% { left: -100%; }
+                100% { left: 150%; }
+            }
+
             .card-reveal {
                 opacity: 0;
                 transform: translateY(30px);
-                transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+                transition: all 0.8s ease-out;
             }
             .card-reveal.active {
                 opacity: 1;
@@ -105,18 +137,30 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 1; 
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);
             z-index: 5;
+            background: transparent;
+        }
+
+        @media (min-width: 768px) {
+            .hero-overlay {
+                background: radial-gradient(circle at 20% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            }
         }
     </style>
 </head>
 <body class="antialiased">
+
+    <div id="preloader" class="fixed inset-0 z-[100] bg-tech-bg flex flex-col items-center justify-center transition-opacity duration-700">
+        <div class="mb-4 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Sistemas Center Net</div>
+        <div class="w-48 h-[2px] bg-white/10 overflow-hidden relative">
+            <div id="load-fill" class="h-full bg-tech-primary transition-all duration-500 w-0" style="box-shadow: 0 0 15px #FF7A00;"></div>
+        </div>
+    </div>
 
     <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
@@ -132,20 +176,19 @@
             
             <div class="hero-grid relative z-10">
                 <div id="step-1" class="text-group">
-                    <h2 class="headline-main">O seu fluxo de trabalho <span class="text-tech-primary">não pode parar</span> por limitações técnicas.</h2>
+                    <div class="glass-container">
+                        <h2 class="headline-main">O seu fluxo de trabalho <span class="text-highlight">não pode parar</span> por limitações técnicas.</h2>
+                    </div>
                 </div>
-
                 <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Esqueça a lentidão e os <span class="text-white/80">travamentos</span> que interrompem sua produtividade.</h2>
+                    <div class="glass-container">
+                        <h2 class="headline-main">Esqueça a lentidão e os <span class="text-highlight">travamentos</span> que interrompem sua produtividade.</h2>
+                    </div>
                 </div>
-
                 <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Na Center Net, unimos <span class="text-tech-primary">Hardware de Elite</span> e manutenção especializada.</h2>
-                    <p class="subheadline-main text-white">Performance máxima. Estabilidade absoluta. Soluções sob medida para o seu resultado.</p>
-                    <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#produtos" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
-                            Conheça nossos produtos
-                        </a>
+                    <div class="glass-container">
+                        <h2 class="headline-main">Na Center Net, unimos <span class="text-highlight">Hardware de Elite</span> e manutenção.</h2>
+                        <p class="text-white/70 uppercase tracking-widest text-[10px] font-bold mt-4">Performance Máxima • Estabilidade Absoluta</p>
                     </div>
                 </div>
             </div>
@@ -159,34 +202,31 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="product-card card-reveal delay-1 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="mb-6 h-48 flex items-center justify-center relative z-10">
-                        <img src="produtos/amdryzen5.png" alt="AMD Ryzen 5" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
+                <div class="product-card card-reveal delay-1 group p-8 backdrop-blur-sm">
+                    <div class="mb-6 h-48 flex items-center justify-center">
+                        <img src="produtos/amdryzen5.png" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Workstation Pro</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Configurações otimizadas para edição 4K, engenharia e multitarefa extrema.</p>
-                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Solicitar Orçamento →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-2">amd rayzen 5 5600gt</h3>
+                    <div class="w-12 h-[2px] bg-tech-primary mb-6 transition-all group-hover:w-full"></div>
+                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Solicitar Orçamento →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-2 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="mb-6 h-48 flex items-center justify-center relative z-10">
-                        <img src="produtos/nitrov5.png" alt="Nitro V5" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
+                <div class="product-card card-reveal delay-2 group p-8 backdrop-blur-sm">
+                    <div class="mb-6 h-48 flex items-center justify-center">
+                        <img src="produtos/nitrov5.png" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Gamer High-End</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">O poder das placas RTX aliado a um sistema de refrigeração de última geração.</p>
-                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Ver Disponibilidade →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-2">nitro v intel core</h3>
+                    <div class="w-12 h-[2px] bg-tech-primary mb-6 transition-all group-hover:w-full"></div>
+                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Disponibilidade →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-3 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="mb-6 h-48 flex items-center justify-center relative z-10">
-                        <img src="produtos/rtx3090.png" alt="RTX 3090" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
+                <div class="product-card card-reveal delay-3 group p-8 backdrop-blur-sm">
+                    <div class="mb-6 h-48 flex items-center justify-center">
+                        <img src="produtos/rtx3090.png" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Componentes Elite</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Hardware selecionado para upgrades de performance extrema e estabilidade.</p>
-                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Ver Preços →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-2">rtx 3060 elite</h3>
+                    <div class="w-12 h-[2px] bg-tech-primary mb-6 transition-all group-hover:w-full"></div>
+                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Preços →</a>
                 </div>
             </div>
         </div>
@@ -195,12 +235,20 @@
     <script>
         lucide.createIcons();
 
+        window.addEventListener('load', () => {
+            const pre = document.getElementById('preloader');
+            setTimeout(() => { pre.style.opacity = '0'; setTimeout(() => pre.style.display = 'none', 700); }, 800);
+        });
+
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
         const images = [];
         let loadedCount = 0;
-        const baseUrl = "./hardline/ezgif-frame-";
+        const baseUrl = "./hardline/ezgif-frame-"; 
+
+        let currentFrame = 0, targetFrame = 0, lastTime = 0;
+        const speed = 0.012; 
 
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
@@ -208,80 +256,50 @@
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
                 img.onload = () => {
                     loadedCount++;
+                    document.getElementById('load-fill').style.width = `${(loadedCount / frameCount) * 100}%`;
                     if (loadedCount === 1) renderFrame(0);
+                    if (loadedCount === frameCount) requestAnimationFrame(mainLoop);
                 };
                 images.push(img);
             }
         }
 
-        function renderFrame(index) {
-            if (!images[index]) return;
-            const img = images[index];
-            const canvasRatio = canvas.width / canvas.height;
-            const imgRatio = img.width / img.height;
-            let rw, rh, ox = 0, oy = 0;
+        function mainLoop(timestamp) {
+            const deltaTime = timestamp - lastTime;
+            lastTime = timestamp;
+            const diff = targetFrame - currentFrame;
+            currentFrame += diff * Math.min(1, speed * deltaTime);
+            if (Math.abs(diff) > 0.01) renderFrame(Math.round(currentFrame));
+            requestAnimationFrame(mainLoop);
+        }
 
-            if (canvasRatio > imgRatio) {
-                rw = canvas.width; rh = img.height * (canvas.width / img.width);
-                oy = (canvas.height - rh) / 2;
-            } else {
-                rh = canvas.height; rw = img.width * (canvas.height / img.height);
-                ox = (canvas.width - rw) / 2;
-            }
+        function renderFrame(index) {
+            const img = images[index];
+            if (!img || !img.complete) return;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const canvasRatio = canvas.width / canvas.height, imgRatio = img.width / img.height;
+            let rw, rh, ox = 0, oy = 0;
+            if (canvasRatio > imgRatio) { rw = canvas.width; rh = img.height * (canvas.width / img.width); oy = (canvas.height - rh) / 2; }
+            else { rh = canvas.height; rw = img.width * (canvas.height / img.height); ox = (canvas.width - rw) / 2; }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, ox, oy, rw, rh);
         }
 
         window.addEventListener('scroll', () => {
             const scrollArea = document.getElementById('scroll-hero');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
-            
-            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
-            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
-            
-            requestAnimationFrame(() => renderFrame(frameIndex));
+            const progress = window.pageYOffset / (scrollArea.scrollHeight - window.innerHeight);
+            targetFrame = progress * (frameCount - 1);
 
-            const s1 = document.getElementById('step-1');
-            const s2 = document.getElementById('step-2');
-            const s3 = document.getElementById('step-3');
+            const s1 = document.getElementById('step-1'), s2 = document.getElementById('step-2'), s3 = document.getElementById('step-3');
+            s1.classList.toggle('active', progress > 0.05 && progress < 0.3);
+            s2.classList.toggle('active', progress > 0.35 && progress < 0.6);
+            s3.classList.toggle('active', progress > 0.65);
 
-            s1.classList.remove('active');
-            s2.classList.remove('active');
-            s3.classList.remove('active');
-
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
-                s1.classList.add('active');
-            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
-                s2.classList.add('active');
-            } else if (scrollFraction >= 0.65) {
-                s3.classList.add('active');
-            }
-
-            if (frameIndex >= 93) {
-                document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
-            }
+            if (progress >= 0.93) document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
         });
 
-        const observerOptions = { threshold: 0.15 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card-reveal').forEach(el => observer.observe(el));
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            renderFrame(0);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', () => renderFrame(Math.round(currentFrame)));
         preloadImages();
     </script>
 </body>
