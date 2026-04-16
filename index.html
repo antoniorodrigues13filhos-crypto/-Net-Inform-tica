@@ -52,6 +52,13 @@
             }
         }
 
+        /* 1. Correção do Salto: Container de contenção */
+        .hero-section-wrapper {
+            position: relative;
+            height: 700vh; /* Altura do scroll total */
+            width: 100%;
+        }
+
         .hero-sticky-container {
             position: sticky;
             top: 0;
@@ -61,29 +68,32 @@
             display: flex;
             align-items: center;
             z-index: 10;
+            background: #0D0D0D;
         }
 
-        /* Profundidade: Background move mais devagar (0.5x) */
+        /* 2. Camada de Fundo (Parallax Suave 0.5x) */
         #hero-canvas {
             position: absolute;
-            inset: 0;
+            inset: -5% 0; /* Margem para evitar cortes no parallax */
             width: 100%;
-            height: 110%; /* Extra height para o parallax */
+            height: 110%;
             object-fit: cover;
             will-change: transform, filter;
         }
 
+        /* Melhoria de Contraste (CRO) */
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 80%);
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
             z-index: 5;
         }
 
-        /* Texto: Move 1x (normal) ou 1.1x conforme INDEX */
-        .text-group-wrapper {
+        /* 2. Camada de Texto (Parallax 1.1x) */
+        .text-parallax-layer {
             position: relative;
             z-index: 10;
+            width: 100%;
             will-change: transform, opacity;
         }
     </style>
@@ -97,51 +107,62 @@
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative" style="height: 700vh;">
-        <div class="hero-sticky-container">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero-overlay"></div>
-            
-            <div class="hero-grid text-group-wrapper" id="text-parallax-layer">
-                <div id="step-1" class="col-span-12 lg:col-span-10 text-group">
-                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
-                        Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho?
-                    </h2>
-                </div>
+    <main>
+        <section id="scroll-hero" class="hero-section-wrapper">
+            <div class="hero-sticky-container" id="hero-main-view">
+                <canvas id="hero-canvas"></canvas>
+                <div class="hero-overlay"></div>
+                
+                <div class="hero-grid text-parallax-layer" id="hero-text-content">
+                    
+                    <div id="step-1" class="col-span-12 lg:col-span-10 text-group">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
+                            Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho?
+                        </h2>
+                    </div>
 
-                <div id="step-2" class="col-span-12 lg:col-span-10 absolute inset-0 flex items-center hidden">
-                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
-                        Pouco espaço no SSD, <span class="text-white/40">lentidão constante</span> e programas que não abrem?
-                    </h2>
-                </div>
+                    <div id="step-2" class="col-span-12 lg:col-span-10 absolute inset-0 flex items-center hidden">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
+                            Pouco espaço no SSD, <span class="text-white/40">lentidão constante</span> e programas que não abrem?
+                        </h2>
+                    </div>
 
-                <div id="step-3" class="col-span-12 lg:col-span-10 absolute inset-0 flex flex-col justify-center hidden">
-                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
-                        Solução <span class="text-tech-primary">completa</span> Center Net:
-                    </h2>
-                    <p class="text-lg md:text-xl text-white font-medium mt-6 max-w-2xl animate-step">
-                        Máquinas de alta performance e manutenção profissional para velocidade absoluta.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-5 mt-10 animate-step pointer-events-auto">
-                        <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest active:scale-95 transition-transform">Falar no WhatsApp</a>
-                        <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm active:scale-95 transition-transform">Orçamento</a>
+                    <div id="step-3" class="col-span-12 lg:col-span-10 absolute inset-0 flex flex-col justify-center hidden">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
+                            Solução <span class="text-tech-primary">completa</span> Center Net:
+                        </h2>
+                        <p class="text-lg md:text-xl text-white font-medium mt-6 max-w-2xl animate-step">
+                            Máquinas de alta performance e manutenção profissional para velocidade absoluta.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-5 mt-10 animate-step pointer-events-auto">
+                            <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest active:scale-95 transition-transform">Falar no WhatsApp</a>
+                            <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/40 backdrop-blur-md active:scale-95 transition-transform">Orçamento</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="h-screen bg-tech-bg"></div>
+        <section class="relative z-20 bg-tech-bg py-40 border-t border-white/5">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h3 class="text-3xl font-bold mb-8">Nossa Expertise</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="p-6 border border-white/5 rounded-2xl bg-white/5">Manutenção</div>
+                    <div class="p-6 border border-white/5 rounded-2xl bg-white/5">Upgrade</div>
+                    <div class="p-6 border border-white/5 rounded-2xl bg-white/5">Montagem</div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
         lucide.createIcons();
 
-        // 1. Smooth Scroll (Lenis) - Configuração INDEX
+        // 3. Smooth Scroll com Interpolação (Lerp)
         const lenis = new Lenis({
             duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            lerp: 0.08 // Interpolação solicitada
+            lerp: 0.08,
+            smoothWheel: true
         });
 
         function raf(time) {
@@ -150,7 +171,7 @@
         }
         requestAnimationFrame(raf);
 
-        // Canvas Motion
+        // Canvas Motion Engine
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
@@ -184,31 +205,34 @@
             ctx.drawImage(img, ox, oy, rw, rh);
         }
 
-        // Parallax & Motion Sync
-        const textLayer = document.getElementById('text-parallax-layer');
-        
+        const textContent = document.getElementById('hero-text-content');
+        const heroView = document.getElementById('hero-main-view');
+
         lenis.on('scroll', (e) => {
-            const scrollArea = document.getElementById('scroll-hero');
+            const scrollWrapper = document.getElementById('scroll-hero');
+            const rect = scrollWrapper.getBoundingClientRect();
             const scrollTop = window.scrollY;
-            const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
+            const scrollHeight = scrollWrapper.scrollHeight - window.innerHeight;
             
-            if (scrollTop <= scrollArea.scrollHeight) {
+            // Ativação apenas no range do Hero
+            if (scrollTop <= scrollWrapper.scrollHeight) {
                 const fraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-                // 2. Background: 0.5x e Texto: 1.1x (Profundidade)
-                // Blur progressivo no fundo e Scale sutil conforme INDEX
-                canvas.style.transform = `translateY(${scrollTop * 0.5}px) scale(${1 + fraction * 0.05})`;
-                canvas.style.filter = `grayscale(100%) brightness(0.6) blur(${fraction * 10}px)`;
+                // 2. Parallax de Profundidade (Fundo 0.5x, Texto 1.1x)
+                // 4. Correção Mobile: Somente Desktop tem deslocamento Y
+                const isDesktop = window.innerWidth > 768;
                 
-                // Fade leve no texto ao scroll
-                textLayer.style.transform = `translateY(${-scrollTop * 0.1}px)`;
-                textLayer.style.opacity = 1 - (fraction * 1.5);
+                canvas.style.transform = `translateY(${scrollTop * (isDesktop ? 0.3 : 0)}px) scale(${1 + fraction * 0.05})`;
+                canvas.style.filter = `blur(${fraction * 8}px)`;
+                
+                textContent.style.transform = `translateY(${isDesktop ? -scrollTop * 0.1 : 0}px)`;
+                heroView.style.opacity = 1 - (fraction * 1.8);
 
                 // Frame Sync
                 const frameIndex = Math.floor(fraction * (frameCount - 1));
                 render(frameIndex);
 
-                // Steps Logic
+                // Steps Management
                 const steps = [
                     { id: 'step-1', range: [0.05, 0.25] },
                     { id: 'step-2', range: [0.35, 0.55] },
