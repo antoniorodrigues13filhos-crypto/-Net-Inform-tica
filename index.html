@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextGen Tech | Performance Elite</title>
+    <title>Center Net Informática | Performance & Soluções Elite</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,227 +16,229 @@
 
     <style type="text/tailwindcss">
         @theme {
-            /* NOVA PALETA DARK + LARANJA PREMIUM */
-            --color-tech-bg: #0D0D0D; 
-            --color-tech-surface: #1A1A1A; 
-            --color-tech-primary: #FF7A00; /* Laranja Principal */
-            --color-tech-primary-light: #FFA726; /* Laranja Neon */
-            --color-tech-primary-dark: #E65100; /* Laranja Escuro */
-            --color-tech-accent: #FFC107; /* Amarelo Destaque */
+            --color-tech-bg: #0A0A0A; 
+            --color-tech-surface: #141414; 
+            --color-tech-primary: #00FF95; /* Verde Tecnologia */
+            --color-tech-action: #FF7A00;  /* Laranja Conversão */
             --color-tech-text: #FFFFFF;
-            --color-tech-muted: rgba(255, 255, 255, 0.7);
             --font-sans: 'Space Grotesk', sans-serif;
         }
 
         @layer base {
             body {
                 @apply bg-tech-bg text-tech-text antialiased overflow-x-hidden;
-                background-image: 
-                    radial-gradient(circle at 50% 0%, rgba(255, 122, 0, 0.08) 0%, transparent 50%),
-                    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-                background-attachment: fixed;
+                background-image: radial-gradient(circle at 20% 30%, rgba(0, 255, 149, 0.03) 0%, transparent 40%);
             }
         }
 
         @layer utilities {
             .premium-blur {
-                backdrop-filter: blur(20px) saturate(180%);
-                -webkit-backdrop-filter: blur(20px) saturate(180%);
-                background: rgba(26, 26, 26, 0.6);
-                border: 1px solid rgba(255, 122, 0, 0.15);
+                backdrop-filter: blur(24px) saturate(200%);
+                -webkit-backdrop-filter: blur(24px) saturate(200%);
+                background: rgba(10, 10, 10, 0.7);
+                border: 1px solid rgba(255, 255, 255, 0.05);
             }
-            .text-glow-orange {
-                text-shadow: 0 0 20px rgba(255, 122, 0, 0.5);
+            .btn-glow {
+                box-shadow: 0 0 30px rgba(255, 122, 0, 0.3);
+                transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             }
-            .neon-border {
-                position: relative;
+            .btn-glow:hover {
+                box-shadow: 0 0 50px rgba(255, 122, 0, 0.5);
+                transform: translateY(-2px);
             }
-            .neon-border::after {
-                content: '';
-                position: absolute;
-                inset: 0;
-                border-radius: inherit;
-                padding: 1px;
-                background: linear-gradient(180deg, rgba(255, 122, 0, 0.3), transparent);
-                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                -webkit-mask-composite: xor;
-                mask-composite: exclude;
+            .card-hover {
+                transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             }
-            .hero-heading {
-                letter-spacing: -0.05em;
-                line-height: 0.9;
-            }
-            .highlight-yellow {
-                color: var(--color-tech-accent);
-                font-weight: 700;
+            .card-hover:hover {
+                background: #1A1A1A;
+                border-color: rgba(0, 255, 149, 0.3);
+                transform: translateY(-8px);
             }
         }
-
+        
         body { overflow-y: hidden; }
-        .hero-text-block { position: absolute; inset: 0; display: flex; align-items: center; opacity: 0; pointer-events: none; }
+        .hero-text-block { position: absolute; inset: 0; display: flex; align-items: center; opacity: 0; pointer-events: none; z-index: 30; }
         .hero-text-block.active { pointer-events: auto; }
         .fade-up { opacity: 0; }
     </style>
 </head>
 <body>
 
-    <div id="loader" class="fixed inset-0 bg-tech-bg z-[9999] flex flex-col justify-center items-center">
-        <div class="relative mb-8">
+    <div id="loader" class="fixed inset-0 bg-tech-bg z-[9999] flex flex-col justify-center items-center px-6 text-center">
+        <div class="relative mb-12">
             <div class="absolute inset-0 bg-tech-primary blur-3xl opacity-20 animate-pulse"></div>
-            <i data-lucide="cpu" class="w-16 h-16 text-tech-primary relative z-10 drop-shadow-[0_0_10px_rgba(255,122,0,0.5)]"></i>
+            <div class="w-16 h-16 border-2 border-tech-primary/20 border-t-tech-primary rounded-full animate-spin relative z-10"></div>
         </div>
-        <div class="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
-            <div id="progress-bar" class="h-full bg-tech-primary w-0 shadow-[0_0_15px_#FF7A00]"></div>
+        <h2 class="text-xs font-black tracking-[0.6em] text-white/40 uppercase mb-4">Center Net Informática</h2>
+        <div class="w-64 h-[2px] bg-white/5 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-tech-primary w-0 shadow-[0_0_15px_#00FF95]"></div>
         </div>
-        <p id="loading-text" class="text-[10px] tracking-[0.3em] text-tech-muted mt-4 uppercase font-bold">System Booting 0%</p>
+        <p id="loading-text" class="text-[10px] tracking-widest text-tech-primary/60 mt-4 uppercase">Inicializando Camada de Performance...</p>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-500" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-tech-primary flex items-center justify-center rounded-sm rotate-45 shadow-[0_0_20px_rgba(255,122,0,0.4)]">
-                    <i data-lucide="zap" class="w-5 h-5 text-tech-bg -rotate-45 fill-current"></i>
+    <nav class="fixed top-0 left-0 w-full z-50 h-20 md:h-24 flex items-center transition-all duration-500 border-b border-transparent" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="w-8 h-8 bg-tech-primary rounded flex items-center justify-center shadow-lg shadow-tech-primary/20">
+                    <i data-lucide="zap" class="w-4 h-4 text-tech-bg fill-current"></i>
                 </div>
-                <span class="font-bold text-2xl tracking-tighter uppercase">NextGen<span class="text-tech-primary">Tech</span></span>
+                <span class="font-bold text-xl md:text-2xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
             </div>
             
-            <div class="hidden md:flex items-center gap-12 bg-white/5 px-8 py-3 rounded-full border border-white/5 premium-blur">
-                <a href="#servicos" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Serviços</a>
-                <a href="#beneficios" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Benefícios</a>
-                <a href="#depoimentos" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Avaliações</a>
+            <div class="hidden md:flex gap-10 items-center">
+                <a href="#servicos" class="text-[10px] font-black tracking-widest uppercase text-white/40 hover:text-tech-primary transition-colors">Serviços</a>
+                <a href="#contato" class="bg-tech-action text-tech-bg px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] btn-glow rounded-sm">Fale com Especialista</a>
             </div>
-
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-8 py-3 text-xs font-black uppercase tracking-widest hover:bg-tech-primary-light transition-all hover:scale-105 shadow-lg shadow-tech-primary/20">
-                Fale Conosco
-            </a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative h-[600vh]">
+    <section id="scroll-hero" class="relative h-[650vh]">
         <div class="sticky top-0 h-screen w-full overflow-hidden bg-tech-bg">
-            <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover opacity-50"></canvas>
+            <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover opacity-40"></canvas>
             
             <div class="absolute inset-0 bg-gradient-to-b from-tech-bg via-transparent to-tech-bg z-10"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-tech-bg via-transparent to-transparent z-10"></div>
 
-            <div id="hero-container" class="relative z-20 h-full px-6 max-w-7xl mx-auto w-full">
+            <div id="hero-container" class="relative z-30 h-full px-6 max-w-7xl mx-auto w-full">
                 
                 <div id="hero-text-1" class="hero-text-block active">
                     <div class="max-w-4xl">
-                        <div class="inline-block px-4 py-1 border border-tech-primary/30 rounded-full mb-8 bg-tech-primary/5">
-                            <span class="text-[10px] font-black tracking-[0.4em] uppercase text-tech-primary">Foco em Resultado</span>
+                        <div class="inline-flex items-center gap-3 px-4 py-2 border border-white/5 rounded-full mb-8 bg-white/5 backdrop-blur-md">
+                            <span class="w-2 h-2 rounded-full bg-tech-primary animate-ping"></span>
+                            <span class="text-[9px] font-black tracking-[0.3em] uppercase text-white/60">Tecnologia de Alta Performance</span>
                         </div>
-                        <h1 class="text-6xl md:text-8xl hero-heading font-black mb-10 uppercase">
-                            TECNOLOGIA QUE <br/> <span class="text-tech-primary text-glow-orange italic">TRABALHA</span> POR VOCÊ.
+                        <h1 class="text-5xl md:text-8xl font-black mb-8 leading-[0.95] tracking-tighter uppercase">
+                            Tecnologia que <br/> <span class="text-tech-primary italic">impulsiona</span> seu negócio.
                         </h1>
-                        <p class="text-xl md:text-2xl text-tech-muted max-w-2xl font-light leading-relaxed mb-12">
-                            Seu computador <span class="text-white font-medium">não pode travar</span>. Não pode ser lento. E muito menos te fazer <span class="highlight-yellow">perder dinheiro</span>.
+                        <p class="text-lg md:text-2xl text-white/40 max-w-2xl font-light leading-relaxed mb-10">
+                            Seu computador não pode ser um obstáculo. <span class="text-white">Eliminamos travamentos</span> e lentidão com soluções precisas de engenharia.
                         </p>
-                        <a href="#contato" class="inline-flex bg-tech-primary px-10 py-5 text-tech-bg font-black uppercase text-sm shadow-xl shadow-tech-primary/20 hover:bg-tech-primary-light transition-all">
-                            Quero Parar de Perder Tempo
+                        <a href="#contato" class="inline-flex bg-tech-action px-10 py-5 text-tech-bg font-black uppercase text-[11px] tracking-[0.2em] btn-glow rounded-sm">
+                            Parar de Perder Tempo
                         </a>
                     </div>
                 </div>
 
                 <div id="hero-text-2" class="hero-text-block">
                     <div class="max-w-4xl">
-                        <h2 class="text-6xl md:text-8xl hero-heading font-black mb-10 uppercase">
-                            PERFORMANCE <span class="text-tech-primary text-glow-orange">REAL</span>. <br/> SEM LIMITES.
+                        <h2 class="text-5xl md:text-8xl font-black mb-8 leading-[0.95] tracking-tighter uppercase">
+                            Performance <br/> <span class="text-tech-action">Real</span>. Sem limites.
                         </h2>
-                        <p class="text-xl md:text-2xl text-tech-muted max-w-2xl font-light leading-relaxed mb-12">
-                            <span class="text-white font-medium">Montagem profissional</span>, peças certas e configuração otimizada pra você escalar seu negócio sem interrupções.
+                        <p class="text-lg md:text-2xl text-white/40 max-w-2xl font-light leading-relaxed mb-10">
+                            Montagem profissional e <span class="text-white">configuração otimizada</span> para quem exige o máximo do seu hardware todos os dias.
                         </p>
-                        <a href="#contato" class="inline-flex bg-tech-primary px-10 py-5 text-tech-bg font-black uppercase text-sm shadow-xl shadow-tech-primary/20 hover:bg-tech-primary-light transition-all">
-                            Quero meu PC de Alta Performance
+                        <a href="#contato" class="inline-flex border border-tech-primary/50 text-tech-primary px-10 py-5 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-tech-primary/5 transition-colors rounded-sm">
+                            Quero Alta Performance
                         </a>
                     </div>
                 </div>
 
                 <div id="hero-text-3" class="hero-text-block">
                     <div class="max-w-4xl">
-                        <h2 class="text-6xl md:text-8xl hero-heading font-black mb-10 uppercase">
-                            NÃO É SÓ UM PC. <br/> É UMA <span class="text-tech-accent text-glow-orange">MÁQUINA</span> DE RESULTADO.
+                        <h2 class="text-5xl md:text-8xl font-black mb-8 leading-[0.95] tracking-tighter uppercase">
+                            Não é só um PC. <br/> É uma <span class="text-white">Máquina</span> de Resultado.
                         </h2>
-                        <p class="text-xl md:text-2xl text-tech-muted max-w-2xl font-light leading-relaxed mb-12">
-                            Projetado pra durar, render mais e entregar desempenho <span class="text-white font-medium">acima do padrão</span>. <span class="highlight-yellow">Sem improviso.</span>
+                        <p class="text-lg md:text-2xl text-white/40 max-w-2xl font-light leading-relaxed mb-10">
+                            Projetado para durar e entregar desempenho <span class="text-tech-primary">acima da média</span>. Sem improvisos, apenas resultados.
                         </p>
-                        <a href="#contato" class="inline-flex bg-tech-primary px-10 py-5 text-tech-bg font-black uppercase text-sm shadow-xl shadow-tech-primary/20 hover:bg-tech-primary-light transition-all">
+                        <a href="#contato" class="inline-flex bg-white text-tech-bg px-10 py-5 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-tech-primary transition-all rounded-sm">
                             Elevar meu Nível Agora
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section id="servicos" class="py-32 relative z-30 bg-tech-bg">
+    <section id="servicos" class="py-32 relative z-40 bg-tech-bg">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-24 fade-up">
-                <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 uppercase">Soluções <span class="text-tech-primary italic">Premium</span></h2>
-                <div class="w-24 h-1 bg-tech-primary shadow-[0_0_10px_#FF7A00]"></div>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 fade-up">
+                <div class="max-w-2xl">
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tighter uppercase mb-6">Nossa <span class="text-tech-primary">Especialidade</span></h2>
+                    <p class="text-white/40 text-lg md:text-xl">Do suporte básico à infraestrutura crítica. Segurança e velocidade em cada detalhe.</p>
+                </div>
+                <div class="w-full md:w-auto h-[1px] md:h-auto md:w-48 bg-tech-primary/30"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="neon-border bg-tech-surface p-10 group hover:bg-tech-primary/5 transition-all duration-700 fade-up">
-                    <i data-lucide="monitor" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_#FF7A00]"></i>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Hardware</h3>
-                    <p class="text-tech-muted text-sm leading-relaxed">Máquinas customizadas para quem não aceita menos que a perfeição.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="card-hover bg-tech-surface p-10 border border-white/5 rounded-sm fade-up">
+                    <i data-lucide="monitor" class="w-10 h-10 text-tech-primary mb-12 opacity-40"></i>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4">Hardware</h3>
+                    <p class="text-white/40 text-sm leading-relaxed">Venda e consultoria de máquinas gamer e profissionais customizadas.</p>
                 </div>
-                <div class="neon-border bg-tech-surface p-10 group hover:bg-tech-primary/5 transition-all duration-700 fade-up" style="transition-delay: 0.1s">
-                    <i data-lucide="mouse" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_#FF7A00]"></i>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Setup</h3>
-                    <p class="text-tech-muted text-sm leading-relaxed">Periféricos e acessórios selecionados para produtividade extrema.</p>
+                <div class="card-hover bg-tech-surface p-10 border border-white/5 rounded-sm fade-up" style="transition-delay: 0.1s">
+                    <i data-lucide="shield-check" class="w-10 h-10 text-tech-primary mb-12 opacity-40"></i>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4">Segurança</h3>
+                    <p class="text-white/40 text-sm leading-relaxed">Proteção de dados e monitoramento avançado para sua tranquilidade.</p>
                 </div>
-                <div class="neon-border bg-tech-surface p-10 group hover:bg-tech-primary/5 transition-all duration-700 fade-up" style="transition-delay: 0.2s">
-                    <i data-lucide="cctv" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_#FF7A00]"></i>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Vigilância</h3>
-                    <p class="text-tech-muted text-sm leading-relaxed">Segurança de elite com tecnologia de monitoramento avançado.</p>
+                <div class="card-hover bg-tech-surface p-10 border border-white/5 rounded-sm fade-up" style="transition-delay: 0.2s">
+                    <i data-lucide="wrench" class="w-10 h-10 text-tech-primary mb-12 opacity-40"></i>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4">Manutenção</h3>
+                    <p class="text-white/40 text-sm leading-relaxed">Limpeza técnica, reparos e upgrades que revivem seu equipamento.</p>
                 </div>
-                <div class="neon-border bg-tech-surface p-10 group hover:bg-tech-primary/5 transition-all duration-700 fade-up" style="transition-delay: 0.3s">
-                    <i data-lucide="wrench" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_#FF7A00]"></i>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Cuidado</h3>
-                    <p class="text-tech-muted text-sm leading-relaxed">Manutenção especializada que mantém seu investimento no topo.</p>
+                <div class="card-hover bg-tech-surface p-10 border border-white/5 rounded-sm fade-up" style="transition-delay: 0.3s">
+                    <i data-lucide="network" class="w-10 h-10 text-tech-primary mb-12 opacity-40"></i>
+                    <h3 class="text-xl font-bold uppercase tracking-widest mb-4">Suporte</h3>
+                    <p class="text-white/40 text-sm leading-relaxed">Assistência técnica ágil para empresas e usuários exigentes.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contato" class="py-32 bg-tech-bg relative overflow-hidden">
-        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-tech-primary/5 blur-[120px] rounded-full"></div>
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
-                <div class="fade-up">
-                    <h2 class="text-6xl font-black uppercase mb-12 tracking-tighter">PARE DE <br/><span class="text-tech-primary italic">ESPERAR.</span></h2>
-                    <div class="bg-tech-surface border border-tech-primary/20 p-8 rounded-sm">
-                        <p class="text-xl font-bold uppercase mb-2 text-tech-accent italic">Oferta de Diagnóstico Gratuito</p>
-                        <p class="text-tech-muted text-sm uppercase tracking-widest font-bold">Apenas via WhatsApp // Resposta imediata</p>
+    <section id="contato" class="py-32 bg-tech-bg border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24">
+            <div class="fade-up">
+                <h2 class="text-5xl md:text-7xl font-black uppercase mb-12 tracking-tighter leading-none">Vamos <br/> resolver <br/> <span class="text-tech-action">hoje.</span></h2>
+                
+                <div class="space-y-8">
+                    <div class="flex items-center gap-6 group">
+                        <div class="w-12 h-12 rounded bg-tech-surface flex items-center justify-center border border-white/5 group-hover:border-tech-primary transition-colors">
+                            <i data-lucide="check" class="w-5 h-5 text-tech-primary"></i>
+                        </div>
+                        <p class="text-sm font-bold uppercase tracking-widest">Diagnóstico em tempo recorde</p>
+                    </div>
+                    <div class="flex items-center gap-6 group">
+                        <div class="w-12 h-12 rounded bg-tech-surface flex items-center justify-center border border-white/5 group-hover:border-tech-primary transition-colors">
+                            <i data-lucide="check" class="w-5 h-5 text-tech-primary"></i>
+                        </div>
+                        <p class="text-sm font-bold uppercase tracking-widest">Garantia total de serviço</p>
                     </div>
                 </div>
+            </div>
 
-                <div class="premium-blur p-12 neon-border bg-tech-surface/40 fade-up">
-                    <form onsubmit="event.preventDefault();" class="space-y-8">
-                        <div class="border-b border-white/5 focus-within:border-tech-primary transition-colors">
-                            <input type="text" placeholder="Nome" class="w-full bg-transparent py-4 focus:outline-none text-xl placeholder-white/20">
-                        </div>
-                        <div class="border-b border-white/5 focus-within:border-tech-primary transition-colors">
-                            <input type="tel" placeholder="WhatsApp" class="w-full bg-transparent py-4 focus:outline-none text-xl placeholder-white/20">
-                        </div>
-                        <button class="w-full py-6 bg-tech-primary text-tech-bg font-black uppercase tracking-widest shadow-xl shadow-tech-primary/20 hover:bg-tech-primary-light transition-all transform active:scale-95">
-                            Quero meu Orçamento Agora
-                        </button>
-                    </form>
-                </div>
+            <div class="premium-blur p-8 md:p-12 rounded-sm fade-up">
+                <form onsubmit="event.preventDefault();" class="space-y-10">
+                    <div class="relative group">
+                        <label class="text-[9px] font-black uppercase tracking-[0.3em] text-white/30 group-focus-within:text-tech-primary transition-colors">Identificação</label>
+                        <input type="text" placeholder="Qual seu nome?" class="w-full bg-transparent border-b border-white/10 py-5 focus:outline-none focus:border-tech-primary transition-all text-xl">
+                    </div>
+                    <div class="relative group">
+                        <label class="text-[9px] font-black uppercase tracking-[0.3em] text-white/30 group-focus-within:text-tech-primary transition-colors">Contato Direto</label>
+                        <input type="tel" placeholder="Seu WhatsApp" class="w-full bg-transparent border-b border-white/10 py-5 focus:outline-none focus:border-tech-primary transition-all text-xl">
+                    </div>
+                    <button class="w-full py-6 bg-tech-action text-tech-bg font-black uppercase tracking-[0.3em] text-xs btn-glow rounded-sm">Solicitar Orçamento Agora</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/5 bg-tech-bg">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity">
-            <span class="font-black text-xl uppercase tracking-tighter">NextGen<span class="text-tech-primary">Tech</span></span>
-            <p class="text-[10px] uppercase tracking-[0.4em] mt-4 md:mt-0">Performance Elite // 2026 // Anápolis-GO</p>
+    <footer class="py-12 bg-tech-bg border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
+            <div class="flex items-center gap-3">
+                <span class="text-white/40">Center Net Informática</span>
+            </div>
+            <p>&copy; 2026 // Qualidade & Performance // Anápolis-GO</p>
         </div>
     </footer>
+
+    <a href="#contato" class="fixed bottom-6 right-6 z-[60] group md:bottom-10 md:right-10">
+        <div class="absolute inset-0 bg-tech-action blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+        <div class="relative w-16 h-16 bg-tech-action text-tech-bg flex items-center justify-center rounded-full shadow-2xl transition-transform duration-500 group-hover:scale-110 active:scale-95">
+            <i data-lucide="phone" class="w-7 h-7"></i>
+            <span class="absolute inset-0 rounded-full border-4 border-tech-action animate-ping opacity-20"></span>
+        </div>
+    </a>
 
     <script>
         function initLucide(){ if(window.lucide){ lucide.createIcons(); } else { setTimeout(initLucide, 200); } }
@@ -249,7 +251,6 @@
         let canvasObj = { frame: 0 };
 
         const loader = document.getElementById('loader');
-        const progressBar = document.getElementById('progress-bar');
         const canvas = document.getElementById('hero-canvas');
         const context = canvas.getContext('2d', { alpha: false });
 
@@ -267,7 +268,7 @@
             img.src = `${baseUrl}${numStr}.jpg`;
             img.onload = () => {
                 loadedCount++;
-                progressBar.style.width = `${Math.floor((loadedCount / frameCount) * 100)}%`;
+                document.getElementById('progress-bar').style.width = `${Math.floor((loadedCount / frameCount) * 100)}%`;
                 if (loadedCount === 1) { resizeCanvas(); drawCover(img); }
                 if (loadedCount === frameCount) finalizeLoading();
             };
@@ -304,36 +305,29 @@
                 frame: frameCount - 1,
                 snap: "frame",
                 ease: "none",
-                scrollTrigger: {
-                    trigger: "#scroll-hero",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1.2
-                },
-                onUpdate: () => {
-                    if(images[canvasObj.frame]) requestAnimationFrame(() => drawCover(images[canvasObj.frame]));
-                }
+                scrollTrigger: { trigger: "#scroll-hero", start: "top top", end: "bottom bottom", scrub: 1.2 },
+                onUpdate: () => { if(images[canvasObj.frame]) requestAnimationFrame(() => drawCover(images[canvasObj.frame])); }
             });
 
             const tl = gsap.timeline({
-                scrollTrigger: { trigger: "#scroll-hero", start: "top top", end: "bottom bottom", scrub: 1.2 }
+                scrollTrigger: { trigger: "#scroll-hero", start: "top top", end: "bottom bottom", scrub: 1 }
             });
 
-            tl.to("#hero-text-1", { opacity: 0, y: -50, filter: "blur(10px)", duration: 1 })
+            tl.to("#hero-text-1", { opacity: 0, y: -40, filter: "blur(10px)", duration: 1 })
               .to("#hero-text-2", { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, onStart: () => document.getElementById('hero-text-2').classList.add('active') })
-              .to("#hero-text-2", { opacity: 0, y: -50, filter: "blur(10px)", duration: 1 })
+              .to("#hero-text-2", { opacity: 0, y: -40, filter: "blur(10px)", duration: 1 })
               .to("#hero-text-3", { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, onStart: () => document.getElementById('hero-text-3').classList.add('active') })
-              .to("#hero-text-3", { opacity: 0, y: -50, filter: "blur(10px)", duration: 1 });
+              .to("#hero-text-3", { opacity: 0, y: -40, filter: "blur(10px)", duration: 1 });
 
             window.addEventListener('scroll', () => {
                 const nav = document.getElementById('navbar');
-                window.scrollY > 50 ? nav.classList.add('premium-blur', 'h-20') : nav.classList.remove('premium-blur', 'h-20');
+                window.scrollY > 50 ? nav.classList.add('premium-blur', 'border-white/5') : nav.classList.remove('premium-blur', 'border-white/5');
             });
 
             gsap.utils.toArray('.fade-up').forEach((el) => {
                 gsap.fromTo(el, 
-                    { opacity: 0, y: 40, filter: "blur(10px)" },
-                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, scrollTrigger: { trigger: el, start: "top 90%" } }
+                    { opacity: 0, y: 40, filter: "blur(8px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }
                 );
             });
         }
