@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Center Net Informática | Performance Elite</title>
+    <meta name="google" content="notranslate">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,92 +13,60 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style type="text/tailwindcss">
-        @theme {
-            --color-tech-bg: #0D0D0D; 
-            --color-tech-primary: #FF7A00; 
-            --color-tech-primary-light: #FFA726;
-            --color-tech-accent: #FFC107;
-            --font-sans: 'Space Grotesk', sans-serif;
+    <style>
+        /* CSS NATIVO PARA EVITAR ERROS DE COMPILAÇÃO */
+        :root {
+            --tech-primary: #FF7A00;
+            --tech-bg: #0D0D0D;
         }
 
-        @layer base {
-            body { 
-                @apply bg-tech-bg text-white antialiased overflow-x-hidden; 
-                font-family: var(--font-sans);
-            }
+        .text-group {
+            opacity: 0;
+            transform: translateY(50px);
+            filter: blur(20px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
         }
 
-        @layer utilities {
-            .hero-grid {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                gap: 2rem;
-                width: 100%;
-                max-width: 1280px;
-                margin: 0 auto;
-                padding: 0 2rem;
-            }
-
-            .btn-glow {
-                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
-                transition: all 0.3s ease;
-            }
-            .btn-glow:hover {
-                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
-                transform: translateY(-2px);
-            }
-
-            .headline-main {
-                @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            }
-
-            .subheadline-main {
-                @apply text-lg md:text-xl text-white font-medium mb-10 max-w-2xl leading-relaxed;
-                text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            }
-
-            .text-group {
-                grid-column: 1 / span 10;
-                text-align: left;
-                opacity: 0;
-                transform: translateY(50px);
-                filter: blur(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
-                pointer-events: none;
-            }
-
-            .text-group.active {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-                pointer-events: auto;
-            }
-
-            /* --- NOVAS ANIMAÇÕES DE TRANSIÇÃO --- */
-            .card-reveal {
-                opacity: 0;
-                transform: translateY(30px);
-                transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-            }
-            .card-reveal.active {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            .delay-1 { transition-delay: 0.1s; }
-            .delay-2 { transition-delay: 0.2s; }
-            .delay-3 { transition-delay: 0.3s; }
+        .text-group.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+            pointer-events: auto;
         }
 
-        .hero-sticky-container {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100%;
+        .glass-container {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card {
+            position: relative;
             overflow: hidden;
-            display: flex;
-            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease-out;
+        }
+
+        /* Efeito Scanner */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 122, 0, 0.3), transparent);
+            transform: skewX(-25deg);
+        }
+
+        .product-card.active::after {
+            animation: scan 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 150%; }
         }
 
         #hero-canvas {
@@ -106,93 +75,78 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 1; 
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);
-            z-index: 5;
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-[#0D0D0D] text-white antialiased overflow-x-hidden font-['Space_Grotesk']">
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed top-0 left-0 w-full z-50 bg-[#0D0D0D]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
+            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-[#FF7A00]">Net</span></span>
+            <a href="#contato" class="bg-[#FF7A00] text-black px-6 py-2 text-[10px] font-black uppercase tracking-widest transition-transform hover:scale-105">WhatsApp Elite</a>
         </div>
     </nav>
 
     <section id="scroll-hero" class="relative" style="height: 600vh;">
-        <div class="hero-sticky-container">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center">
             <canvas id="hero-canvas"></canvas>
-            <div class="hero-overlay"></div>
+            <div class="absolute inset-0 z-[5]" style="background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);"></div>
             
-            <div class="hero-grid relative z-10">
-                
+            <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
                 <div id="step-1" class="text-group">
-                    <h2 class="headline-main">O seu fluxo de trabalho <span class="text-tech-primary">não pode parar</span> por limitações técnicas.</h2>
-                </div>
-
-                <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Esqueça a lentidão e os <span class="text-white/80">travamentos</span> que interrompem sua produtividade.</h2>
-                </div>
-
-                <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Na Center Net, unimos <span class="text-tech-primary">Hardware de Elite</span> e manutenção especializada.</h2>
-                    <p class="subheadline-main text-white">Performance máxima. Estabilidade absoluta. Soluções sob medida para o seu resultado.</p>
-                    <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
-                            Falar no WhatsApp agora
-                        </a>
-                        <a href="#produtos" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
-                            Conheça nossos produtos
-                        </a>
+                    <div class="glass-container">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95]">O seu fluxo de trabalho <span class="text-[#FF7A00]">não pode parar</span>.</h2>
                     </div>
                 </div>
 
+                <div id="step-2" class="text-group absolute top-1/2 -translate-y-1/2">
+                    <div class="glass-container">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95]">Adeus lentidão e <span class="text-white/80">travamentos</span> constantes.</h2>
+                    </div>
+                </div>
+
+                <div id="step-3" class="text-group absolute top-1/2 -translate-y-1/2">
+                    <div class="glass-container">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95]">Hardware de <span class="text-[#FF7A00]">Elite</span>.</h2>
+                        <p class="text-lg md:text-xl text-white font-medium mt-6">Performance máxima para o seu resultado.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="produtos" class="py-32 bg-tech-bg relative z-20 border-t border-white/5">
+    <section id="produtos" class="py-32 bg-[#0D0D0D] relative z-20 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16 card-reveal">
-                Produtos de <span class="text-tech-primary">Alta Performance</span>
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16">
+                Produtos de <span class="text-[#FF7A00]">Alta Performance</span>
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="product-card card-reveal delay-1 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="product-card p-8 group card-reveal">
                     <div class="mb-6 h-48 flex items-center justify-center relative z-10">
-                        <img src="vitrine-assets/icons-entrega.png" alt="Workstation" class="w-24 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <img src="vitrine-assets/icons-entrega.png" class="w-24 group-hover:scale-110 transition-transform">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Workstation Pro</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Configurações otimizadas para edição 4K, engenharia e multitarefa extrema.</p>
-                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Solicitar Orçamento →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4">Workstation Pro</h3>
+                    <p class="text-white/60 mb-8 text-sm">Otimização máxima para fluxos de engenharia e edição.</p>
+                    <a href="#contato" class="text-[#FF7A00] font-black uppercase text-xs tracking-widest">Solicitar Orçamento →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-2 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="product-card p-8 group card-reveal">
                     <div class="mb-6 h-48 flex items-center justify-center relative z-10">
-                        <img src="vitrine-assets/icons-entrega.png" alt="Gamer" class="w-24 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
+                        <img src="vitrine-assets/icons-entrega.png" class="w-24 group-hover:scale-110 transition-transform">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Gamer High-End</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">O poder das placas RTX aliado a um sistema de refrigeração de última geração.</p>
-                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Ver Disponibilidade →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4">Gamer High-End</h3>
+                    <p class="text-white/60 mb-8 text-sm">Poder gráfico RTX com refrigeração extrema.</p>
+                    <a href="#contato" class="text-[#FF7A00] font-black uppercase text-xs tracking-widest">Ver Disponibilidade →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-3 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="product-card p-8 group card-reveal">
                     <div class="mb-6 h-48 flex items-center justify-center relative z-10">
-                        <img src="vitrine-assets/icons-entrega.png" alt="Suporte" class="w-24 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <img src="vitrine-assets/icons-entrega.png" class="w-24 group-hover:scale-110 transition-transform">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">Suporte Elite</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Manutenção preventiva e corretiva para manter seu setup sempre em 100%.</p>
-                    <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Falar com Técnico →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4">Suporte Elite</h3>
+                    <p class="text-white/60 mb-8 text-sm">Manutenção preventiva para manter seu setup 100%.</p>
+                    <a href="#contato" class="text-[#FF7A00] font-black uppercase text-xs tracking-widest">Falar com Técnico →</a>
                 </div>
             </div>
         </div>
@@ -208,6 +162,9 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
+        let currentFrame = 0, targetFrame = 0, lastTime = 0;
+        const speed = 0.012; // Suavidade adaptativa
+
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
@@ -215,14 +172,31 @@
                 img.onload = () => {
                     loadedCount++;
                     if (loadedCount === 1) renderFrame(0);
+                    if (loadedCount === frameCount) requestAnimationFrame(mainLoop);
                 };
                 images.push(img);
             }
         }
 
+        function mainLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            const deltaTime = timestamp - lastTime;
+            lastTime = timestamp;
+
+            const diff = targetFrame - currentFrame;
+            currentFrame += diff * Math.min(1, speed * deltaTime);
+
+            if (Math.abs(diff) > 0.01) renderFrame(Math.round(currentFrame));
+            requestAnimationFrame(mainLoop);
+        }
+
         function renderFrame(index) {
-            if (!images[index]) return;
             const img = images[index];
+            if (!img || !img.complete) return;
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
@@ -240,51 +214,20 @@
 
         window.addEventListener('scroll', () => {
             const scrollArea = document.getElementById('scroll-hero');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
-            
-            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
+            const progress = window.pageYOffset / (scrollArea.scrollHeight - window.innerHeight);
+            targetFrame = progress * (frameCount - 1);
 
-            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
-            requestAnimationFrame(() => renderFrame(frameIndex));
+            const s1 = document.getElementById('step-1'), s2 = document.getElementById('step-2'), s3 = document.getElementById('step-3');
+            s1.classList.toggle('active', progress > 0.05 && progress < 0.3);
+            s2.classList.toggle('active', progress > 0.35 && progress < 0.6);
+            s3.classList.toggle('active', progress > 0.65);
 
-            const s1 = document.getElementById('step-1');
-            const s2 = document.getElementById('step-2');
-            const s3 = document.getElementById('step-3');
-
-            s1.classList.remove('active');
-            s2.classList.remove('active');
-            s3.classList.remove('active');
-
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
-                s1.classList.add('active');
-            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
-                s2.classList.add('active');
-            } else if (scrollFraction >= 0.65) {
-                s3.classList.add('active');
+            if (progress > 0.9) {
+                document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
             }
         });
 
-        // Trigger para os Cards Animados
-        const observerOptions = { threshold: 0.15 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card-reveal').forEach(el => observer.observe(el));
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            renderFrame(0);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', () => renderFrame(Math.round(currentFrame)));
         preloadImages();
     </script>
 </body>
