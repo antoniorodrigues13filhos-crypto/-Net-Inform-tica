@@ -115,6 +115,7 @@
             inset: 0;
             width: 100%;
             height: 100%;
+            /* CORREÇÃO DO ZOOM: object-fit cover garante o preenchimento sem esticar */
             object-fit: cover;
             opacity: 1; 
         }
@@ -235,7 +236,7 @@
         // Variáveis para suavização (Smooth Inércia)
         let currentFrame = 0;
         let targetFrame = 0;
-        const lerpFactor = 0.1; // Ajuste entre 0.05 e 0.2 para mais ou menos suavidade
+        const lerpFactor = 0.1; 
 
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
@@ -246,18 +247,15 @@
                     const progress = (loadedCount / frameCount) * 100;
                     document.getElementById('load-fill').style.width = `${progress}%`;
                     if (loadedCount === frameCount) {
-                        requestAnimationFrame(animate); // Inicia o loop de animação suave
+                        requestAnimationFrame(animate); 
                     }
                 };
                 images.push(img);
             }
         }
 
-        // Loop principal de renderização com interpolação
         function animate() {
-            // Interpolação Linear (LERP) para suavizar o movimento
             currentFrame += (targetFrame - currentFrame) * lerpFactor;
-            
             renderFrame(Math.round(currentFrame));
             requestAnimationFrame(animate);
         }
@@ -288,11 +286,8 @@
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
             const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
-            
-            // Atualiza apenas o alvo, a função 'animate' cuida da suavidade
             targetFrame = scrollFraction * (frameCount - 1);
 
-            // Controle dos textos (mantido conforme original)
             const s1 = document.getElementById('step-1');
             const s2 = document.getElementById('step-2');
             const s3 = document.getElementById('step-3');
@@ -309,16 +304,12 @@
         });
 
         function resize() {
-            // Otimização para Mobile: Ajuste de escala de pixel
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            ctx.scale(dpr, dpr);
+            // CORREÇÃO DO ZOOM: Revertido DPR para 1 e removido ctx.scale
+            // Isso define a resolução interna exata da janela de visualização
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             
-            // Força o estilo visual a ocupar 100% da tela
-            canvas.style.width = window.innerWidth + 'px';
-            canvas.style.height = window.innerHeight + 'px';
-            
+            // Renderiza o frame atual na nova resolução sem escala extra
             renderFrame(Math.round(currentFrame));
         }
 
