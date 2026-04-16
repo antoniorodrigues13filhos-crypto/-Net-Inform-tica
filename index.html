@@ -56,6 +56,12 @@
                 text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             }
 
+            /* Classe para manter o destaque mesmo com o gradiente do título */
+            .text-highlight {
+                -webkit-text-fill-color: var(--color-tech-primary) !important;
+                @apply text-tech-primary;
+            }
+
             .subheadline-main {
                 @apply text-lg md:text-xl text-white/80 font-medium mb-10 max-w-2xl leading-relaxed;
             }
@@ -141,17 +147,14 @@
             object-fit: cover;
         }
 
-        /* AJUSTE CIRÚRGICO DA SOMBRA (Hero Overlay) */
         .hero-overlay {
             position: absolute;
             inset: 0;
             z-index: 5;
-            /* No Mobile: Sombra apenas no rodapé para não tapar o vídeo */
             background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8) 100%);
         }
 
         @media (min-width: 768px) {
-            /* No PC: Sombra radial elegante lateral que você gostou */
             .hero-overlay {
                 background: radial-gradient(circle at 20% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
             }
@@ -181,15 +184,15 @@
             
             <div class="hero-grid relative z-10">
                 <div id="step-1" class="text-group">
-                    <h2 class="headline-main">O seu fluxo de trabalho <span class="text-tech-primary">não pode parar</span> por limitações técnicas.</h2>
+                    <h2 class="headline-main">O seu fluxo de trabalho <span class="text-highlight">não pode parar</span> por limitações técnicas.</h2>
                 </div>
 
                 <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Esqueça a lentidão e os <span class="text-white/80">travamentos</span> que interrompem sua produtividade.</h2>
+                    <h2 class="headline-main">Esqueça a lentidão e os <span class="text-highlight">travamentos</span> que interrompem sua produtividade.</h2>
                 </div>
 
                 <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Na Center Net, unimos <span class="text-tech-primary">Hardware de Elite</span> e manutenção especializada.</h2>
+                    <h2 class="headline-main">Na Center Net, unimos <span class="text-highlight">Hardware de Elite</span> e manutenção.</h2>
                     <p class="subheadline-main text-white">Performance máxima. Estabilidade absoluta. Soluções sob medida para o seu resultado.</p>
                     <div class="flex flex-col sm:flex-row gap-5">
                         <a href="#produtos" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
