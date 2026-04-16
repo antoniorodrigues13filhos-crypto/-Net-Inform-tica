@@ -16,8 +16,9 @@
         @theme {
             --color-tech-bg: #0D0D0D; 
             --color-tech-primary: #FF7A00; 
+            --color-tech-primary-light: #FFA726;
+            --color-tech-accent: #FFC107;
             --font-sans: 'Space Grotesk', sans-serif;
-            --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @layer base {
@@ -28,27 +29,6 @@
         }
 
         @layer utilities {
-            .animate-step {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.6s var(--ease-premium), transform 0.6s var(--ease-premium);
-                will-change: opacity, transform;
-            }
-
-            .animate-step.active {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .delay-title { transition-delay: 0.1s; }
-            .delay-subtitle { transition-delay: 0.2s; }
-            .delay-button { transition-delay: 0.3s; }
-
-            .btn-interaction:active {
-                @apply scale-95;
-                transition: transform 0.1s var(--ease-premium);
-            }
-
             .hero-grid {
                 display: grid;
                 grid-template-columns: repeat(12, 1fr);
@@ -58,18 +38,52 @@
                 margin: 0 auto;
                 padding: 0 2rem;
             }
+
+            .btn-glow {
+                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+                transition: all 0.3s ease;
+            }
+            .btn-glow:hover {
+                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
+                transform: translateY(-2px);
+            }
+
+            .headline-main {
+                @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
+                text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Sombra leve para garantir leitura no colorido */
+            }
+
+            .subheadline-main {
+                @apply text-lg md:text-xl text-white font-medium mb-10 max-w-2xl leading-relaxed;
+                text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            }
+
+            .text-group {
+                grid-column: 1 / span 10;
+                text-align: left;
+                opacity: 0;
+                transform: translateY(50px);
+                filter: blur(20px);
+                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+                pointer-events: none;
+            }
+
+            .text-group.active {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+                pointer-events: auto;
+            }
         }
 
-        .hero-main-container {
+        .hero-sticky-container {
             position: sticky;
             top: 0;
             height: 100vh;
             width: 100%;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            overflow: hidden;
-            background-color: #0D0D0D;
-            z-index: 10;
         }
 
         #hero-canvas {
@@ -78,69 +92,53 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 1;
+            /* Filtros de grayscale e brightness removidos para manter cores originais */
+            opacity: 1; 
         }
 
+        /* Overlay sutil apenas para garantir que o texto branco seja legível independente das cores do vídeo */
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 80%);
+            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);
             z-index: 5;
-        }
-
-        .text-group {
-            grid-column: 1 / span 10;
-            text-align: left;
-            pointer-events: none;
-        }
-
-        /* Garante que a seção seguinte cubra o hero no final */
-        .next-section {
-            position: relative;
-            z-index: 20;
-            background-color: #0D0D0D;
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
     <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-interaction transition-transform">WhatsApp Elite</a>
+            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative" style="height: 700vh;">
-        
-        <div class="hero-main-container" id="hero-fluid-target">
+    <section id="scroll-hero" class="relative" style="height: 600vh;">
+        <div class="hero-sticky-container">
             <canvas id="hero-canvas"></canvas>
             <div class="hero-overlay"></div>
             
             <div class="hero-grid relative z-10">
                 
                 <div id="step-1" class="text-group">
-                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
-                        Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho no meio do trabalho?
-                    </h2>
+                    <h2 class="headline-main">Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando demais ou desligando sozinho no meio do trabalho?</h2>
                 </div>
 
-                <div id="step-2" class="text-group absolute inset-0 flex items-center px-8 lg:px-20 hidden">
-                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
-                        Pouco espaço no SSD ou HD, <span class="text-white/40">lentidão constante</span> e programas que demoram uma eternidade?
-                    </h2>
+                <div id="step-2" class="text-group absolute">
+                    <h2 class="headline-main">Pouco espaço no SSD ou HD, <span class="text-white/80">lentidão constante</span> e programas que demoram uma eternidade pra abrir?</h2>
                 </div>
 
-                <div id="step-3" class="text-group absolute inset-0 flex flex-col justify-center px-8 lg:px-20 hidden">
-                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
-                        Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:
-                    </h2>
-                    <p class="text-lg md:text-xl text-white font-medium mt-6 max-w-2xl animate-step delay-subtitle">
-                        PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-5 mt-10 animate-step delay-button pointer-events-auto">
-                        <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-interaction">Falar no WhatsApp</a>
-                        <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm btn-interaction">Solicitar Orçamento</a>
+                <div id="step-3" class="text-group absolute">
+                    <h2 class="headline-main">Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:</h2>
+                    <p class="subheadline-main text-white">PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.</p>
+                    <div class="flex flex-col sm:flex-row gap-5">
+                        <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
+                            Falar no WhatsApp agora
+                        </a>
+                        <a href="#contato" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
+                            Solicitar Orçamento
+                        </a>
                     </div>
                 </div>
 
@@ -148,15 +146,11 @@
         </div>
     </section>
 
-    <section class="next-section py-20 px-6">
-        </section>
-
     <script>
         lucide.createIcons();
 
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
-        const heroTarget = document.getElementById('hero-fluid-target');
         const frameCount = 100;
         const images = [];
         let loadedCount = 0;
@@ -180,6 +174,7 @@
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
+
             if (canvasRatio > imgRatio) {
                 rw = canvas.width; rh = img.height * (canvas.width / img.width);
                 oy = (canvas.height - rh) / 2;
@@ -193,49 +188,28 @@
 
         window.addEventListener('scroll', () => {
             const scrollArea = document.getElementById('scroll-hero');
-            const scrollTop = window.scrollY;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
-            if (scrollTop <= scrollArea.scrollHeight) {
-                const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
+            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-                // Correção de Estabilidade (Desktop vs Mobile)
-                if (window.innerWidth > 768) {
-                    heroTarget.style.transform = `translateY(${scrollTop * 0.1}px)`;
-                } else {
-                    heroTarget.style.transform = `translateY(0px)`;
-                }
-                
-                // Suavização da Opacidade
-                heroTarget.style.opacity = 1 - (scrollTop / 2500);
+            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
+            requestAnimationFrame(() => renderFrame(frameIndex));
 
-                // Sincronia de Vídeo
-                const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
-                requestAnimationFrame(() => renderFrame(frameIndex));
+            const s1 = document.getElementById('step-1');
+            const s2 = document.getElementById('step-2');
+            const s3 = document.getElementById('step-3');
 
-                // Controle de Ritmo dos Textos
-                const steps = [
-                    { id: 'step-1', range: [0.05, 0.25] },
-                    { id: 'step-2', range: [0.35, 0.55] },
-                    { id: 'step-3', range: [0.65, 0.95] }
-                ];
+            s1.classList.remove('active');
+            s2.classList.remove('active');
+            s3.classList.remove('active');
 
-                steps.forEach(step => {
-                    const el = document.getElementById(step.id);
-                    const anims = el.querySelectorAll('.animate-step');
-                    
-                    if (scrollFraction >= step.range[0] && scrollFraction <= step.range[1]) {
-                        el.classList.remove('hidden');
-                        requestAnimationFrame(() => {
-                            anims.forEach(a => a.classList.add('active'));
-                        });
-                    } else {
-                        anims.forEach(a => a.classList.remove('active'));
-                        setTimeout(() => { 
-                            if (!el.querySelector('.active')) el.classList.add('hidden'); 
-                        }, 400);
-                    }
-                });
+            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
+                s1.classList.add('active');
+            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
+                s2.classList.add('active');
+            } else if (scrollFraction >= 0.65) {
+                s3.classList.add('active');
             }
         });
 
