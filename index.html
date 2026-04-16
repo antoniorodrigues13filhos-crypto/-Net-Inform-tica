@@ -48,23 +48,26 @@
                 transform: translateY(-2px);
             }
 
+            /* REFINAMENTO: Headline com gradiente dinâmico */
             .headline-main {
                 @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                background: linear-gradient(135deg, #FFF 30%, rgba(255,255,255,0.5) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             }
 
             .subheadline-main {
-                @apply text-lg md:text-xl text-white font-medium mb-10 max-w-2xl leading-relaxed;
-                text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+                @apply text-lg md:text-xl text-white/80 font-medium mb-10 max-w-2xl leading-relaxed;
             }
 
             .text-group {
                 grid-column: 1 / span 10;
                 text-align: left;
                 opacity: 0;
-                transform: translateY(50px);
-                filter: blur(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+                transform: translateY(40px);
+                filter: blur(15px);
+                transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
                 pointer-events: none;
             }
 
@@ -73,6 +76,28 @@
                 transform: translateY(0);
                 filter: blur(0px);
                 pointer-events: auto;
+            }
+
+            /* REFINAMENTO: Cards com borda de luz (Rim Light) */
+            .product-card {
+                @apply relative overflow-hidden transition-all duration-500;
+                background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+                border: 1px solid rgba(255,255,255,0.08);
+                box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+                will-change: transform;
+            }
+
+            .product-card::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,122,0,0.15) 0%, transparent 50%);
+                opacity: 0;
+                transition: opacity 0.5s;
+            }
+
+            .product-card:hover::before {
+                opacity: 1;
             }
 
             .card-reveal {
@@ -96,7 +121,7 @@
             }
             .load-bar-fill {
                 @apply absolute top-0 left-0 h-full bg-tech-primary w-0 transition-all duration-500 ease-out;
-                box-shadow: 0 0 10px var(--color-tech-primary);
+                box-shadow: 0 0 15px var(--color-tech-primary);
             }
         }
 
@@ -116,13 +141,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 1; 
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);
+            background: radial-gradient(circle at 20% 50%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
             z-index: 5;
         }
     </style>
@@ -177,33 +201,30 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="product-card card-reveal delay-1 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="product-card card-reveal delay-1 group p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all">
                     <div class="mb-6 h-48 flex items-center justify-center relative z-10">
                         <img src="produtos/amdryzen5.png" alt="AMD Ryzen 5 5600GT" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">amd rayzen 5 5600gt</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Configurações otimizadas para edição 4K, engenharia e multitarefa extrema.</p>
+                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Configurações otimizadas para edição 4K e multitarefa extrema.</p>
                     <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Solicitar Orçamento →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-2 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="product-card card-reveal delay-2 group p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all">
                     <div class="mb-6 h-48 flex items-center justify-center relative z-10">
                         <img src="produtos/nitrov5.png" alt="Nitro V Intel Core" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">nitro v intel core</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">O poder das placas RTX aliado a um sistema de refrigeração de última geração.</p>
+                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">O poder das placas RTX aliado a refrigeração de última geração.</p>
                     <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Ver Disponibilidade →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-3 group relative border border-white/10 p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all duration-500 overflow-hidden">
-                    <div class="absolute inset-0 bg-tech-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="product-card card-reveal delay-3 group p-8 bg-black/40 backdrop-blur-md hover:border-tech-primary/50 transition-all">
                     <div class="mb-6 h-48 flex items-center justify-center relative z-10">
                         <img src="produtos/rtx3090.png" alt="Placa de Video RTX 3060" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
                     <h3 class="text-2xl font-bold uppercase mb-4 relative z-10">placa de video rtx 3060</h3>
-                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Hardware selecionado para upgrades de performance extrema e estabilidade.</p>
+                    <p class="text-white/60 mb-8 leading-relaxed relative z-10">Hardware selecionado para upgrades de performance extrema.</p>
                     <a href="#contato" class="inline-block text-tech-primary font-black uppercase tracking-widest text-xs group-hover:translate-x-2 transition-transform relative z-10">Ver Preços →</a>
                 </div>
             </div>
@@ -213,14 +234,24 @@
     <script>
         lucide.createIcons();
 
+        // --- PRELOADER ---
         window.addEventListener('load', () => {
-            const bar = document.getElementById('load-fill');
             const preloader = document.getElementById('preloader');
-            bar.style.width = '100%';
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 setTimeout(() => preloader.style.display = 'none', 700);
-            }, 600);
+            }, 800);
+        });
+
+        // --- MOUSE TRACKING NOS CARDS ---
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
+                const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
+                card.style.setProperty('--x', `${x}%`);
+                card.style.setProperty('--y', `${y}%`);
+            });
         });
 
         const canvas = document.getElementById('hero-canvas');
@@ -233,8 +264,6 @@
         let currentFrame = 0;
         let targetFrame = 0;
         let lastTime = 0;
-        
-        // AJUSTE ÚNICO: Velocidade aumentada de 0.008 para 0.012 para reduzir delay no mobile
         const speed = 0.012; 
 
         function preloadImages() {
@@ -263,7 +292,6 @@
             if (Math.abs(diff) > 0.01) {
                 renderFrame(Math.round(currentFrame));
             }
-
             requestAnimationFrame(mainLoop);
         }
 
