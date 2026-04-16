@@ -11,24 +11,36 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
     <style type="text/tailwindcss">
         @theme {
             --color-tech-bg: #0D0D0D; 
             --color-tech-primary: #FF7A00; 
-            --color-tech-primary-light: #FFA726;
-            --color-tech-accent: #FFC107;
             --font-sans: 'Space Grotesk', sans-serif;
+            --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @layer base {
             body { 
-                @apply bg-tech-bg text-white antialiased overflow-x-hidden; 
+                @apply bg-tech-bg text-white antialiased; 
                 font-family: var(--font-sans);
             }
         }
 
         @layer utilities {
+            .animate-step {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.8s var(--ease-premium), transform 0.8s var(--ease-premium), filter 0.8s var(--ease-premium);
+                will-change: opacity, transform, filter;
+            }
+
+            .animate-step.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
             .hero-grid {
                 display: grid;
                 grid-template-columns: repeat(12, 1fr);
@@ -37,42 +49,6 @@
                 max-width: 1280px;
                 margin: 0 auto;
                 padding: 0 2rem;
-            }
-
-            .btn-glow {
-                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
-                transition: all 0.3s ease;
-            }
-            .btn-glow:hover {
-                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
-                transform: translateY(-2px);
-            }
-
-            .headline-main {
-                @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Sombra leve para garantir leitura no colorido */
-            }
-
-            .subheadline-main {
-                @apply text-lg md:text-xl text-white font-medium mb-10 max-w-2xl leading-relaxed;
-                text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            }
-
-            .text-group {
-                grid-column: 1 / span 10;
-                text-align: left;
-                opacity: 0;
-                transform: translateY(50px);
-                filter: blur(20px);
-                transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
-                pointer-events: none;
-            }
-
-            .text-group.active {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-                pointer-events: auto;
             }
         }
 
@@ -84,71 +60,97 @@
             overflow: hidden;
             display: flex;
             align-items: center;
+            z-index: 10;
         }
 
+        /* Profundidade: Background move mais devagar (0.5x) */
         #hero-canvas {
             position: absolute;
             inset: 0;
             width: 100%;
-            height: 100%;
+            height: 110%; /* Extra height para o parallax */
             object-fit: cover;
-            /* Filtros de grayscale e brightness removidos para manter cores originais */
-            opacity: 1; 
+            will-change: transform, filter;
         }
 
-        /* Overlay sutil apenas para garantir que o texto branco seja legível independente das cores do vídeo */
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%);
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 80%);
             z-index: 5;
+        }
+
+        /* Texto: Move 1x (normal) ou 1.1x conforme INDEX */
+        .text-group-wrapper {
+            position: relative;
+            z-index: 10;
+            will-change: transform, opacity;
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
     <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
+            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest active:scale-95 transition-transform">WhatsApp Elite</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative" style="height: 600vh;">
+    <section id="scroll-hero" class="relative" style="height: 700vh;">
         <div class="hero-sticky-container">
             <canvas id="hero-canvas"></canvas>
             <div class="hero-overlay"></div>
             
-            <div class="hero-grid relative z-10">
-                
-                <div id="step-1" class="text-group">
-                    <h2 class="headline-main">Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando demais ou desligando sozinho no meio do trabalho?</h2>
+            <div class="hero-grid text-group-wrapper" id="text-parallax-layer">
+                <div id="step-1" class="col-span-12 lg:col-span-10 text-group">
+                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
+                        Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho?
+                    </h2>
                 </div>
 
-                <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Pouco espaço no SSD ou HD, <span class="text-white/80">lentidão constante</span> e programas que demoram uma eternidade pra abrir?</h2>
+                <div id="step-2" class="col-span-12 lg:col-span-10 absolute inset-0 flex items-center hidden">
+                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
+                        Pouco espaço no SSD, <span class="text-white/40">lentidão constante</span> e programas que não abrem?
+                    </h2>
                 </div>
 
-                <div id="step-3" class="text-group absolute">
-                    <h2 class="headline-main">Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:</h2>
-                    <p class="subheadline-main text-white">PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.</p>
-                    <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
-                            Falar no WhatsApp agora
-                        </a>
-                        <a href="#contato" class="inline-flex items-center justify-center border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm hover:bg-black/40 transition-all">
-                            Solicitar Orçamento
-                        </a>
+                <div id="step-3" class="col-span-12 lg:col-span-10 absolute inset-0 flex flex-col justify-center hidden">
+                    <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step">
+                        Solução <span class="text-tech-primary">completa</span> Center Net:
+                    </h2>
+                    <p class="text-lg md:text-xl text-white font-medium mt-6 max-w-2xl animate-step">
+                        Máquinas de alta performance e manutenção profissional para velocidade absoluta.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-5 mt-10 animate-step pointer-events-auto">
+                        <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest active:scale-95 transition-transform">Falar no WhatsApp</a>
+                        <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm active:scale-95 transition-transform">Orçamento</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
+    <div class="h-screen bg-tech-bg"></div>
+
     <script>
         lucide.createIcons();
 
+        // 1. Smooth Scroll (Lenis) - Configuração INDEX
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            lerp: 0.08 // Interpolação solicitada
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Canvas Motion
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
@@ -156,25 +158,21 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
-        function preloadImages() {
+        function preload() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
-                img.onload = () => {
-                    loadedCount++;
-                    if (loadedCount === 1) renderFrame(0);
-                };
+                img.onload = () => { loadedCount++; if (loadedCount === 1) render(0); };
                 images.push(img);
             }
         }
 
-        function renderFrame(index) {
+        function render(index) {
             if (!images[index]) return;
             const img = images[index];
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
-
             if (canvasRatio > imgRatio) {
                 rw = canvas.width; rh = img.height * (canvas.width / img.width);
                 oy = (canvas.height - rh) / 2;
@@ -186,42 +184,60 @@
             ctx.drawImage(img, ox, oy, rw, rh);
         }
 
-        window.addEventListener('scroll', () => {
+        // Parallax & Motion Sync
+        const textLayer = document.getElementById('text-parallax-layer');
+        
+        lenis.on('scroll', (e) => {
             const scrollArea = document.getElementById('scroll-hero');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollTop = window.scrollY;
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
-            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
+            if (scrollTop <= scrollArea.scrollHeight) {
+                const fraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-            const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
-            requestAnimationFrame(() => renderFrame(frameIndex));
+                // 2. Background: 0.5x e Texto: 1.1x (Profundidade)
+                // Blur progressivo no fundo e Scale sutil conforme INDEX
+                canvas.style.transform = `translateY(${scrollTop * 0.5}px) scale(${1 + fraction * 0.05})`;
+                canvas.style.filter = `grayscale(100%) brightness(0.6) blur(${fraction * 10}px)`;
+                
+                // Fade leve no texto ao scroll
+                textLayer.style.transform = `translateY(${-scrollTop * 0.1}px)`;
+                textLayer.style.opacity = 1 - (fraction * 1.5);
 
-            const s1 = document.getElementById('step-1');
-            const s2 = document.getElementById('step-2');
-            const s3 = document.getElementById('step-3');
+                // Frame Sync
+                const frameIndex = Math.floor(fraction * (frameCount - 1));
+                render(frameIndex);
 
-            s1.classList.remove('active');
-            s2.classList.remove('active');
-            s3.classList.remove('active');
+                // Steps Logic
+                const steps = [
+                    { id: 'step-1', range: [0.05, 0.25] },
+                    { id: 'step-2', range: [0.35, 0.55] },
+                    { id: 'step-3', range: [0.65, 0.95] }
+                ];
 
-            if (scrollFraction > 0.05 && scrollFraction < 0.3) {
-                s1.classList.add('active');
-            } else if (scrollFraction >= 0.35 && scrollFraction < 0.6) {
-                s2.classList.add('active');
-            } else if (scrollFraction >= 0.65) {
-                s3.classList.add('active');
+                steps.forEach(step => {
+                    const el = document.getElementById(step.id);
+                    const anims = el.querySelectorAll('.animate-step');
+                    if (fraction >= step.range[0] && fraction <= step.range[1]) {
+                        el.classList.remove('hidden');
+                        requestAnimationFrame(() => anims.forEach(a => a.classList.add('active')));
+                    } else {
+                        anims.forEach(a => a.classList.remove('active'));
+                        setTimeout(() => { if (!el.querySelector('.active')) el.classList.add('hidden'); }, 600);
+                    }
+                });
             }
         });
 
-        function resize() {
+        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            renderFrame(0);
-        }
+            render(0);
+        });
 
-        window.addEventListener('resize', resize);
-        resize();
-        preloadImages();
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        preload();
     </script>
 </body>
 </html>
