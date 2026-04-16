@@ -1,69 +1,200 @@
-<section id="servicos" class="py-24 bg-[#0D0D0D] border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-6 lg:px-20">
-        <div class="mb-16">
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-                Engenharia de <span class="text-tech-primary">Performance</span>
-            </h2>
-            <p class="text-white/40 max-w-xl font-light">Soluções técnicas para quem exige o máximo do hardware. Sem soluções genéricas.</p>
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Center Net Informática | Performance Elite</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-tech-bg: #0D0D0D; 
+            --color-tech-primary: #FF7A00; 
+            --color-tech-text: #FFFFFF;
+            --font-sans: 'Space Grotesk', sans-serif;
+        }
+
+        @layer base {
+            body { 
+                @apply bg-tech-bg text-tech-text antialiased overflow-x-hidden; 
+                font-family: var(--font-sans);
+            }
+        }
+
+        @layer utilities {
+            .hero-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+                width: 100%;
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .btn-glow {
+                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+                transition: all 0.3s ease;
+            }
+
+            /* Proximidade e Alinhamento à Esquerda */
+            .text-group {
+                grid-column: 1 / span 8;
+                text-align: left;
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(10px);
+                transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            }
+
+            .text-group.visible {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+
+            /* Espaçamento e Respiro Visual */
+            .headline-main {
+                @apply text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6 leading-[0.9];
+            }
+
+            .subheadline-main {
+                @apply text-lg md:text-xl text-white/50 font-light mb-10 max-w-xl leading-relaxed;
+            }
+        }
+
+        .sticky-hero {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            object-fit: cover;
+            filter: brightness(0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
+            <div class="w-10 h-10 bg-tech-primary rounded flex items-center justify-center">
+                <i data-lucide="zap" class="w-5 h-5 text-tech-bg fill-current"></i>
+            </div>
         </div>
+    </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="group p-8 border border-white/5 bg-[#121212] transition-all hover:border-tech-primary/50">
-                <i data-lucide="cpu" class="w-10 h-10 text-tech-primary mb-6"></i>
-                <h3 class="text-xl font-bold uppercase mb-4">Montagem High-End</h3>
-                <p class="text-white/50 text-sm leading-relaxed">Workstations e PCs Gamer montados com gerenciamento de cabos elite e otimização de airflow.</p>
-            </div>
-
-            <div class="group p-8 border border-white/5 bg-[#121212] transition-all hover:border-tech-primary/50">
-                <i data-lucide="gauge" class="w-10 h-10 text-tech-primary mb-6"></i>
-                <h3 class="text-xl font-bold uppercase mb-4">Upgrade & Tuning</h3>
-                <p class="text-white/50 text-sm leading-relaxed">Sua máquina antiga com velocidade de nova. Substituição de componentes e limpeza técnica profunda.</p>
-            </div>
-
-            <div class="group p-8 border border-white/5 bg-[#121212] transition-all hover:border-tech-primary/50">
-                <i data-lucide="shield-check" class="w-10 h-10 text-tech-primary mb-6"></i>
-                <h3 class="text-xl font-bold uppercase mb-4">Segurança de Dados</h3>
-                <p class="text-white/50 text-sm leading-relaxed">Configuração de backup e proteção contra invasões. Seus arquivos seguros em nível empresarial.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="precos" class="py-24 bg-[#0D0D0D]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-20">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section id="scroll-hero" style="height: 600vh;">
+        <div class="sticky-hero">
+            <canvas id="hero-canvas"></canvas>
             
-            <div class="lg:col-span-5">
-                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-6 leading-none">
-                    Investimento <br> em <span class="text-[#FFC107]">Velocidade</span>
-                </h2>
-                <p class="text-white/50 mb-8">Não é custo, é produtividade. Cada segundo que seu computador trava é dinheiro jogado fora.</p>
-                <ul class="space-y-4 mb-10">
-                    <li class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest">
-                        <i data-lucide="check" class="text-tech-primary"></i> Peças com Garantia Real
-                    </li>
-                    <li class="flex items-center gap-3 text-sm font-bold uppercase tracking-widest">
-                        <i data-lucide="check" class="text-tech-primary"></i> Suporte Pós-Venda Elite
-                    </li>
-                </ul>
-            </div>
+            <div class="hero-grid relative z-10">
+                
+                <div id="step-1" class="text-group">
+                    <h2 class="headline-main">Seu computador lento <br> te faz <span class="text-tech-primary">perder dinheiro.</span></h2>
+                    <p class="subheadline-main">Travamentos e falta de desempenho reduzem sua produtividade todos os dias.</p>
+                </div>
 
-            <div class="lg:col-span-7">
-                <div class="relative p-1 bg-gradient-to-br from-tech-primary to-transparent">
-                    <div class="bg-[#0D0D0D] p-10">
-                        <div class="flex justify-between items-start mb-8">
-                            <div>
-                                <h4 class="text-xs font-black uppercase tracking-[0.4em] text-white/30 mb-2">Plano de Manutenção</h4>
-                                <h3 class="text-3xl font-bold uppercase">Limpeza Técnica + Otimização</h3>
-                            </div>
-                            <span class="bg-[#FFC107] text-black text-[10px] font-black px-3 py-1 uppercase">Mais Procurado</span>
-                        </div>
-                        <div class="text-5xl font-black mb-10 text-[#FFC107]">R$ 180,00 <span class="text-sm text-white/30 font-light lowercase">/ serviço</span></div>
-                        <a href="#" class="block w-full bg-tech-primary text-tech-bg text-center py-5 font-black uppercase tracking-widest btn-glow">Agendar Manutenção Agora</a>
+                <div id="step-2" class="text-group absolute">
+                    <h2 class="headline-main">Velocidade <br> sem <span class="text-tech-primary">improviso.</span></h2>
+                    <p class="subheadline-main">Na Center Net, entregamos computadores de alta performance para quem não pode parar.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="bg-tech-primary text-tech-bg px-8 py-4 font-black uppercase tracking-widest text-xs btn-glow">Falar com Especialista</a>
+                        <a href="#" class="border border-white/20 px-8 py-4 font-black uppercase tracking-widest text-xs hover:bg-white/5">Orçamento</a>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <script>
+        lucide.createIcons();
+
+        // Configuração do Canvas (Motion Hero)
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        const frameCount = 100;
+        const images = [];
+        let loaded = 0;
+        const baseUrl = "./hardline/ezgif-frame-";
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for (let i = 1; i <= frameCount; i++) {
+                const img = new Image();
+                img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
+                img.onload = () => {
+                    loaded++;
+                    if (loaded === 1) draw(0);
+                };
+                images.push(img);
+            }
+        }
+
+        function draw(index) {
+            if (!images[index]) return;
+            const img = images[index];
+            const canvasRatio = canvas.width / canvas.height;
+            const imgRatio = img.width / img.height;
+            let rw, rh, ox = 0, oy = 0;
+            if (canvasRatio > imgRatio) {
+                rw = canvas.width; rh = img.height * (canvas.width / img.width);
+                oy = (canvas.height - rh) / 2;
+            } else {
+                rh = canvas.height; rw = img.width * (canvas.height / img.height);
+                ox = (canvas.width - rw) / 2;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, ox, oy, rw, rh);
+        }
+
+        // Acompanhamento do Motion Hero (Scroll Tracking)
+        window.addEventListener('scroll', () => {
+            const scrollArea = document.getElementById('scroll-hero');
+            const rect = scrollArea.getBoundingClientRect();
+            const scrollFraction = Math.max(0, Math.min(1, Math.abs(rect.top) / (scrollArea.offsetHeight - window.innerHeight)));
+            
+            // Motion Hero - Canvas
+            const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+            requestAnimationFrame(() => draw(frameIndex));
+
+            // Motion Hero - Text Transition (Ritmo e Grid)
+            const s1 = document.getElementById('step-1');
+            const s2 = document.getElementById('step-2');
+
+            if (scrollFraction < 0.5) {
+                s1.classList.add('visible');
+                s2.classList.remove('visible');
+            } else {
+                s1.classList.remove('visible');
+                s2.classList.add('visible');
+            }
+        });
+
+        initCanvas();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            draw(0);
+        });
+    </script>
+</body>
+</html>
