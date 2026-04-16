@@ -11,18 +11,21 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style type="text/tailwindcss">
         @theme {
             --color-tech-bg: #0D0D0D; 
             --color-tech-primary: #FF7A00; 
-            --color-tech-text: #FFFFFF;
+            --color-tech-primary-light: #FFA726;
+            --color-tech-accent: #FFC107;
             --font-sans: 'Space Grotesk', sans-serif;
         }
 
         @layer base {
             body { 
-                @apply bg-tech-bg text-tech-text antialiased overflow-x-hidden; 
+                @apply bg-tech-bg text-white antialiased overflow-x-hidden; 
                 font-family: var(--font-sans);
             }
         }
@@ -42,30 +45,26 @@
                 box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
                 transition: all 0.3s ease;
             }
-
-            /* Proximidade e Alinhamento à Esquerda */
-            .text-group {
-                grid-column: 1 / span 8;
-                text-align: left;
-                opacity: 0;
-                transform: translateY(30px);
-                filter: blur(10px);
-                transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            .btn-glow:hover {
+                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
+                transform: translateY(-2px);
             }
 
-            .text-group.visible {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-            }
-
-            /* Espaçamento e Respiro Visual */
             .headline-main {
-                @apply text-5xl md:text-8xl font-black uppercase tracking-tighter mb-6 leading-[0.9];
+                @apply text-4xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
             }
 
             .subheadline-main {
-                @apply text-lg md:text-xl text-white/50 font-light mb-10 max-w-xl leading-relaxed;
+                @apply text-lg md:text-xl text-white/50 font-light mb-10 max-w-2xl leading-relaxed;
+            }
+
+            .text-group {
+                grid-column: 1 / span 10;
+                text-align: left;
+                opacity: 0;
+                transform: translateY(50px);
+                filter: blur(20px);
+                will-change: transform, opacity, filter;
             }
         }
 
@@ -76,6 +75,7 @@
             display: flex;
             align-items: center;
             overflow: hidden;
+            background-color: #0D0D0D;
         }
 
         #hero-canvas {
@@ -85,7 +85,7 @@
             height: 100%;
             opacity: 0.3;
             object-fit: cover;
-            filter: brightness(0.5);
+            filter: grayscale(100%) brightness(0.6);
         }
     </style>
 </head>
@@ -94,29 +94,34 @@
     <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <div class="w-10 h-10 bg-tech-primary rounded flex items-center justify-center">
-                <i data-lucide="zap" class="w-5 h-5 text-tech-bg fill-current"></i>
-            </div>
+            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" style="height: 600vh;">
+    <section id="scroll-hero" style="height: 900vh; position: relative;">
         <div class="sticky-hero">
             <canvas id="hero-canvas"></canvas>
             
             <div class="hero-grid relative z-10">
                 
                 <div id="step-1" class="text-group">
-                    <h2 class="headline-main">Seu computador lento <br> te faz <span class="text-tech-primary">perder dinheiro.</span></h2>
-                    <p class="subheadline-main">Travamentos e falta de desempenho reduzem sua produtividade todos os dias.</p>
+                    <h2 class="headline-main">Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando demais ou desligando sozinho no meio do trabalho?</h2>
                 </div>
 
                 <div id="step-2" class="text-group absolute">
-                    <h2 class="headline-main">Velocidade <br> sem <span class="text-tech-primary">improviso.</span></h2>
-                    <p class="subheadline-main">Na Center Net, entregamos computadores de alta performance para quem não pode parar.</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="bg-tech-primary text-tech-bg px-8 py-4 font-black uppercase tracking-widest text-xs btn-glow">Falar com Especialista</a>
-                        <a href="#" class="border border-white/20 px-8 py-4 font-black uppercase tracking-widest text-xs hover:bg-white/5">Orçamento</a>
+                    <h2 class="headline-main">Pouco espaço no SSD ou HD, <span class="text-white/40">lentidão constante</span> e programas que demoram uma eternidade pra abrir?</h2>
+                </div>
+
+                <div id="step-3" class="text-group absolute">
+                    <h2 class="headline-main">Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:</h2>
+                    <p class="subheadline-main">PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.</p>
+                    <div class="flex flex-col sm:flex-row gap-5 pointer-events-auto">
+                        <a href="#contato" class="inline-flex items-center justify-center bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-glow">
+                            Falar no WhatsApp agora
+                        </a>
+                        <a href="#contato" class="inline-flex items-center justify-center border border-white/20 px-10 py-5 text-sm font-black uppercase tracking-widest hover:bg-white/5 transition-all">
+                            Solicitar Orçamento
+                        </a>
                     </div>
                 </div>
 
@@ -127,12 +132,13 @@
     <script>
         lucide.createIcons();
 
-        // Configuração do Canvas (Motion Hero)
+        // Canvas Motion Control
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
         const images = [];
         let loaded = 0;
+        const canvasObj = { frame: 0 };
         const baseUrl = "./hardline/ezgif-frame-";
 
         function initCanvas() {
@@ -144,6 +150,7 @@
                 img.onload = () => {
                     loaded++;
                     if (loaded === 1) draw(0);
+                    if (loaded === frameCount) startGSAP();
                 };
                 images.push(img);
             }
@@ -166,34 +173,42 @@
             ctx.drawImage(img, ox, oy, rw, rh);
         }
 
-        // Acompanhamento do Motion Hero (Scroll Tracking)
-        window.addEventListener('scroll', () => {
-            const scrollArea = document.getElementById('scroll-hero');
-            const rect = scrollArea.getBoundingClientRect();
-            const scrollFraction = Math.max(0, Math.min(1, Math.abs(rect.top) / (scrollArea.offsetHeight - window.innerHeight)));
+        function startGSAP() {
+            gsap.registerPlugin(ScrollTrigger);
             
-            // Motion Hero - Canvas
-            const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
-            requestAnimationFrame(() => draw(frameIndex));
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#scroll-hero",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1,
+                    pin: true
+                }
+            });
 
-            // Motion Hero - Text Transition (Ritmo e Grid)
-            const s1 = document.getElementById('step-1');
-            const s2 = document.getElementById('step-2');
+            // Sincroniza Frames do Canvas com o ritmo
+            tl.to(canvasObj, {
+                frame: frameCount - 1,
+                snap: "frame",
+                ease: "none",
+                onUpdate: () => draw(canvasObj.frame)
+            }, 0);
 
-            if (scrollFraction < 0.5) {
-                s1.classList.add('visible');
-                s2.classList.remove('visible');
-            } else {
-                s1.classList.remove('visible');
-                s2.classList.add('visible');
-            }
-        });
+            // Motion dos Textos acompanhando o ritmo
+            tl.to("#step-1", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 }, 0.1)
+              .to("#step-1", { opacity: 0, y: -60, filter: "blur(20px)", duration: 2 }, 2.5)
+              
+              .to("#step-2", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 }, 3.5)
+              .to("#step-2", { opacity: 0, y: -60, filter: "blur(20px)", duration: 2 }, 5.5)
+              
+              .to("#step-3", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 }, 6.5);
+        }
 
         initCanvas();
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            draw(0);
+            draw(canvasObj.frame);
         });
     </script>
 </body>
