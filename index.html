@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Center Net | Performance & Contraste</title>
+    <title>Center Net Informática | Performance Elite</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,99 +17,100 @@
     <style type="text/tailwindcss">
         @theme {
             --color-tech-bg: #0D0D0D; 
-            --color-tech-action: #FF7A00; 
-            --color-tech-hover: #FFA726;
-            --color-tech-price: #FFC107;
+            --color-tech-primary: #FF7A00; 
+            --color-tech-primary-light: #FFA726;
+            --color-tech-accent: #FFC107;
             --font-sans: 'Space Grotesk', sans-serif;
         }
 
-        @layer base {
-            body {
-                @apply bg-tech-bg text-white antialiased overflow-x-hidden;
+        @layer utilities {
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-image: linear-gradient(to right, var(--color-tech-primary), var(--color-tech-primary-light));
             }
+            .btn-glow {
+                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+                transition: all 0.3s ease;
+            }
+            .btn-glow:hover {
+                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
+                transform: scale(1.02);
+            }
+            .price-highlight { color: var(--color-tech-accent); font-weight: 700; }
         }
 
-        @layer utilities {
-            .btn-premium {
-                @apply bg-tech-action text-tech-bg font-black uppercase tracking-widest transition-all duration-300 px-10 py-5;
-                box-shadow: 0 4px 15px rgba(255, 122, 0, 0.2);
-            }
-            .btn-premium:hover {
-                @apply bg-tech-hover scale-105;
-                box-shadow: 0 0 30px rgba(255, 167, 38, 0.6);
-            }
-            .price-tag { @apply text-tech-price font-bold; }
-            .hero-heading { letter-spacing: -0.05em; line-height: 0.9; }
-            
-            #hero-canvas {
-                position: absolute; inset: 0; width: 100%; height: 100%;
-                object-fit: cover; opacity: 0.25; /* Fundo sutil como solicitado */
-                filter: grayscale(100%) brightness(0.5);
-                pointer-events: none;
-            }
-        }
+        body { background-color: var(--color-tech-bg); color: #FFFFFF; font-family: var(--font-sans); overflow-x: hidden; }
+        #hero-canvas { opacity: 0.3; filter: grayscale(100%) brightness(0.6); }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <nav class="fixed top-0 left-0 w-full z-50 h-24 flex items-center bg-tech-bg/90 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
-            <span class="font-black text-2xl tracking-tighter uppercase">Center<span class="text-tech-action">Net</span></span>
-            <a href="#contato" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-tech-action pb-1">Suporte Técnico</a>
+    <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="zap" class="w-6 h-6 text-tech-primary fill-current"></i>
+                <span class="font-black text-xl tracking-tighter uppercase text-white">Center<span class="text-tech-primary">Net</span></span>
+            </div>
+            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        
-        <canvas id="hero-canvas"></canvas>
-        
-        <div class="absolute inset-0 bg-gradient-to-b from-tech-bg via-transparent to-tech-bg z-10"></div>
-
-        <div class="relative z-20 max-w-5xl mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-8xl hero-heading font-black mb-8 uppercase">
-                SEU COMPUTADOR LENTO ESTÁ TE FAZENDO <span class="text-tech-action">PERDER DINHEIRO.</span>
-            </h1>
-
-            <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-12 font-light">
-                Na Center Net Informática você encontra PCs, notebooks e manutenção profissional para trabalhar rápido e sem dor de cabeça.
-            </p>
-
-            <div class="flex flex-wrap justify-center gap-6 mb-12">
-                <div class="flex items-center gap-2 text-sm uppercase tracking-widest font-bold">
-                    <i data-lucide="check" class="text-tech-action"></i> Performance
-                </div>
-                <div class="flex items-center gap-2 text-sm uppercase tracking-widest font-bold">
-                    <i data-lucide="check" class="text-tech-action"></i> Segurança
-                </div>
-                <div class="flex items-center gap-2 text-sm uppercase tracking-widest font-bold">
-                    <i data-lucide="check" class="text-tech-action"></i> Upgrades
+    <section id="scroll-hero" style="height:400vh; position:relative;">
+        <div style="position:sticky; top:0; height:100vh; width:100%; overflow:hidden; background-color:#0D0D0D;">
+            <canvas id="hero-canvas" style="position:absolute; inset:0; width:100%; height:100%;"></canvas>
+            
+            <div style="position:absolute; inset:0; background:linear-gradient(to right, rgba(13,13,13,1) 0%, rgba(13,13,13,0.7) 50%, transparent 100%); z-index:1;"></div>
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(13,13,13,1) 0%, transparent 40%); z-index:1;"></div>
+            
+            <div id="hero-content" style="position:absolute; inset:0; z-index:2; display:flex; align-items:center;" class="px-6 lg:px-12 max-w-7xl mx-auto w-full">
+                <div class="max-w-3xl w-full" id="hero-text-inner">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-tech-primary/10 border border-tech-primary/30 text-tech-primary text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+                        <span class="w-2 h-2 rounded-full bg-tech-primary animate-pulse"></span>
+                        Alta Performance
+                    </div>
+                    
+                    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8">
+                        Seu computador <span class="text-gradient">lento</span> está te fazendo <span class="text-tech-primary italic">perder dinheiro.</span>
+                    </h1>
+                    
+                    <p class="text-lg sm:text-xl text-white/60 mb-12 leading-relaxed max-w-xl font-light">
+                        Na Center Net Informática você encontra PCs e manutenção profissional para trabalhar <strong class="text-white">rápido, com segurança e sem dor de cabeça.</strong>
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-5">
+                        <a href="#contato" class="inline-flex items-center justify-center px-10 py-5 text-sm font-black uppercase tracking-widest text-tech-bg bg-tech-primary btn-glow">
+                            <i data-lucide="message-circle" class="w-5 h-5 mr-2 fill-current"></i>
+                            Quero meu PC de Alta Performance
+                        </a>
+                        
+                        <a href="#contato" class="inline-flex items-center justify-center px-10 py-5 text-sm font-black uppercase tracking-widest text-white border border-white/10 hover:bg-white/5 transition-all">
+                            Solicitar Orçamento
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <a href="https://wa.me/SEUNUMERO" class="btn-premium inline-flex items-center gap-4">
-                Falar no WhatsApp agora
-                <i data-lucide="send" class="w-5 h-5"></i>
-            </a>
         </div>
     </section>
 
-    <section class="py-24 bg-[#121212]">
+    <section class="py-24 bg-[#121212] relative z-10 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="p-8 border border-white/5 bg-tech-bg group hover:border-tech-action/30 transition-all">
-                    <h3 class="text-xs tracking-[0.3em] text-white/40 uppercase mb-4">Workstation Elite</h3>
-                    <p class="text-2xl font-bold mb-6">PC Gamer & Edição</p>
-                    <p class="price-tag text-3xl mb-8">R$ 4.890,00</p>
-                    <button class="w-full py-4 border border-tech-action text-tech-action font-black text-xs uppercase hover:bg-tech-action hover:text-tech-bg transition-all">Ver Detalhes</button>
+            <h2 class="text-3xl font-black uppercase mb-12">Destaques <span class="text-tech-primary">Elite</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-10 bg-tech-bg border border-white/5 group hover:border-tech-primary/40 transition-all">
+                    <p class="text-[10px] text-white/30 uppercase tracking-[0.4em] mb-4">Workstation Pro</p>
+                    <h3 class="text-2xl font-bold mb-6">Upgrade de SSD + RAM</h3>
+                    <p class="price-highlight text-3xl mb-8 uppercase">Sob Consulta</p>
+                    <button class="w-full py-4 border border-tech-primary text-tech-primary font-black uppercase text-[10px] tracking-widest group-hover:bg-tech-primary group-hover:text-tech-bg transition-all">Consultar agora</button>
                 </div>
-                </div>
+            </div>
         </div>
     </section>
 
     <script>
         lucide.createIcons();
 
-        // LÓGICA DO CANVAS (SUTIL)
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
@@ -119,7 +120,7 @@
 
         const baseUrl = "./hardline/ezgif-frame-";
 
-        function init() {
+        function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             
@@ -128,7 +129,8 @@
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
                 img.onload = () => {
                     loaded++;
-                    if (loaded === frameCount) startAnimation();
+                    if (loaded === 1) draw(0);
+                    if (loaded === frameCount) startGSAP();
                 };
                 images.push(img);
             }
@@ -140,6 +142,7 @@
                 const canvasRatio = canvas.width / canvas.height;
                 const imgRatio = img.width / img.height;
                 let rw, rh, ox = 0, oy = 0;
+                
                 if (canvasRatio > imgRatio) {
                     rw = canvas.width; rh = img.height * (canvas.width / img.width);
                     oy = (canvas.height - rh) / 2;
@@ -152,33 +155,38 @@
             }
         }
 
-        function startAnimation() {
+        function startGSAP() {
             gsap.registerPlugin(ScrollTrigger);
             
-            // Loop sutil mesmo sem scroll
             gsap.to(canvasObj, {
                 frame: frameCount - 1,
-                duration: 4,
-                repeat: -1,
-                ease: "none",
-                onUpdate: () => draw(Math.floor(canvasObj.frame))
-            });
-
-            // Parallax leve no texto
-            gsap.to(".hero-heading", {
-                y: -50,
+                snap: "frame",
                 scrollTrigger: {
                     trigger: "#scroll-hero",
                     start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.2
+                },
+                onUpdate: () => draw(canvasObj.frame)
+            });
+
+            gsap.to("#hero-text-inner", {
+                opacity: 0,
+                y: -100,
+                scrollTrigger: {
+                    trigger: "#scroll-hero",
+                    start: "20% top",
+                    end: "60% top",
                     scrub: true
                 }
             });
         }
 
-        init();
+        initCanvas();
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            draw(canvasObj.frame);
         });
     </script>
 </body>
