@@ -64,7 +64,7 @@
                 line-height: 0.9;
             }
         }
-
+        body { overflow-y: hidden; } /* Trava o scroll até o load */
         .fade-up { opacity: 0; }
     </style>
 </head>
@@ -91,13 +91,13 @@
             </div>
             
             <div class="hidden md:flex items-center gap-12 bg-white/5 px-8 py-3 rounded-full border border-white/10 premium-blur">
-                <a href="#servicos" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Services</a>
-                <a href="#beneficios" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Tech</a>
-                <a href="#depoimentos" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Reviews</a>
+                <a href="#servicos" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Serviços</a>
+                <a href="#beneficios" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Benefícios</a>
+                <a href="#depoimentos" class="text-xs font-bold tracking-widest uppercase hover:text-tech-primary transition-colors">Avaliações</a>
             </div>
 
             <a href="#contato" class="bg-white text-tech-bg px-8 py-3 text-xs font-black uppercase tracking-widest hover:bg-tech-primary transition-all hover:scale-105 active:scale-95 shadow-xl">
-                Get Started
+                Falar Conosco
             </a>
         </div>
     </nav>
@@ -112,30 +112,25 @@
             <div id="hero-content" class="relative z-20 h-full flex items-center px-6 max-w-7xl mx-auto">
                 <div id="hero-text-inner" class="max-w-4xl">
                     <div class="inline-block px-4 py-1 border border-tech-primary/30 rounded-full mb-8 bg-tech-primary/5">
-                        <span class="text-[10px] font-black tracking-[0.4em] uppercase text-tech-primary">Precision Engineering</span>
+                        <span class="text-[10px] font-black tracking-[0.4em] uppercase text-tech-primary">Engenharia de Precisão</span>
                     </div>
                     
                     <h1 class="text-7xl md:text-9xl hero-heading font-black mb-10">
                         PERFORMANCE <br/> 
-                        <span class="text-tech-primary text-glow-green italic">WITHOUT</span> LIMITS.
+                        <span class="text-tech-primary text-glow-green italic">SEM</span> LIMITES.
                     </h1>
                     
                     <p class="text-xl md:text-2xl text-white/60 max-w-2xl font-light leading-relaxed mb-12">
-                        Custom hardware orchestration for high-stakes workflows. <span class="text-white font-medium">Built for the future of productivity.</span>
+                        Seu computador rápido, seguro e pronto para o trabalho. <span class="text-white font-medium">Montagem e manutenção com performance real.</span>
                     </p>
                     
                     <div class="flex flex-wrap gap-6">
-                        <a href="#contato" class="group flex items-center gap-4 bg-tech-primary px-10 py-5 text-tech-bg font-black uppercase text-sm shadow-[0_20px_40px_rgba(0,194,168,0.2)] hover:shadow-[0_25px_50px_rgba(0,194,168,0.4)] transition-all">
-                            WhatsApp Concierge
-                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                        <a href="#contato" class="group flex items-center gap-4 bg-tech-primary px-10 py-5 text-tech-bg font-black uppercase text-sm shadow-[0_20px_40px_rgba(0,194,168,0.2)]">
+                            Falar no WhatsApp
+                            <i data-lucide="message-circle" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
                         </a>
                     </div>
                 </div>
-            </div>
-            
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4">
-                <span class="text-[9px] uppercase tracking-[0.5em] text-white/30">Scroll to Explore</span>
-                <div class="w-[1px] h-12 bg-gradient-to-b from-tech-primary to-transparent"></div>
             </div>
         </div>
     </section>
@@ -143,105 +138,30 @@
     <section id="servicos" class="py-32 relative z-30">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-24 fade-up">
-                <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 uppercase">Infrastructure <span class="text-tech-primary italic">&</span> Care</h2>
+                <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 uppercase">Soluções <span class="text-tech-primary italic">Expert</span></h2>
                 <div class="w-24 h-1 bg-tech-primary"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="neon-border premium-blur p-10 group hover:bg-tech-primary/10 transition-all duration-700 fade-up">
-                    <div class="mb-12 transition-transform duration-500 group-hover:-translate-y-2">
-                        <i data-lucide="monitor" class="w-12 h-12 text-tech-primary opacity-50 group-hover:opacity-100"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Hardware</h3>
-                    <p class="text-white/50 text-sm leading-relaxed mb-8">Workstations high-end calibradas para performance extrema em render e dados.</p>
-                    <div class="h-[1px] w-full bg-white/10 group-hover:bg-tech-primary/50 transition-colors"></div>
+                    <i data-lucide="monitor" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100"></i>
+                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">PCs & Notes</h3>
+                    <p class="text-white/50 text-sm leading-relaxed mb-8">Equipamentos de alta performance para trabalho ou jogos.</p>
                 </div>
-
                 <div class="neon-border premium-blur p-10 group hover:bg-tech-primary/10 transition-all duration-700 fade-up" style="transition-delay: 0.1s">
-                    <div class="mb-12 transition-transform duration-500 group-hover:-translate-y-2">
-                        <i data-lucide="mouse" class="w-12 h-12 text-tech-primary opacity-50 group-hover:opacity-100"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Gear</h3>
-                    <p class="text-white/50 text-sm leading-relaxed mb-8">Periféricos de baixa latência e precisão cirúrgica para interfaces complexas.</p>
-                    <div class="h-[1px] w-full bg-white/10 group-hover:bg-tech-primary/50 transition-colors"></div>
+                    <i data-lucide="mouse" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100"></i>
+                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Periféricos</h3>
+                    <p class="text-white/50 text-sm leading-relaxed mb-8">Acessórios que garantem sua máxima produtividade.</p>
                 </div>
-
                 <div class="neon-border premium-blur p-10 group hover:bg-tech-primary/10 transition-all duration-700 fade-up" style="transition-delay: 0.2s">
-                    <div class="mb-12 transition-transform duration-500 group-hover:-translate-y-2">
-                        <i data-lucide="cctv" class="w-12 h-12 text-tech-primary opacity-50 group-hover:opacity-100"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Sec Ops</h3>
-                    <p class="text-white/50 text-sm leading-relaxed mb-8">Monitoramento avançado e segurança física para ativos corporativos.</p>
-                    <div class="h-[1px] w-full bg-white/10 group-hover:bg-tech-primary/50 transition-colors"></div>
+                    <i data-lucide="cctv" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100"></i>
+                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Segurança</h3>
+                    <p class="text-white/50 text-sm leading-relaxed mb-8">Sistemas de câmeras para sua total tranquilidade.</p>
                 </div>
-
                 <div class="neon-border premium-blur p-10 group hover:bg-tech-primary/10 transition-all duration-700 fade-up" style="transition-delay: 0.3s">
-                    <div class="mb-12 transition-transform duration-500 group-hover:-translate-y-2">
-                        <i data-lucide="wrench" class="w-12 h-12 text-tech-primary opacity-50 group-hover:opacity-100"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Refactor</h3>
-                    <p class="text-white/50 text-sm leading-relaxed mb-8">Manutenção preventiva e otimização de kernel para estabilidade total.</p>
-                    <div class="h-[1px] w-full bg-white/10 group-hover:bg-tech-primary/50 transition-colors"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="beneficios" class="py-32 bg-tech-surface/30 relative">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div class="fade-up">
-                <h2 class="text-5xl md:text-7xl font-black uppercase mb-12 leading-[0.9] tracking-tighter">Superior <br/><span class="text-tech-primary">Standard.</span></h2>
-                
-                <div class="grid gap-10">
-                    <div class="flex gap-8 group">
-                        <span class="text-5xl font-black text-white/5 group-hover:text-tech-primary transition-colors duration-500">01</span>
-                        <div>
-                            <h4 class="text-xl font-bold uppercase mb-2">Maximum Throughput</h4>
-                            <p class="text-white/40 leading-relaxed">Hardware otimizado para eliminar gargalos de produção e processamento.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-8 group">
-                        <span class="text-5xl font-black text-white/5 group-hover:text-tech-primary transition-colors duration-500">02</span>
-                        <div>
-                            <h4 class="text-xl font-bold uppercase mb-2">Expert Logistics</h4>
-                            <p class="text-white/40 leading-relaxed">Suporte técnico de nível sênior com tempo de resposta em minutos.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="relative fade-up" id="beneficios-imagem">
-                <div class="absolute -inset-4 bg-tech-primary/20 blur-3xl rounded-full"></div>
-                <div class="premium-blur p-2 rounded-sm overflow-hidden border border-white/10 rotate-2">
-                    <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=1000&q=80" alt="Tech" class="grayscale hover:grayscale-0 transition-all duration-1000 object-cover w-full h-[500px]">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="depoimentos" class="py-32">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="fade-up border-l-2 border-tech-primary pl-8">
-                    <div class="flex gap-1 mb-6 text-tech-primary">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-2xl font-light italic mb-8">"Elevou meu workflow para outro patamar. Atendimento impecável."</p>
-                    <p class="font-bold uppercase tracking-widest text-xs">Rafael Costa <span class="text-white/30 ml-2">// Gamer Elite</span></p>
-                </div>
-                <div class="fade-up border-l-2 border-white/10 pl-8" style="transition-delay: 0.1s">
-                    <div class="flex gap-1 mb-6 text-tech-primary">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-2xl font-light italic mb-8">"A manutenção mais rápida que já vi. Profissionalismo puro."</p>
-                    <p class="font-bold uppercase tracking-widest text-xs">Mariana Silva <span class="text-white/30 ml-2">// Dev Senior</span></p>
-                </div>
-                <div class="fade-up border-l-2 border-white/10 pl-8" style="transition-delay: 0.2s">
-                    <div class="flex gap-1 mb-6 text-tech-primary">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
-                    <p class="text-2xl font-light italic mb-8">"Equipamento entregue pronto para o combate. Sensacional."</p>
-                    <p class="font-bold uppercase tracking-widest text-xs">Felipe Lima <span class="text-white/30 ml-2">// Video Editor</span></p>
+                    <i data-lucide="wrench" class="w-12 h-12 text-tech-primary mb-12 opacity-50 group-hover:opacity-100"></i>
+                    <h3 class="text-2xl font-bold mb-4 uppercase tracking-tighter">Manutenção</h3>
+                    <p class="text-white/50 text-sm leading-relaxed mb-8">Limpeza e upgrade para seu hardware voar.</p>
                 </div>
             </div>
         </div>
@@ -251,94 +171,30 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
                 <div class="fade-up">
-                    <h2 class="text-6xl font-black uppercase mb-12 tracking-tighter">Ready to <br/><span class="text-tech-primary italic">Upgrade?</span></h2>
-                    
-                    <div class="space-y-8 mb-16">
-                        <div class="flex items-center gap-6 group">
-                            <i data-lucide="check-circle-2" class="text-tech-primary"></i>
-                            <span class="text-white/60 group-hover:text-white transition-colors uppercase tracking-widest text-sm font-bold">Diagnóstico Zero-Cost</span>
-                        </div>
-                        <div class="flex items-center gap-6 group">
-                            <i data-lucide="check-circle-2" class="text-tech-primary"></i>
-                            <span class="text-white/60 group-hover:text-white transition-colors uppercase tracking-widest text-sm font-bold">Garantia Ironclad</span>
-                        </div>
-                        <div class="flex items-center gap-6 group">
-                            <i data-lucide="check-circle-2" class="text-tech-primary"></i>
-                            <span class="text-white/60 group-hover:text-white transition-colors uppercase tracking-widest text-sm font-bold">Priority Support</span>
-                        </div>
-                    </div>
-
+                    <h2 class="text-6xl font-black uppercase mb-12 tracking-tighter">Pronto para o <br/><span class="text-tech-primary italic">Upgrade?</span></h2>
                     <div class="bg-tech-accent/5 border border-tech-accent/30 p-8 rounded-sm">
-                        <div class="flex items-center gap-2 text-tech-accent mb-4">
-                            <i data-lucide="zap" class="w-4 h-4"></i>
-                            <span class="text-xs font-black uppercase tracking-[0.3em]">Special Offer</span>
-                        </div>
-                        <p class="text-xl font-bold uppercase mb-2">Desconto exclusivo de ativação</p>
-                        <p class="text-white/40 text-sm">Disponível apenas para os próximos 5 atendimentos via WhatsApp.</p>
+                        <p class="text-xl font-bold uppercase mb-2 text-tech-accent">Diagnóstico Gratuito</p>
+                        <p class="text-white/40 text-sm">Fale agora com um especialista no WhatsApp.</p>
                     </div>
                 </div>
 
                 <div class="premium-blur p-12 neon-border fade-up">
-                    <form onsubmit="event.preventDefault(); alert('Redirecting to secure WhatsApp...');" class="space-y-8">
-                        <div class="group relative">
-                            <label class="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 group-focus-within:text-tech-primary transition-colors">Identification</label>
-                            <input type="text" required class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-tech-primary transition-all text-xl font-light" placeholder="Seu nome completo">
-                        </div>
-                        <div class="group relative">
-                            <label class="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 group-focus-within:text-tech-primary transition-colors">Secure Contact</label>
-                            <input type="tel" required class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-tech-primary transition-all text-xl font-light" placeholder="(00) 0 0000-0000">
-                        </div>
-                        <div class="group relative">
-                            <label class="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 group-focus-within:text-tech-primary transition-colors">Operational Unit</label>
-                            <select class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-tech-primary transition-all text-xl font-light appearance-none text-white/50">
-                                <option>High Performance PC</option>
-                                <option>Notebook Tuning</option>
-                                <option>Full Maintenance</option>
-                                <option>Surveillance Systems</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="w-full py-6 bg-tech-primary text-tech-bg font-black uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_40px_rgba(0,194,168,0.2)]">
-                            Finalize Request
-                        </button>
+                    <form onsubmit="event.preventDefault();" class="space-y-8">
+                        <input type="text" placeholder="Seu nome" class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-tech-primary text-xl">
+                        <input type="tel" placeholder="WhatsApp" class="w-full bg-transparent border-b border-white/10 py-4 focus:outline-none focus:border-tech-primary text-xl">
+                        <button class="w-full py-6 bg-tech-primary text-tech-bg font-black uppercase tracking-widest shadow-2xl">Solicitar Orçamento</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 border-t border-white/5 bg-tech-bg relative z-40">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
-            <div class="flex items-center gap-3">
-                <span class="font-black text-2xl tracking-tighter uppercase">NextGen<span class="text-tech-primary">Tech</span></span>
-            </div>
-            
-            <p class="text-[10px] uppercase tracking-[0.5em] text-white/20 font-bold">
-                &copy; 2024 Engineering for Excellence. Anápolis, BR.
-            </p>
-            
-            <div class="flex gap-8">
-                <i data-lucide="instagram" class="w-5 h-5 text-white/20 hover:text-tech-primary cursor-pointer transition-colors"></i>
-                <i data-lucide="linkedin" class="w-5 h-5 text-white/20 hover:text-tech-primary cursor-pointer transition-colors"></i>
-            </div>
-        </div>
-    </footer>
-
-    <a href="#contato" class="fixed bottom-10 right-10 z-[60] group">
-        <div class="absolute inset-0 bg-tech-primary blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-        <div class="relative w-16 h-16 bg-tech-primary flex items-center justify-center rounded-full shadow-2xl transition-transform duration-500 group-hover:scale-110 active:scale-90">
-            <i data-lucide="phone" class="w-7 h-7 text-tech-bg"></i>
-            <span class="absolute inset-0 rounded-full border-2 border-tech-primary animate-ping opacity-30"></span>
-        </div>
-    </a>
-
     <script>
-        function initLucide(){
-            if(window.lucide){ lucide.createIcons(); } else { setTimeout(initLucide, 200); }
-        }
+        function initLucide(){ if(window.lucide){ lucide.createIcons(); } else { setTimeout(initLucide, 200); } }
         initLucide();
 
-        const baseUrl = "https://buildix-user-images.s3.us-east-2.amazonaws.com/scroll-animations/temp-1776342014963/2fbc1cad-90ae-438e-b23e-469b9abf27d3/frame_";
+        // --- LÓGICA DE CARREGAMENTO CORRIGIDA ---
+        const baseUrl = "./hardline/ezgif-frame-"; // PASTA E PREFIXO CORRETOS
         const frameCount = 100;
         const images = [];
         let loadedCount = 0;
@@ -350,24 +206,36 @@
         const canvas = document.getElementById('hero-canvas');
         const context = canvas.getContext('2d', { alpha: false });
 
+        // Failsafe: Se demorar mais de 7s, libera o site mesmo sem frames
+        const failsafe = setTimeout(() => { if (loader.style.visibility !== 'hidden') finalizeLoading(); }, 7000);
+
+        function finalizeLoading() {
+            clearTimeout(failsafe);
+            gsap.to(loader, { opacity: 0, duration: 0.8, onComplete: () => {
+                loader.style.visibility = 'hidden';
+                document.body.style.overflowY = 'auto';
+                initGSAP();
+            }});
+        }
+
         for (let i = 1; i <= frameCount; i++) {
             const img = new Image();
-            img.crossOrigin = "anonymous";
-            let numStr = i.toString().padStart(4, '0');
+            // PADRÃO 3 DÍGITOS: ezgif-frame-001.jpg
+            let numStr = i.toString().padStart(3, '0');
             img.src = `${baseUrl}${numStr}.jpg`;
+            
             img.onload = () => {
                 loadedCount++;
                 const percent = Math.floor((loadedCount / frameCount) * 100);
                 progressBar.style.width = `${percent}%`;
-                loadingText.innerText = `SYSTEM BOOTING ${percent}%`;
+                loadingText.innerText = `SISTEMA INICIALIZANDO ${percent}%`;
+
                 if (loadedCount === 1) { resizeCanvas(); drawCover(img); }
-                if (loadedCount === frameCount) {
-                    setTimeout(() => {
-                        gsap.to(loader, { opacity: 0, duration: 1, onComplete: () => loader.style.visibility = 'hidden' });
-                        document.body.style.overflowY = 'auto';
-                        initGSAP();
-                    }, 500);
-                }
+                if (loadedCount === frameCount) finalizeLoading();
+            };
+            img.onerror = () => {
+                loadedCount++;
+                if (loadedCount === frameCount) finalizeLoading();
             };
             images.push(img);
         }
@@ -413,34 +281,15 @@
             });
 
             gsap.to("#hero-text-inner", {
-                opacity: 0, y: -100, scale: 0.9, blur: 20,
+                opacity: 0, y: -100, scale: 0.9, 
                 scrollTrigger: { trigger: "#scroll-hero", start: "10% top", end: "40% top", scrub: true }
-            });
-
-            window.addEventListener('scroll', () => {
-                const nav = document.getElementById('navbar');
-                if (window.scrollY > 100) {
-                    nav.classList.add('premium-blur', 'h-20');
-                    nav.classList.remove('h-24');
-                } else {
-                    nav.classList.remove('premium-blur', 'h-20');
-                    nav.classList.add('h-24');
-                }
             });
 
             gsap.utils.toArray('.fade-up').forEach((el) => {
                 gsap.fromTo(el, 
-                    { opacity: 0, y: 60, filter: "blur(10px)", scale: 0.95 },
-                    { 
-                        opacity: 1, y: 0, filter: "blur(0px)", scale: 1,
-                        duration: 1.2, ease: "expo.out",
-                        scrollTrigger: { trigger: el, start: "top 90%" }
-                    }
+                    { opacity: 0, y: 60, filter: "blur(10px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }
                 );
-            });
-
-            gsap.to("#beneficios-imagem", {
-                y: -30, rotate: 0, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut"
             });
         }
     </script>
