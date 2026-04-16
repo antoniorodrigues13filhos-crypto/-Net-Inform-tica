@@ -17,7 +17,6 @@
             --color-tech-bg: #0D0D0D; 
             --color-tech-primary: #FF7A00; 
             --font-sans: 'Space Grotesk', sans-serif;
-            /* 1. Ajustar Easing (Premium Ease-out) */
             --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
@@ -29,7 +28,6 @@
         }
 
         @layer utilities {
-            /* 2. Delay em Cascata e 5. Distância Reduzida (20px) */
             .animate-step {
                 opacity: 0;
                 transform: translateY(20px);
@@ -46,9 +44,8 @@
             .delay-subtitle { transition-delay: 0.2s; }
             .delay-button { transition-delay: 0.3s; }
 
-            /* 3. Micro interação no botão */
             .btn-interaction:active {
-                transform: scale(0.96);
+                @apply scale-95;
                 transition: transform 0.1s var(--ease-premium);
             }
 
@@ -63,7 +60,6 @@
             }
         }
 
-        /* 4. Efeito de fluidez no scroll (SÓ no hero) */
         .hero-main-container {
             position: sticky;
             top: 0;
@@ -73,8 +69,7 @@
             align-items: center;
             overflow: hidden;
             background-color: #0D0D0D;
-            /* Garante fluidez visual inicial */
-            will-change: transform, opacity;
+            z-index: 10;
         }
 
         #hero-canvas {
@@ -89,7 +84,7 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 70%);
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 80%);
             z-index: 5;
         }
 
@@ -97,6 +92,13 @@
             grid-column: 1 / span 10;
             text-align: left;
             pointer-events: none;
+        }
+
+        /* Garante que a seção seguinte cubra o hero no final */
+        .next-section {
+            position: relative;
+            z-index: 20;
+            background-color: #0D0D0D;
         }
     </style>
 </head>
@@ -109,7 +111,7 @@
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative" style="height: 600vh;">
+    <section id="scroll-hero" class="relative" style="height: 700vh;">
         
         <div class="hero-main-container" id="hero-fluid-target">
             <canvas id="hero-canvas"></canvas>
@@ -119,26 +121,26 @@
                 
                 <div id="step-1" class="text-group">
                     <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
-                        Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho?
+                        Cansado do seu PC <span class="text-tech-primary">travando</span>, esquentando ou desligando sozinho no meio do trabalho?
                     </h2>
                 </div>
 
                 <div id="step-2" class="text-group absolute inset-0 flex items-center px-8 lg:px-20 hidden">
                     <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
-                        Pouco espaço, <span class="text-white/40">lentidão constante</span> e programas que não abrem?
+                        Pouco espaço no SSD ou HD, <span class="text-white/40">lentidão constante</span> e programas que demoram uma eternidade?
                     </h2>
                 </div>
 
                 <div id="step-3" class="text-group absolute inset-0 flex flex-col justify-center px-8 lg:px-20 hidden">
                     <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.95] animate-step delay-title">
-                        Solução <span class="text-tech-primary">completa</span> Center Net:
+                        Aqui na Center Net Informática você encontra a <span class="text-tech-primary">solução completa</span> para seu computador:
                     </h2>
                     <p class="text-lg md:text-xl text-white font-medium mt-6 max-w-2xl animate-step delay-subtitle">
-                        Máquinas de alta performance e manutenção profissional para velocidade absoluta.
+                        PCs de alta performance e manutenção profissional para deixar sua máquina rápida, estável e sem dor de cabeça.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-5 mt-10 animate-step delay-button pointer-events-auto">
-                        <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-interaction">WhatsApp</a>
-                        <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm btn-interaction">Orçamento</a>
+                        <a href="#contato" class="bg-tech-primary text-tech-bg px-10 py-5 text-sm font-black uppercase tracking-widest btn-interaction">Falar no WhatsApp</a>
+                        <a href="#contato" class="border border-white/40 px-10 py-5 text-sm font-black uppercase tracking-widest bg-black/20 backdrop-blur-sm btn-interaction">Solicitar Orçamento</a>
                     </div>
                 </div>
 
@@ -146,12 +148,15 @@
         </div>
     </section>
 
+    <section class="next-section py-20 px-6">
+        </section>
+
     <script>
         lucide.createIcons();
 
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
-        const heroFluidTarget = document.getElementById('hero-fluid-target');
+        const heroTarget = document.getElementById('hero-fluid-target');
         const frameCount = 100;
         const images = [];
         let loadedCount = 0;
@@ -191,23 +196,27 @@
             const scrollTop = window.scrollY;
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
             
-            // Só executa se estiver dentro do Hero
             if (scrollTop <= scrollArea.scrollHeight) {
                 const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-                // 4. Efeito de fluidez no scroll (Acompanhar dedo e sumir suave)
-                // Movimento curto (0.2) e Fade out proporcional
-                heroFluidTarget.style.transform = `translateY(${scrollTop * 0.2}px)`;
-                heroFluidTarget.style.opacity = 1 - (scrollTop / 1000);
+                // Correção de Estabilidade (Desktop vs Mobile)
+                if (window.innerWidth > 768) {
+                    heroTarget.style.transform = `translateY(${scrollTop * 0.1}px)`;
+                } else {
+                    heroTarget.style.transform = `translateY(0px)`;
+                }
+                
+                // Suavização da Opacidade
+                heroTarget.style.opacity = 1 - (scrollTop / 2500);
 
-                // Frame Sync
+                // Sincronia de Vídeo
                 const frameIndex = Math.floor(scrollFraction * (frameCount - 1));
                 requestAnimationFrame(() => renderFrame(frameIndex));
 
-                // Lógica de Ativação dos Steps
+                // Controle de Ritmo dos Textos
                 const steps = [
-                    { id: 'step-1', range: [0.05, 0.3] },
-                    { id: 'step-2', range: [0.35, 0.6] },
+                    { id: 'step-1', range: [0.05, 0.25] },
+                    { id: 'step-2', range: [0.35, 0.55] },
                     { id: 'step-3', range: [0.65, 0.95] }
                 ];
 
@@ -222,8 +231,9 @@
                         });
                     } else {
                         anims.forEach(a => a.classList.remove('active'));
-                        // Pequeno delay para esconder o elemento após a animação de saída
-                        setTimeout(() => { if (!anims[0].classList.contains('active')) el.classList.add('hidden'); }, 600);
+                        setTimeout(() => { 
+                            if (!el.querySelector('.active')) el.classList.add('hidden'); 
+                        }, 400);
                     }
                 });
             }
