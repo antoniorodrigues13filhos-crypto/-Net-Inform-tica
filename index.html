@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Center Net Informática | Performance Elite</title>
+    <title>Center Net | Performance & Contraste</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,166 +16,169 @@
 
     <style type="text/tailwindcss">
         @theme {
-            --color-tech-bg: #030708; 
-            --color-tech-surface: #0D1B2A; 
-            --color-tech-primary: #00C2A8; 
+            --color-tech-bg: #0D0D0D; 
             --color-tech-action: #FF7A00; 
-            --color-tech-text: #FFFFFF;
+            --color-tech-hover: #FFA726;
+            --color-tech-price: #FFC107;
             --font-sans: 'Space Grotesk', sans-serif;
         }
 
         @layer base {
             body {
-                @apply bg-tech-bg text-tech-text antialiased overflow-x-hidden;
+                @apply bg-tech-bg text-white antialiased overflow-x-hidden;
             }
         }
 
         @layer utilities {
-            .hero-static-gradient {
-                background: radial-gradient(circle at 50% 50%, rgba(0, 194, 168, 0.12) 0%, rgba(3, 7, 8, 1) 70%);
+            .btn-premium {
+                @apply bg-tech-action text-tech-bg font-black uppercase tracking-widest transition-all duration-300 px-10 py-5;
+                box-shadow: 0 4px 15px rgba(255, 122, 0, 0.2);
             }
-            .glow-primary {
-                filter: drop-shadow(0 0 15px rgba(0, 194, 168, 0.4));
+            .btn-premium:hover {
+                @apply bg-tech-hover scale-105;
+                box-shadow: 0 0 30px rgba(255, 167, 38, 0.6);
             }
-            .btn-cta {
-                @apply bg-tech-primary text-tech-bg font-black uppercase tracking-widest transition-all duration-300;
-                box-shadow: 0 0 20px rgba(0, 194, 168, 0.3);
-            }
-            .btn-cta:hover {
-                @apply scale-105;
-                box-shadow: 0 0 40px rgba(0, 194, 168, 0.6);
-            }
+            .price-tag { @apply text-tech-price font-bold; }
+            .hero-heading { letter-spacing: -0.05em; line-height: 0.9; }
             
-            /* Keyframes para entrada suave */
-            @keyframes fadeSlideUp {
-                from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-                to { opacity: 1; transform: translateY(0); filter: blur(0); }
-            }
-
-            .animate-hero {
-                animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-                opacity: 0;
+            #hero-canvas {
+                position: absolute; inset: 0; width: 100%; height: 100%;
+                object-fit: cover; opacity: 0.25; /* Fundo sutil como solicitado */
+                filter: grayscale(100%) brightness(0.5);
+                pointer-events: none;
             }
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <nav class="fixed top-0 left-0 w-full z-50 h-20 flex items-center bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed top-0 left-0 w-full z-50 h-24 flex items-center bg-tech-bg/90 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="font-black text-2xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            </div>
-            <a href="#contato" class="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-5 py-2 text-[10px] font-black uppercase tracking-widest transition-all">Menu</a>
+            <span class="font-black text-2xl tracking-tighter uppercase">Center<span class="text-tech-action">Net</span></span>
+            <a href="#contato" class="text-[10px] font-black uppercase tracking-widest border-b-2 border-tech-action pb-1">Suporte Técnico</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden hero-static-gradient">
+    <section id="scroll-hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
         
-        <div id="hero-bg-parallax" class="absolute inset-0 pointer-events-none opacity-40">
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-tech-primary/20 blur-[120px] rounded-full"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-tech-action/10 blur-[100px] rounded-full"></div>
-        </div>
+        <canvas id="hero-canvas"></canvas>
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-tech-bg via-transparent to-tech-bg z-10"></div>
 
-        <div class="relative z-20 max-w-5xl mx-auto px-6 py-12 text-center">
-            
-            <h1 class="animate-hero text-4xl md:text-7xl font-black mb-6 leading-[0.95] tracking-tighter uppercase" style="animation-delay: 0.1s;">
-                Seu computador lento está te fazendo <span class="text-tech-primary glow-primary italic">perder dinheiro.</span>
+        <div class="relative z-20 max-w-5xl mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-8xl hero-heading font-black mb-8 uppercase">
+                SEU COMPUTADOR LENTO ESTÁ TE FAZENDO <span class="text-tech-action">PERDER DINHEIRO.</span>
             </h1>
 
-            <p class="animate-hero text-lg md:text-2xl text-white/60 max-w-3xl mx-auto mb-10 font-light leading-relaxed" style="animation-delay: 0.2s;">
-                Na Center Net Informática você encontra PCs, notebooks e manutenção profissional para trabalhar rápido, com segurança e sem dor de cabeça.
+            <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-12 font-light">
+                Na Center Net Informática você encontra PCs, notebooks e manutenção profissional para trabalhar rápido e sem dor de cabeça.
             </p>
 
-            <div class="animate-hero grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-12 text-left" style="animation-delay: 0.3s;">
-                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
-                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> PCs e Notebooks de alta performance
+            <div class="flex flex-wrap justify-center gap-6 mb-12">
+                <div class="flex items-center gap-2 text-sm uppercase tracking-widest font-bold">
+                    <i data-lucide="check" class="text-tech-action"></i> Performance
                 </div>
-                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
-                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> Periféricos e sistemas de segurança
+                <div class="flex items-center gap-2 text-sm uppercase tracking-widest font-bold">
+                    <i data-lucide="check" class="text-tech-action"></i> Segurança
                 </div>
-                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
-                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> Montagem profissional e upgrades
-                </div>
-                <div class="flex items-center gap-3 text-sm font-bold tracking-tight">
-                    <i data-lucide="check-circle-2" class="text-tech-primary w-5 h-5"></i> Manutenção rápida e confiável
+                <div class="flex items-center gap-2 text-sm uppercase tracking-widest font-bold">
+                    <i data-lucide="check" class="text-tech-action"></i> Upgrades
                 </div>
             </div>
 
-            <div class="animate-hero" style="animation-delay: 0.4s;">
-                <a href="https://wa.me/SEUNUMERO" class="btn-cta inline-flex items-center gap-3 px-10 py-6 text-sm md:text-base rounded-sm group">
-                    <i data-lucide="message-circle" class="w-6 h-6 fill-current"></i>
-                    Falar no WhatsApp agora
-                </a>
-            </div>
+            <a href="https://wa.me/SEUNUMERO" class="btn-premium inline-flex items-center gap-4">
+                Falar no WhatsApp agora
+                <i data-lucide="send" class="w-5 h-5"></i>
+            </a>
         </div>
     </section>
 
-    <section id="servicos" class="py-24 bg-tech-bg relative z-30">
+    <section class="py-24 bg-[#121212]">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-black uppercase tracking-widest mb-12 border-l-4 border-tech-primary pl-6">Nossos Serviços</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-tech-surface p-8 border border-white/5 hover:border-tech-primary/20 transition-all">
-                    <i data-lucide="monitor" class="w-10 h-10 text-tech-primary mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Vendas</h3>
-                    <p class="text-white/40">Hardware selecionado para máxima durabilidade.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="p-8 border border-white/5 bg-tech-bg group hover:border-tech-action/30 transition-all">
+                    <h3 class="text-xs tracking-[0.3em] text-white/40 uppercase mb-4">Workstation Elite</h3>
+                    <p class="text-2xl font-bold mb-6">PC Gamer & Edição</p>
+                    <p class="price-tag text-3xl mb-8">R$ 4.890,00</p>
+                    <button class="w-full py-4 border border-tech-action text-tech-action font-black text-xs uppercase hover:bg-tech-action hover:text-tech-bg transition-all">Ver Detalhes</button>
                 </div>
-                <div class="bg-tech-surface p-8 border border-white/5 hover:border-tech-primary/20 transition-all">
-                    <i data-lucide="wrench" class="w-10 h-10 text-tech-primary mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Manutenção</h3>
-                    <p class="text-white/40">Reparos ágeis com garantia técnica.</p>
                 </div>
-                <div class="bg-tech-surface p-8 border border-white/5 hover:border-tech-primary/20 transition-all">
-                    <i data-lucide="shield-check" class="w-10 h-10 text-tech-primary mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Segurança</h3>
-                    <p class="text-white/40">Monitoramento e proteção de ativos.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contato" class="py-24 bg-tech-surface/30">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-black uppercase mb-8">Dúvidas?</h2>
-            <p class="text-white/60 mb-10">Fale diretamente com um técnico especializado e resolva seu problema hoje mesmo.</p>
-            <a href="https://wa.me/SEUNUMERO" class="inline-block bg-white text-tech-bg px-12 py-5 font-black uppercase tracking-widest hover:bg-tech-primary transition-all">Enviar Mensagem</a>
         </div>
     </section>
 
     <script>
-        // Inicialização do Lucide
         lucide.createIcons();
 
-        // DESATIVAÇÃO DO GSAP HERO E CANVAS
-        // As funções de carregamento de frames e renderização do canvas foram removidas
-        // Mantemos o ScrollTrigger apenas para as outras seções do site
-        
-        gsap.registerPlugin(ScrollTrigger);
+        // LÓGICA DO CANVAS (SUTIL)
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        const frameCount = 100;
+        const images = [];
+        let loaded = 0;
+        let canvasObj = { frame: 0 };
 
-        // EFEITO PARALLAX LEVE CSS/GSAP PARA O BACKGROUND DO HERO
-        gsap.to("#hero-bg-parallax", {
-            y: 100,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#scroll-hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
+        const baseUrl = "./hardline/ezgif-frame-";
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            for (let i = 1; i <= frameCount; i++) {
+                const img = new Image();
+                img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
+                img.onload = () => {
+                    loaded++;
+                    if (loaded === frameCount) startAnimation();
+                };
+                images.push(img);
             }
-        });
+        }
 
-        // ANIMAÇÕES DAS SEÇÕES RESTANTES
-        gsap.utils.toArray('section:not(#scroll-hero)').forEach(section => {
-            gsap.from(section, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
+        function draw(index) {
+            if (images[index]) {
+                const img = images[index];
+                const canvasRatio = canvas.width / canvas.height;
+                const imgRatio = img.width / img.height;
+                let rw, rh, ox = 0, oy = 0;
+                if (canvasRatio > imgRatio) {
+                    rw = canvas.width; rh = img.height * (canvas.width / img.width);
+                    oy = (canvas.height - rh) / 2;
+                } else {
+                    rh = canvas.height; rw = img.width * (canvas.height / img.height);
+                    ox = (canvas.width - rw) / 2;
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, ox, oy, rw, rh);
+            }
+        }
+
+        function startAnimation() {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Loop sutil mesmo sem scroll
+            gsap.to(canvasObj, {
+                frame: frameCount - 1,
+                duration: 4,
+                repeat: -1,
+                ease: "none",
+                onUpdate: () => draw(Math.floor(canvasObj.frame))
+            });
+
+            // Parallax leve no texto
+            gsap.to(".hero-heading", {
+                y: -50,
                 scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none none"
+                    trigger: "#scroll-hero",
+                    start: "top top",
+                    scrub: true
                 }
             });
+        }
+
+        init();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
     </script>
 </body>
