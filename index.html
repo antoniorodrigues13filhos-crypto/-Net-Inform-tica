@@ -115,7 +115,6 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            /* CORREÇÃO DO ZOOM: object-fit cover garante o preenchimento sem esticar */
             object-fit: cover;
             opacity: 1; 
         }
@@ -233,20 +232,26 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
-        // Variáveis para suavização (Smooth Inércia)
         let currentFrame = 0;
         let targetFrame = 0;
-        const lerpFactor = 0.1; 
+        const lerpFactor = 0.08; // Suavidade levemente maior para evitar pulos iniciais
 
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
+                
+                // Prioridade para os primeiros frames para evitar o "engasgo" inicial
+                if (i <= 10) img.loading = "eager"; 
+
                 img.onload = () => {
                     loadedCount++;
                     const progress = (loadedCount / frameCount) * 100;
                     document.getElementById('load-fill').style.width = `${progress}%`;
-                    if (loadedCount === frameCount) {
+                    
+                    // Começa a renderizar assim que o primeiro frame carregar
+                    if (loadedCount === 1) {
+                        renderFrame(0);
                         requestAnimationFrame(animate); 
                     }
                 };
@@ -255,14 +260,17 @@
         }
 
         function animate() {
-            currentFrame += (targetFrame - currentFrame) * lerpFactor;
-            renderFrame(Math.round(currentFrame));
+            // Só executa o LERP se houver mudança significativa
+            if (Math.abs(targetFrame - currentFrame) > 0.001) {
+                currentFrame += (targetFrame - currentFrame) * lerpFactor;
+                renderFrame(Math.round(currentFrame));
+            }
             requestAnimationFrame(animate);
         }
 
         function renderFrame(index) {
             const safeIndex = Math.max(0, Math.min(frameCount - 1, index));
-            if (!images[safeIndex]) return;
+            if (!images[safeIndex] || !images[safeIndex].complete) return;
             
             const img = images[safeIndex];
             const canvasRatio = canvas.width / canvas.height;
@@ -304,12 +312,8 @@
         });
 
         function resize() {
-            // CORREÇÃO DO ZOOM: Revertido DPR para 1 e removido ctx.scale
-            // Isso define a resolução interna exata da janela de visualização
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            
-            // Renderiza o frame atual na nova resolução sem escala extra
             renderFrame(Math.round(currentFrame));
         }
 
