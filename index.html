@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Center Net Informática | Performance Elite</title>
+    
+    <meta name="google" content="notranslate">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,158 +14,118 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style type="text/tailwindcss">
-        @theme {
-            --color-tech-bg: #0D0D0D; 
-            --color-tech-primary: #FF7A00; 
-            --color-tech-primary-light: #FFA726;
-            --color-tech-accent: #FFC107;
-            --font-sans: 'Space Grotesk', sans-serif;
+    <style>
+        /* CSS NATIVO - Aqui o Tailwind não mexe, então não dá erro */
+        :root {
+            --tech-primary: #FF7A00;
+            --tech-bg: #0D0D0D;
         }
 
-        @layer base {
-            body { 
-                @apply bg-tech-bg text-white antialiased overflow-x-hidden; 
-                font-family: var(--font-sans);
-            }
+        body {
+            background-color: var(--tech-bg);
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        @layer utilities {
-            .hero-grid {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                width: 100%;
-                max-width: 1280px;
-                margin: 0 auto;
-                padding: 0 1.5rem;
-            }
-
-            .btn-glow {
-                box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
-                transition: all 0.3s ease;
-            }
-            .btn-glow:hover {
-                box-shadow: 0 0 35px rgba(255, 167, 38, 0.6);
-                transform: translateY(-2px);
-            }
-
-            /* FIX: CSS Nativo para evitar erro no Tailwind @apply */
-            .text-group {
-                grid-column: 1 / span 12;
-                opacity: 0;
-                transform: translateY(40px);
-                filter: blur(15px);
-                pointer-events: none;
-                transition: opacity 1s, transform 1s, filter 1s;
-                transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-            }
-
-            @media (min-width: 768px) {
-                .text-group { grid-column: 1 / span 9; }
-            }
-
-            .text-group.active {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0px);
-                pointer-events: auto;
-            }
-
-            .glass-container {
-                @apply relative p-8 md:p-12 overflow-hidden;
-                background: rgba(255, 255, 255, 0.03);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .headline-main {
-                @apply text-3xl md:text-6xl font-black uppercase tracking-tighter mb-6 leading-[0.95];
-                background: linear-gradient(135deg, #FFF 30%, rgba(255,255,255,0.5) 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .text-highlight {
-                -webkit-text-fill-color: var(--color-tech-primary) !important;
-                @apply text-tech-primary;
-            }
-
-            .product-card {
-                @apply relative overflow-hidden transition-all duration-700 ease-out bg-white/5 border border-white/10;
-            }
-            
-            .product-card::after {
-                content: '';
-                position: absolute;
-                top: 0; left: -100%; width: 50%; height: 100%;
-                background: linear-gradient(to right, transparent, rgba(255, 122, 0, 0.3), transparent);
-                transform: skewX(-25deg);
-            }
-
-            .product-card.active::after {
-                animation: scan 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            }
-
-            @keyframes scan {
-                0% { left: -100%; }
-                100% { left: 150%; }
-            }
-
-            .card-reveal {
-                @apply opacity-0 translate-y-10 transition-all duration-800;
-            }
-            .card-reveal.active {
-                @apply opacity-100 translate-y-0;
-            }
+        /* MOTOR DE REVELAÇÃO DAS FRASES */
+        .text-group {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(15px);
+            transition: opacity 1s, transform 1s, filter 1s;
+            transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            position: absolute;
+            width: 90%;
+            max-width: 800px;
         }
 
-        .hero-sticky-container {
-            position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center;
+        .text-group.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+            pointer-events: auto;
         }
-        #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        
-        .hero-overlay { position: absolute; inset: 0; z-index: 5; background: transparent; }
-        @media (min-width: 768px) {
-            .hero-overlay { background: radial-gradient(circle at 20% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); }
+
+        /* GLASS CARD */
+        .glass-container {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* SCANNER DE PRODUTOS */
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.7s ease-out;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 122, 0, 0.3), transparent);
+            transform: skewX(-25deg);
+        }
+
+        .product-card.active::after {
+            animation: scan 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 150%; }
+        }
+
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="preloader" class="fixed inset-0 z-[100] bg-tech-bg flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="mb-4 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Sistemas Center Net</div>
-        <div class="w-48 h-[2px] bg-white/10 overflow-hidden relative">
-            <div id="load-fill" class="h-full bg-tech-primary transition-all duration-500 w-0" style="box-shadow: 0 0 15px #FF7A00;"></div>
+    <div id="preloader" style="position: fixed; inset: 0; z-index: 100; background: #0D0D0D; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.7s;">
+        <div style="margin-bottom: 1rem; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: rgba(255,255,255,0.4);">Sistemas Center Net</div>
+        <div style="width: 192px; height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; position: relative;">
+            <div id="load-fill" style="height: 100%; background: #FF7A00; width: 0%; transition: width 0.5s; box-shadow: 0 0 15px #FF7A00;"></div>
         </div>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed top-0 left-0 w-full z-50 bg-[#0D0D0D]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
+            <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-[#FF7A00]">Net</span></span>
+            <a href="#contato" class="bg-[#FF7A00] text-black px-6 py-2 text-[10px] font-black uppercase tracking-widest">WhatsApp Elite</a>
         </div>
     </nav>
 
-    <section id="scroll-hero" class="relative" style="height: 600vh;">
-        <div class="hero-sticky-container">
+    <section id="scroll-hero" style="position: relative; height: 600vh;">
+        <div style="position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; display: flex; align-items: center;">
             <canvas id="hero-canvas"></canvas>
-            <div class="hero-overlay"></div>
             
-            <div class="hero-grid relative z-10">
+            <div class="w-full max-w-7xl mx-auto px-6 relative z-10">
                 <div id="step-1" class="text-group">
                     <div class="glass-container">
-                        <h2 class="headline-main">O seu fluxo de trabalho <span class="text-highlight">não pode parar</span> por limitações técnicas.</h2>
+                        <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-none">O seu fluxo de trabalho <span class="text-[#FF7A00]">não pode parar</span>.</h2>
                     </div>
                 </div>
-                <div id="step-2" class="text-group absolute">
+                <div id="step-2" class="text-group">
                     <div class="glass-container">
-                        <h2 class="headline-main">Esqueça a lentidão e os <span class="text-highlight">travamentos</span> que interrompem sua produtividade.</h2>
+                        <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-none">Adeus lentidão e <span class="text-[#FF7A00]">travamentos</span> constantes.</h2>
                     </div>
                 </div>
-                <div id="step-3" class="text-group absolute">
+                <div id="step-3" class="text-group">
                     <div class="glass-container">
-                        <h2 class="headline-main">Na Center Net, unimos <span class="text-highlight">Hardware de Elite</span> e manutenção.</h2>
+                        <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-none">Poder de <span class="text-[#FF7A00]">Hardware Elite</span> em suas mãos.</h2>
                         <p class="text-white/70 uppercase tracking-widest text-[10px] font-bold mt-4">Performance Máxima • Estabilidade Absoluta</p>
                     </div>
                 </div>
@@ -171,54 +133,44 @@
         </div>
     </section>
 
-    <section id="produtos" class="py-32 bg-tech-bg relative z-20 border-t border-white/5">
+    <section id="produtos" class="py-32 bg-[#0D0D0D] relative z-20 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16 card-reveal">
-                Produtos de <span class="text-tech-primary">Alta Performance</span>
-            </h2>
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-16">Produtos <span class="text-[#FF7A00]">Alta Performance</span></h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="product-card card-reveal delay-1 group p-8">
+                <div class="product-card p-8 group">
                     <div class="mb-6 h-48 flex items-center justify-center">
-                        <img src="produtos/amdryzen5.png" alt="Ryzen 5" class="w-full h-full object-contain group-hover:scale-110 transition-transform">
+                        <img src="produtos/amdryzen5.png" alt="Ryzen" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-2">amd rayzen 5 5600gt</h3>
-                    <div class="w-12 h-[2px] bg-tech-primary mb-6 group-hover:w-full transition-all"></div>
-                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Solicitar Orçamento →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4">amd rayzen 5 5600gt</h3>
+                    <a href="#contato" class="text-[#FF7A00] text-[10px] font-black uppercase tracking-widest">Orçamento Online →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-2 group p-8">
+                <div class="product-card p-8 group">
                     <div class="mb-6 h-48 flex items-center justify-center">
-                        <img src="produtos/nitrov5.png" alt="Nitro V" class="w-full h-full object-contain group-hover:scale-110 transition-transform">
+                        <img src="produtos/nitrov5.png" alt="Nitro" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-2">nitro v intel core</h3>
-                    <div class="w-12 h-[2px] bg-tech-primary mb-6 group-hover:w-full transition-all"></div>
-                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Disponibilidade →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4">nitro v intel core</h3>
+                    <a href="#contato" class="text-[#FF7A00] text-[10px] font-black uppercase tracking-widest">Ver Estoque →</a>
                 </div>
 
-                <div class="product-card card-reveal delay-3 group p-8">
+                <div class="product-card p-8 group">
                     <div class="mb-6 h-48 flex items-center justify-center">
-                        <img src="produtos/rtx3090.png" alt="RTX 3060" class="w-full h-full object-contain group-hover:scale-110 transition-transform">
+                        <img src="produtos/rtx3090.png" alt="RTX" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
-                    <h3 class="text-2xl font-bold uppercase mb-2">rtx 3060 elite</h3>
-                    <div class="w-12 h-[2px] bg-tech-primary mb-6 group-hover:w-full transition-all"></div>
-                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Preços →</a>
+                    <h3 class="text-2xl font-bold uppercase mb-4">rtx 3060 elite</h3>
+                    <a href="#contato" class="text-[#FF7A00] text-[10px] font-black uppercase tracking-widest">Ver Preços →</a>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
-        // Carrega ícones com verificação para evitar erro de feature
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        });
-
+        // Inicialização limpa
         window.addEventListener('load', () => {
             const pre = document.getElementById('preloader');
-            setTimeout(() => { pre.style.opacity = '0'; setTimeout(() => pre.style.display = 'none', 700); }, 800);
+            pre.style.opacity = '0';
+            setTimeout(() => pre.style.display = 'none', 700);
         });
 
         const canvas = document.getElementById('hero-canvas');
@@ -257,6 +209,8 @@
         function renderFrame(index) {
             const img = images[index];
             if (!img || !img.complete) return;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             const canvasRatio = canvas.width / canvas.height, imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
             if (canvasRatio > imgRatio) { rw = canvas.width; rh = img.height * (canvas.width / img.width); oy = (canvas.height - rh) / 2; }
@@ -271,22 +225,18 @@
             targetFrame = scrollFraction * (frameCount - 1);
 
             const steps = [document.getElementById('step-1'), document.getElementById('step-2'), document.getElementById('step-3')];
-            steps.forEach(s => { if(s) s.classList.remove('active'); });
+            steps.forEach(s => s?.classList.remove('active'));
 
             if (scrollFraction > 0.05 && scrollFraction < 0.3) steps[0]?.classList.add('active');
             else if (scrollFraction >= 0.35 && scrollFraction < 0.6) steps[1]?.classList.add('active');
             else if (scrollFraction >= 0.65) steps[2]?.classList.add('active');
 
-            if (scrollFraction >= 0.93) document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
+            if (scrollFraction >= 0.93) {
+                document.querySelectorAll('.product-card').forEach(el => el.classList.add('active'));
+            }
         });
 
-        window.addEventListener('resize', () => { 
-            canvas.width = window.innerWidth; 
-            canvas.height = window.innerHeight; 
-            renderFrame(Math.round(currentFrame)); 
-        });
-        
-        window.dispatchEvent(new Event('resize'));
+        window.addEventListener('resize', () => renderFrame(Math.round(currentFrame)));
         preloadImages();
     </script>
 </body>
