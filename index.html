@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
@@ -12,8 +11,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style type="text/tailwindcss">
         @theme {
@@ -36,30 +33,53 @@
         }
 
         body { background-color: var(--color-tech-bg); color: #FFFFFF; font-family: var(--font-sans); overflow-x: hidden; }
-        #hero-canvas { opacity: 0.3; filter: grayscale(100%) brightness(0.6); }
         
-        /* CORREÇÃO DE POSICIONAMENTO E ESPAÇAMENTO */
-        .hero-text-container {
+        /* HERO TRAVADO COM STICKY */
+        .hero-sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            background-color: #0D0D0D;
+            display: flex;
+            align-items: center;
+        }
+
+        #hero-canvas { 
             position: absolute;
             inset: 0;
-            display: flex;
-            align-items: center; /* Centraliza verticalmente na área útil */
-            padding-top: 100px; /* Garante distância do cabeçalho fixo */
+            width: 100%;
+            height: 100%;
+            opacity: 0.3; 
+            filter: grayscale(100%) brightness(0.6); 
+            object-fit: cover;
+        }
+        
+        .hero-text-container {
+            position: relative;
             z-index: 10;
+            padding-top: 5rem;
+            width: 100%;
             pointer-events: none;
         }
 
+        /* ANIMAÇÃO NATIVA POR SCROLL (VIEW-TIMELINE) */
         .text-step {
-            position: absolute;
-            max-width: 900px;
+            max-width: 1000px;
             text-align: left;
+            margin-bottom: 30vh; /* Espaçamento para o ritmo do scroll */
             opacity: 0;
-            transform: translateY(50px);
-            filter: blur(20px);
-            will-change: transform, opacity, filter;
+            transform: translateY(40px);
+            filter: blur(15px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        .step-active {
+        /* Ativação simples via Intersection Observer ou Scroll */
+        .text-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
             pointer-events: auto;
         }
     </style>
@@ -76,33 +96,34 @@
         </div>
     </nav>
 
-    <section id="scroll-hero" style="height:800vh; position:relative;">
-        <div style="position:sticky; top:0; height:100vh; width:100%; overflow:hidden; background-color:#0D0D0D; position: relative;">
-            <canvas id="hero-canvas" style="position:absolute; inset:0; width:100%; height:100%;"></canvas>
+    <section id="scroll-hero" class="relative" style="height: 500vh;">
+        
+        <div class="hero-sticky-container">
+            <canvas id="hero-canvas"></canvas>
             
             <div class="hero-text-container px-6 lg:px-20 max-w-7xl mx-auto w-full">
                 
-                <div id="text-step-1" class="text-step">
+                <div class="text-step" id="step1">
                     <h2 class="text-4xl md:text-7xl font-black uppercase leading-[1.1] tracking-tighter">
                         Seu computador lento <br> está te fazendo <span class="text-tech-primary">perder tempo e dinheiro</span> todos os dias.
                     </h2>
                 </div>
 
-                <div id="text-step-2" class="text-step">
+                <div class="text-step" id="step2">
                     <h2 class="text-3xl md:text-6xl font-black uppercase leading-[1.1] tracking-tighter">
-                        Travamentos e lentidão <br>
-                        <span class="text-white/40">atrapalham seu trabalho e te impedem de crescer.</span>
+                        Travamentos, lentidão e falta de desempenho <br>
+                        <span class="text-white/40">atrapalham seu trabalho e te impedem de crescer?</span>
                     </h2>
                 </div>
 
-                <div id="text-step-3" class="text-step">
+                <div class="text-step" id="step3">
                     <h1 class="text-5xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8 uppercase">
-                        Seu computador <br/> pronto para <span class="text-tech-primary">vencer.</span>
+                        Sua máquina <br/> pronta para <span class="text-tech-primary">vencer.</span>
                     </h1>
                     <p class="text-lg md:text-xl text-white/60 mb-10 max-w-xl font-light">
-                        Na Center Net Informática, você encontra performance profissional para trabalhar com velocidade e segurança.
+                        Na Center Net Informática você encontra PCs e manutenção profissional para trabalhar rápido, com segurança e sem dor de cabeça.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-5 pointer-events-auto">
+                    <div class="flex flex-col sm:flex-row gap-5">
                         <a href="#contato" class="inline-flex items-center justify-center px-10 py-5 text-sm font-black uppercase tracking-widest text-tech-bg bg-tech-primary btn-glow">
                             Quero meu PC de Alta Performance
                         </a>
@@ -111,6 +132,7 @@
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -118,12 +140,12 @@
     <script>
         lucide.createIcons();
 
+        // LÓGICA DE CANVAS SEM GSAP (Baseada em Scroll puro)
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         const frameCount = 100;
         const images = [];
         let loaded = 0;
-        let canvasObj = { frame: 0 };
 
         const baseUrl = "./hardline/ezgif-frame-";
 
@@ -137,7 +159,6 @@
                 img.onload = () => {
                     loaded++;
                     if (loaded === 1) draw(0);
-                    if (loaded === frameCount) startGSAP();
                 };
                 images.push(img);
             }
@@ -161,54 +182,40 @@
             }
         }
 
-        function startGSAP() {
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // Sincroniza vídeo com o scroll
-            gsap.to(canvasObj, {
-                frame: frameCount - 1,
-                snap: "frame",
-                scrollTrigger: {
-                    trigger: "#scroll-hero",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1
-                },
-                onUpdate: () => draw(canvasObj.frame)
-            });
+        // CONTROLADOR DE SCROLL NATIVO
+        window.addEventListener('scroll', () => {
+            const scrollArea = document.getElementById('scroll-hero');
+            const scrollTop = window.scrollY;
+            const scrollHeight = scrollArea.offsetHeight - window.innerHeight;
+            const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
 
-            // Timeline de Animação de Texto com Ritmo
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#scroll-hero",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1
+            // Atualiza frames do canvas
+            const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+            requestAnimationFrame(() => draw(frameIndex));
+
+            // Ativação dos passos de texto por porcentagem de scroll
+            const steps = [
+                { id: 'step1', start: 0.05, end: 0.3 },
+                { id: 'step2', start: 0.35, end: 0.6 },
+                { id: 'step3', start: 0.65, end: 1.0 }
+            ];
+
+            steps.forEach(step => {
+                const el = document.getElementById(step.id);
+                if (scrollFraction >= step.start && scrollFraction <= step.end) {
+                    el.classList.add('visible');
+                } else {
+                    el.classList.remove('visible');
                 }
             });
-
-            tl.to("#text-step-1", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 })
-              .to("#text-step-1", { opacity: 0, y: -60, filter: "blur(20px)", duration: 2 }, "+=1.5")
-              
-              .to("#text-step-2", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 })
-              .to("#text-step-2", { opacity: 0, y: -60, filter: "blur(20px)", duration: 2 }, "+=1.5")
-              
-              .to("#text-step-3", { 
-                  opacity: 1, 
-                  y: 0, 
-                  filter: "blur(0px)", 
-                  duration: 2,
-                  onStart: () => document.getElementById('text-step-3').classList.add('step-active') 
-              });
-        }
+        });
 
         initCanvas();
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            draw(canvasObj.frame);
+            draw(0);
         });
     </script>
 </body>
 </html>
-```
