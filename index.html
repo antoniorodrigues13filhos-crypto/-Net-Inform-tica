@@ -230,11 +230,12 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
-        // FPS Sync Variables
         let currentFrame = 0;
         let targetFrame = 0;
         let lastTime = 0;
-        const speed = 0.008; // Controla a "massa" do movimento. Menor = mais suave/pesado.
+        
+        // AJUSTE ÚNICO: Velocidade aumentada de 0.008 para 0.012 para reduzir delay no mobile
+        const speed = 0.012; 
 
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
@@ -256,7 +257,6 @@
             const deltaTime = timestamp - lastTime;
             lastTime = timestamp;
 
-            // Delta-Time Based Smoothing (Independente de FPS do monitor)
             const diff = targetFrame - currentFrame;
             currentFrame += diff * Math.min(1, speed * deltaTime);
 
@@ -295,7 +295,6 @@
             
             targetFrame = scrollFraction * (frameCount - 1);
 
-            // Steps logic
             const s1 = document.getElementById('step-1');
             const s2 = document.getElementById('step-2');
             const s3 = document.getElementById('step-3');
