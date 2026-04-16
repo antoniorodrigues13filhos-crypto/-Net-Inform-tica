@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Center Net Informática | Performance Elite</title>
     
+    <meta name="google" content="notranslate">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -56,18 +58,20 @@
                 text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             }
 
+            /* Destaque estratégico na copy */
             .text-highlight {
                 -webkit-text-fill-color: var(--color-tech-primary) !important;
                 @apply text-tech-primary;
             }
 
+            /* FIX: Transição movida para fora do @apply para evitar erro de compilação */
             .text-group {
                 grid-column: 1 / span 10;
                 text-align: left;
                 opacity: 0;
                 transform: translateY(40px);
                 filter: blur(15px);
-                transition: all 0.9s ease-out;
+                transition: opacity 0.9s ease-out, transform 0.9s ease-out, filter 0.9s ease-out;
                 pointer-events: none;
             }
 
@@ -90,6 +94,7 @@
                 @apply relative overflow-hidden transition-all duration-700 ease-out bg-white/5 border border-white/10;
             }
 
+            /* Efeito de Scanner Sequencial */
             .product-card::after {
                 content: '';
                 position: absolute;
@@ -139,6 +144,7 @@
             object-fit: cover;
         }
 
+        /* Hero Overlay adaptativo para não matar o vídeo no mobile */
         .hero-overlay {
             position: absolute;
             inset: 0;
@@ -165,7 +171,7 @@
     <nav class="fixed top-0 left-0 w-full z-50 bg-tech-bg/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <span class="font-black text-xl tracking-tighter uppercase">Center<span class="text-tech-primary">Net</span></span>
-            <a href="#contato" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
+            <a href="https://wa.me/seunumeroprofissional" class="bg-tech-primary text-tech-bg px-6 py-2 text-[10px] font-black uppercase tracking-widest btn-glow">WhatsApp Elite</a>
         </div>
     </nav>
 
@@ -208,7 +214,7 @@
                     </div>
                     <h3 class="text-2xl font-bold uppercase mb-2">amd rayzen 5 5600gt</h3>
                     <div class="w-12 h-[2px] bg-tech-primary mb-6 transition-all group-hover:w-full"></div>
-                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Solicitar Orçamento →</a>
+                    <a href="https://wa.me/seunumeroprofissional" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Solicitar Orçamento →</a>
                 </div>
 
                 <div class="product-card card-reveal delay-2 group p-8 backdrop-blur-sm">
@@ -217,7 +223,7 @@
                     </div>
                     <h3 class="text-2xl font-bold uppercase mb-2">nitro v intel core</h3>
                     <div class="w-12 h-[2px] bg-tech-primary mb-6 transition-all group-hover:w-full"></div>
-                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Disponibilidade →</a>
+                    <a href="https://wa.me/seunumeroprofissional" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Disponibilidade →</a>
                 </div>
 
                 <div class="product-card card-reveal delay-3 group p-8 backdrop-blur-sm">
@@ -226,18 +232,22 @@
                     </div>
                     <h3 class="text-2xl font-bold uppercase mb-2">rtx 3060 elite</h3>
                     <div class="w-12 h-[2px] bg-tech-primary mb-6 transition-all group-hover:w-full"></div>
-                    <a href="#contato" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Preços →</a>
+                    <a href="https://wa.me/seunumeroprofissional" class="text-tech-primary text-[10px] font-black uppercase tracking-widest">Ver Preços →</a>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
-        lucide.createIcons();
+        // Inicializa ícones com segurança
+        try { lucide.createIcons(); } catch(e) {}
 
         window.addEventListener('load', () => {
             const pre = document.getElementById('preloader');
-            setTimeout(() => { pre.style.opacity = '0'; setTimeout(() => pre.style.display = 'none', 700); }, 800);
+            setTimeout(() => { 
+                pre.style.opacity = '0'; 
+                setTimeout(() => pre.style.display = 'none', 700); 
+            }, 800);
         });
 
         const canvas = document.getElementById('hero-canvas');
@@ -247,8 +257,9 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-"; 
 
+        // MOTOR DE PERFORMANCE ADAPTATIVO (VIBE CODE)
         let currentFrame = 0, targetFrame = 0, lastTime = 0;
-        const speed = 0.012; 
+        const speed = 0.012; // Suavidade para 60/120Hz
 
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
@@ -256,7 +267,9 @@
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
                 img.onload = () => {
                     loadedCount++;
-                    document.getElementById('load-fill').style.width = `${(loadedCount / frameCount) * 100}%`;
+                    const bar = document.getElementById('load-fill');
+                    if(bar) bar.style.width = `${(loadedCount / frameCount) * 100}%`;
+                    
                     if (loadedCount === 1) renderFrame(0);
                     if (loadedCount === frameCount) requestAnimationFrame(mainLoop);
                 };
@@ -265,10 +278,14 @@
         }
 
         function mainLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
             const deltaTime = timestamp - lastTime;
             lastTime = timestamp;
+
             const diff = targetFrame - currentFrame;
+            // Cálculo do Delta Time para manter a fluidez idependente da tela
             currentFrame += diff * Math.min(1, speed * deltaTime);
+
             if (Math.abs(diff) > 0.01) renderFrame(Math.round(currentFrame));
             requestAnimationFrame(mainLoop);
         }
@@ -276,12 +293,20 @@
         function renderFrame(index) {
             const img = images[index];
             if (!img || !img.complete) return;
+            
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+
             const canvasRatio = canvas.width / canvas.height, imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
-            if (canvasRatio > imgRatio) { rw = canvas.width; rh = img.height * (canvas.width / img.width); oy = (canvas.height - rh) / 2; }
-            else { rh = canvas.height; rw = img.width * (canvas.height / img.height); ox = (canvas.width - rw) / 2; }
+
+            if (canvasRatio > imgRatio) { 
+                rw = canvas.width; rh = img.height * (canvas.width / img.width); 
+                oy = (canvas.height - rh) / 2; 
+            } else { 
+                rh = canvas.height; rw = img.width * (canvas.height / img.height); 
+                ox = (canvas.width - rw) / 2; 
+            }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, ox, oy, rw, rh);
         }
@@ -296,7 +321,10 @@
             s2.classList.toggle('active', progress > 0.35 && progress < 0.6);
             s3.classList.toggle('active', progress > 0.65);
 
-            if (progress >= 0.93) document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
+            if (progress >= 0.93) {
+                document.querySelectorAll('.card-reveal').forEach(el => el.classList.add('active'));
+                document.querySelectorAll('.product-card').forEach(el => el.classList.add('active'));
+            }
         });
 
         window.addEventListener('resize', () => renderFrame(Math.round(currentFrame)));
