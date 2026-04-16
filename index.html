@@ -56,7 +56,6 @@
                 text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             }
 
-            /* Classe para manter o destaque mesmo com o gradiente do título */
             .text-highlight {
                 -webkit-text-fill-color: var(--color-tech-primary) !important;
                 @apply text-tech-primary;
@@ -147,14 +146,16 @@
             object-fit: cover;
         }
 
+        /* REMOÇÃO DA SOMBRA NO MOBILE */
         .hero-overlay {
             position: absolute;
             inset: 0;
             z-index: 5;
-            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8) 100%);
+            background: transparent; /* Zero sombra por padrão (Mobile) */
         }
 
         @media (min-width: 768px) {
+            /* Mantém apenas no PC para ajudar na leitura lateral */
             .hero-overlay {
                 background: radial-gradient(circle at 20% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
             }
@@ -244,6 +245,7 @@
     <script>
         lucide.createIcons();
 
+        // MOTOR DE VÍDEO E LÓGICA MANTIDOS CONFORME AJUSTE DE PERFORMANCE ANTERIOR
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
