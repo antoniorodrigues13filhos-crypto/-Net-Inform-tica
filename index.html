@@ -219,9 +219,7 @@
             bar.style.width = '100%';
             setTimeout(() => {
                 preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 700);
+                setTimeout(() => preloader.style.display = 'none', 700);
             }, 600);
         });
 
@@ -232,47 +230,48 @@
         let loadedCount = 0;
         const baseUrl = "./hardline/ezgif-frame-";
 
+        // FPS Sync Variables
         let currentFrame = 0;
         let targetFrame = 0;
-        const lerpFactor = 0.08; // Suavidade levemente maior para evitar pulos iniciais
+        let lastTime = 0;
+        const speed = 0.008; // Controla a "massa" do movimento. Menor = mais suave/pesado.
 
         function preloadImages() {
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
                 img.src = `${baseUrl}${i.toString().padStart(3, '0')}.jpg`;
-                
-                // Prioridade para os primeiros frames para evitar o "engasgo" inicial
-                if (i <= 10) img.loading = "eager"; 
-
+                if (i <= 15) img.loading = "eager";
                 img.onload = () => {
                     loadedCount++;
-                    const progress = (loadedCount / frameCount) * 100;
-                    document.getElementById('load-fill').style.width = `${progress}%`;
-                    
-                    // Começa a renderizar assim que o primeiro frame carregar
-                    if (loadedCount === 1) {
-                        renderFrame(0);
-                        requestAnimationFrame(animate); 
-                    }
+                    document.getElementById('load-fill').style.width = `${(loadedCount / frameCount) * 100}%`;
+                    if (loadedCount === 1) renderFrame(0);
+                    if (loadedCount === frameCount) requestAnimationFrame(mainLoop);
                 };
                 images.push(img);
             }
         }
 
-        function animate() {
-            // Só executa o LERP se houver mudança significativa
-            if (Math.abs(targetFrame - currentFrame) > 0.001) {
-                currentFrame += (targetFrame - currentFrame) * lerpFactor;
+        function mainLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            const deltaTime = timestamp - lastTime;
+            lastTime = timestamp;
+
+            // Delta-Time Based Smoothing (Independente de FPS do monitor)
+            const diff = targetFrame - currentFrame;
+            currentFrame += diff * Math.min(1, speed * deltaTime);
+
+            if (Math.abs(diff) > 0.01) {
                 renderFrame(Math.round(currentFrame));
             }
-            requestAnimationFrame(animate);
+
+            requestAnimationFrame(mainLoop);
         }
 
         function renderFrame(index) {
             const safeIndex = Math.max(0, Math.min(frameCount - 1, index));
-            if (!images[safeIndex] || !images[safeIndex].complete) return;
-            
             const img = images[safeIndex];
+            if (!img || !img.complete) return;
+
             const canvasRatio = canvas.width / canvas.height;
             const imgRatio = img.width / img.height;
             let rw, rh, ox = 0, oy = 0;
@@ -292,14 +291,14 @@
             const scrollArea = document.getElementById('scroll-hero');
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollHeight = scrollArea.scrollHeight - window.innerHeight;
-            
             const scrollFraction = Math.max(0, Math.min(1, scrollTop / scrollHeight));
+            
             targetFrame = scrollFraction * (frameCount - 1);
 
+            // Steps logic
             const s1 = document.getElementById('step-1');
             const s2 = document.getElementById('step-2');
             const s3 = document.getElementById('step-3');
-
             s1.classList.remove('active'); s2.classList.remove('active'); s3.classList.remove('active');
 
             if (scrollFraction > 0.05 && scrollFraction < 0.3) s1.classList.add('active');
