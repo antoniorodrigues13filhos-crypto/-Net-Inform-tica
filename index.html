@@ -36,6 +36,25 @@
 
         body { background-color: var(--color-tech-bg); color: #FFFFFF; font-family: var(--font-sans); overflow-x: hidden; }
         #hero-canvas { opacity: 0.3; filter: grayscale(100%) brightness(0.6); }
+        
+        .hero-text-container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .text-step {
+            position: absolute;
+            max-width: 1000px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(15px);
+            will-change: transform, opacity, filter;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -50,13 +69,33 @@
         </div>
     </nav>
 
-    <section id="scroll-hero" style="height:400vh; position:relative;">
+    <section id="scroll-hero" style="height:800vh; position:relative;">
         <div style="position:sticky; top:0; height:100vh; width:100%; overflow:hidden; background-color:#0D0D0D;">
             <canvas id="hero-canvas" style="position:absolute; inset:0; width:100%; height:100%;"></canvas>
             
-            <div id="hero-content" style="position:absolute; inset:0; z-index:2; display:flex; align-items:center;" class="px-6 lg:px-16 max-w-7xl mx-auto w-full">
-                <div class="max-w-3xl w-full text-left" id="hero-text-inner">
-                    
+            <div class="hero-text-container px-6 lg:px-16 max-w-7xl mx-auto w-full">
+                
+                <div id="text-step-1" class="text-step">
+                    <h2 class="text-4xl md:text-7xl font-black uppercase leading-tight tracking-tighter">
+                        Seu computador lento está te fazendo <span class="text-tech-primary">perder tempo e dinheiro</span> todos os dias.
+                    </h2>
+                </div>
+
+                <div id="text-step-2" class="text-step">
+                    <h2 class="text-3xl md:text-6xl font-black uppercase leading-tight tracking-tighter">
+                        Travamentos, lentidão e falta de desempenho <br>
+                        <span class="text-white/60">atrapalham seu trabalho, reduzem sua produtividade e te impedem de crescer?</span>
+                    </h2>
+                </div>
+
+                <div id="text-step-3" class="text-step">
+                    <h2 class="text-3xl md:text-6xl font-black uppercase leading-tight tracking-tighter">
+                        Na Center Net Informática, você encontra <br>
+                        <span class="text-tech-primary">computadores de alta performance</span> e manutenção profissional para trabalhar com velocidade, segurança e sem dor de cabeça.
+                    </h2>
+                </div>
+
+                <div id="text-step-4" class="text-step pointer-events-auto">
                     <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter mb-8 uppercase">
                         Seu computador <br/> lento está te <br/> fazendo <span class="text-tech-primary">perder dinheiro.</span>
                     </h1>
@@ -94,7 +133,6 @@
         function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            
             for (let i = 1; i <= frameCount; i++) {
                 const img = new Image();
                 let numStr = i.toString().padStart(3, '0');
@@ -114,7 +152,6 @@
                 const canvasRatio = canvas.width / canvas.height;
                 const imgRatio = img.width / img.height;
                 let rw, rh, ox = 0, oy = 0;
-                
                 if (canvasRatio > imgRatio) {
                     rw = canvas.width; rh = img.height * (canvas.width / img.width);
                     oy = (canvas.height - rh) / 2;
@@ -130,6 +167,7 @@
         function startGSAP() {
             gsap.registerPlugin(ScrollTrigger);
             
+            // Controle Motion dos Frames
             gsap.to(canvasObj, {
                 frame: frameCount - 1,
                 snap: "frame",
@@ -137,21 +175,31 @@
                     trigger: "#scroll-hero",
                     start: "top top",
                     end: "bottom bottom",
-                    scrub: 1.2
+                    scrub: 1
                 },
                 onUpdate: () => draw(canvasObj.frame)
             });
 
-            gsap.to("#hero-text-inner", {
-                opacity: 0,
-                y: -100,
+            // Timeline de Ritmo e Motion do Texto
+            const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#scroll-hero",
-                    start: "20% top",
-                    end: "60% top",
-                    scrub: true
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
                 }
             });
+
+            tl.to("#text-step-1", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 })
+              .to("#text-step-1", { opacity: 0, y: -40, filter: "blur(15px)", duration: 2 }, "+=1.5")
+              
+              .to("#text-step-2", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 })
+              .to("#text-step-2", { opacity: 0, y: -40, filter: "blur(15px)", duration: 2 }, "+=1.5")
+              
+              .to("#text-step-3", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 })
+              .to("#text-step-3", { opacity: 0, y: -40, filter: "blur(15px)", duration: 2 }, "+=1.5")
+              
+              .to("#text-step-4", { opacity: 1, y: 0, filter: "blur(0px)", duration: 2 });
         }
 
         initCanvas();
