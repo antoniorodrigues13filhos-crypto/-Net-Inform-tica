@@ -23,6 +23,7 @@
   --serif:'Fraunces',Georgia,serif; 
   --sans:'Plus Jakarta Sans',system-ui,sans-serif;
   --ease:cubic-bezier(.77,0,.18,1);
+  --apple-ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
@@ -88,7 +89,7 @@ a{color:inherit;text-decoration:none}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -4px rgba(250,232,180,.75)}
 .nav-cta .dot{width:7px;height:7px;border-radius:50%;background:#14532d;box-shadow:0 0 0 3px rgba(20,83,45,.3)}
 
-/* HERO INTERATIVO (GRADIENTE REDUZIDO PARA DESTACAR O VÍDEO) */
+/* HERO INTERATIVO */
 .hero{height:330vh;position:relative}
 .stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:radial-gradient(65% 65% at 70% 45%,var(--royal-2),var(--royal) 45%,var(--night))}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;transform:scale(1.02);transition:transform .8s ease-out}
@@ -98,7 +99,7 @@ a{color:inherit;text-decoration:none}
 
 /* Textos dos slides */
 .steps{position:relative;min-height:360px;display:flex;align-items:center}
-.step{position:absolute;inset-inline:0;max-width:650px;opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1),filter .75s;pointer-events:none}
+.step{position:absolute;inset-inline:0;max-width:650px;opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .75s var(--apple-ease),transform .75s var(--apple-ease),filter .75s;pointer-events:none}
 .step.on{opacity:1;transform:translateY(0);filter:blur(0);pointer-events:auto}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-1);background:rgba(3,11,28,.45);border:1px solid rgba(250,232,180,.3);padding:6px 14px;border-radius:99px;margin-bottom:22px;backdrop-filter:blur(8px)}
 .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 8px var(--gold-1)}
@@ -171,7 +172,7 @@ a{color:inherit;text-decoration:none}
 
 /* Animação das camadas do SVG no Hover */
 .mattress-svg{width:100%;height:auto;max-height:195px;overflow:visible;filter:drop-shadow(0 16px 20px rgba(0,0,0,.55))}
-.mattress-svg .m-layer{transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.mattress-svg .m-layer{transition:transform .55s var(--apple-ease)}
 .card:hover .mattress-svg .m-layer{transform:translateY(var(--lift,0px))}
 
 .body{display:flex;flex-direction:column;flex:1;position:relative;z-index:1}
@@ -205,6 +206,75 @@ a{color:inherit;text-decoration:none}
 .wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px -6px rgba(250,232,180,.8),inset 0 1px 0 rgba(255,255,255,.6)}
 .wa:hover::after{left:130%;transition:left .8s}
 
+/* ========= NOVA SEÇÃO ESTILO APPLE (SCROLLYTELLING DESPERTAR) ========= */
+.awakening{position:relative;z-index:5;background:var(--night);padding-top:40px}
+.awake-intro{max-width:920px;margin:0 auto 56px;padding:0 5vw;text-align:center}
+.awake-intro .sub{display:inline-block;font-size:12px;text-transform:uppercase;letter-spacing:.24em;color:var(--gold-1);font-weight:600;margin-bottom:14px;opacity:0;transform:translateY(24px);transition:opacity .8s var(--apple-ease),transform .8s var(--apple-ease)}
+.awake-intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5.2vw,66px);line-height:1.05;letter-spacing:-.02em;opacity:0;transform:translateY(32px);transition:opacity .9s var(--apple-ease) .1s,transform .9s var(--apple-ease) .1s}
+.awake-intro p{color:var(--mute);max-width:52ch;margin:18px auto 0;font-size:clamp(15.5px,1.3vw,18px);opacity:0;transform:translateY(32px);transition:opacity .9s var(--apple-ease) .2s,transform .9s var(--apple-ease) .2s}
+.awake-intro.in .sub,.awake-intro.in h2,.awake-intro.in p{opacity:1;transform:none}
+
+/* Palco Sticky estilo Apple */
+.awake-scroll{height:310vh;position:relative}
+.awake-sticky{position:sticky;top:0;height:100vh;width:100%;display:grid;place-items:center;overflow:hidden;padding:0 2vw}
+.awake-frame{
+  position:relative;
+  width:var(--aw-w, 86vw);
+  height:var(--aw-h, 76vh);
+  border-radius:var(--aw-r, 34px);
+  overflow:hidden;
+  box-shadow:0 40px 100px -20px rgba(0,0,0,.85);
+  border:1px solid rgba(250,232,180,.22);
+  will-change:width,height,border-radius;
+}
+.awake-img{
+  width:100%;height:100%;object-fit:cover;object-position:left center;
+  transform:scale(var(--aw-scale, 1.12));
+  will-change:transform;
+}
+/* Gradiente escuro suave no lado direito (onde fica a janela clara) para leitura perfeita */
+.awake-frame::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(270deg,rgba(3,11,28,.88) 0%,rgba(3,11,28,.55) 46%,rgba(3,11,28,.05) 78%,transparent 100%),
+    linear-gradient(0deg,rgba(3,11,28,.65) 0%,transparent 35%);
+  pointer-events:none;
+}
+
+/* Container dos textos flutuantes estilo Apple (alinhado à direita para não cobrir a mulher) */
+.awake-overlay{
+  position:absolute;inset:0;z-index:2;
+  width:min(1240px,100%);margin:0 auto;padding:0 5vw;
+  display:flex;justify-content:flex-end;align-items:center;
+}
+.awake-cards{position:relative;width:min(500px,100%);min-height:360px;display:flex;align-items:center}
+.awake-card{
+  position:absolute;inset-inline:0;
+  padding:36px 34px;border-radius:28px;
+  background:rgba(3,11,28,.62);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(250,232,180,.22);
+  box-shadow:0 24px 60px -15px rgba(0,0,0,.7);
+  opacity:0;transform:translateY(42px) scale(.96);filter:blur(10px);
+  transition:opacity .8s var(--apple-ease),transform .8s var(--apple-ease),filter .8s var(--apple-ease);
+  pointer-events:none;
+}
+.awake-card.on{opacity:1;transform:translateY(0) scale(1);filter:blur(0);pointer-events:auto}
+.awake-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-1);margin-bottom:14px}
+.awake-kicker::before{content:"";width:22px;height:1.5px;background:var(--gold)}
+.awake-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.2vw,42px);line-height:1.08;letter-spacing:-.02em;color:var(--ivory)}
+.awake-card p{margin-top:16px;color:#d6e0f5;font-size:15.5px;line-height:1.65}
+
+/* Métricas estilo Apple na Etapa 2 */
+.awake-metrics{margin-top:24px;padding-top:20px;border-top:1px solid rgba(250,232,180,.16);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.metric strong{display:block;font-family:var(--serif);font-size:26px;font-weight:500;background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
+.metric span{font-size:11.5px;color:var(--mute);line-height:1.3;display:block;margin-top:4px}
+
+/* Indicador de progresso lateral dos slides Apple */
+.awake-dots{position:absolute;right:28px;top:50%;translate:0 -50%;z-index:3;display:flex;flex-direction:column;gap:10px}
+.awake-dot{width:4px;height:28px;border-radius:99px;background:rgba(255,255,255,.22);transition:background .4s,height .4s}
+.awake-dot.on{background:var(--gold-1);height:44px;box-shadow:0 0 12px rgba(250,232,180,.6)}
+
 /* FECHAMENTO */
 .closing{text-align:center;padding:clamp(80px,12vw,140px) 5vw;background:radial-gradient(60% 80% at 50% 0%,var(--royal),var(--night));border-top:1px solid rgba(250,232,180,.12)}
 .closing h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1.05;max-width:17ch;margin:0 auto 18px}
@@ -222,11 +292,15 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   .grid{grid-template-columns:1fr}
   .card.wide{grid-column:auto;flex-direction:column;gap:0}
   .card.wide .art{width:auto;margin-bottom:22px}
-  .badges,.glow{display:none}
+  .badges,.glow,.awake-dots{display:none}
+  .awake-img{object-position:28% center}
+  .awake-frame::after{background:linear-gradient(0deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.45) 55%,rgba(3,11,28,.1) 100%)}
+  .awake-overlay{align-items:flex-end;justify-content:center;padding-bottom:28px}
+  .awake-card{padding:24px 22px}
 }
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
-  .intro-in>*,.skip{opacity:1;transform:none}
+  .intro-in>*,.skip,.awake-intro .sub,.awake-intro h2,.awake-intro p{opacity:1;transform:none}
   .card{opacity:1;translate:none}
   .grain{display:none}
 }
@@ -273,6 +347,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
     <nav class="nav-links">
       <a href="#hero">Experiência</a>
       <a href="#linha">Modelos & Camadas</a>
+      <a href="#despertar">O Despertar</a>
       <a href="#sob-medida">Sob Medida</a>
     </nav>
     <a class="nav-cta wa-link" href="#">
@@ -382,6 +457,75 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   </div>
 
   <div class="grid" id="grid"></div>
+</section>
+
+<!-- NOVA SEÇÃO ESTILO APPLE: EXPERIÊNCIA DO DESPERTAR -->
+<section class="awakening" id="despertar">
+  <div class="awake-intro" id="awakeIntro">
+    <span class="sub">A Ciência do Despertar • Confort Flex</span>
+    <h2>Não fabricamos apenas colchões.<br>Projetamos a sua <span class="gold-text">primeira sensação</span> do dia.</h2>
+    <p>Veja o que acontece com o seu corpo quando cada centímetro de espuma e mola trabalha em silêncio durante a noite.</p>
+  </div>
+
+  <div class="awake-scroll" id="awakeScroll">
+    <div class="awake-sticky">
+      <div class="awake-frame" id="awakeFrame">
+        <img 
+          src="Remove_text_from_image_2K_20261019151427.webp" 
+          alt="Mulher despertando renovada em um colchão MFC Confort Flex" 
+          class="awake-img" 
+          id="awakeImg">
+
+        <div class="awake-overlay">
+          <div class="awake-cards">
+            <!-- Slide 1 -->
+            <article class="awake-card on" data-aw="0">
+              <span class="awake-kicker">01 • Alívio de Pressão</span>
+              <h3>O verdadeiro luxo acontece quando você <span class="gold-text">abre os olhos</span>.</h3>
+              <p>Aquele alongamento leve de quem dormiu profundamente sem precisar virar a noite inteira. Nossas camadas de transição absorvem o peso dos ombros e quadris com suavidade absoluta.</p>
+            </article>
+
+            <!-- Slide 2 -->
+            <article class="awake-card" data-aw="1">
+              <span class="awake-kicker">02 • Engenharia Corporal</span>
+              <h3>Sua coluna alinhada. Seu corpo <span class="gold-text">100% recarregado</span>.</h3>
+              <p>Enquanto o tecido respirável mantém o frescor matinal, o núcleo de suporte independente estabiliza a região lombar e impede que o movimento de um lado interfira no outro.</p>
+              <div class="awake-metrics">
+                <div class="metric">
+                  <strong>Zero</strong>
+                  <span>Transferência de movimento</span>
+                </div>
+                <div class="metric">
+                  <strong>100%</strong>
+                  <span>Espumas de alta resiliência</span>
+                </div>
+                <div class="metric">
+                  <strong>Direto</strong>
+                  <span>Da nossa fábrica pra sua cama</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 3 -->
+            <article class="awake-card" data-aw="2">
+              <span class="awake-kicker">03 • Padrão Cinco Estrelas</span>
+              <h3>Transforme suas manhãs pelos próximos <span class="gold-text">anos</span>.</h3>
+              <p>Acordar bem muda o seu humor, a sua energia e a sua saúde. Fale agora com um consultor da fábrica e descubra qual dos nossos 5 modelos foi feito para o seu biotipo.</p>
+              <div class="hero-actions" style="margin-top:24px">
+                <a href="#" class="btn-primary wa-link">Escolher Meu Colchão Ideal</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="awake-dots" aria-hidden="true">
+          <span class="awake-dot on"></span>
+          <span class="awake-dot"></span>
+          <span class="awake-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="closing" id="sob-medida">
@@ -532,13 +676,11 @@ function renderProducts(filter = "all"){
       </div>
     `;
 
-    // Fallback para a arte 3D das camadas
     const img = card.querySelector(".art img");
     img.addEventListener("error", () => {
       card.querySelector(".art").innerHTML = artHtml;
     });
 
-    // Escolha de medida + atualização do link do WhatsApp
     const sizeBtns = card.querySelectorAll(".sz");
     const waBtn = card.querySelector(".wa");
     const waText = waBtn.querySelector("span");
@@ -552,7 +694,6 @@ function renderProducts(filter = "all"){
       });
     });
 
-    // Aparecer no scroll + Efeito Tilt 3D e Brilho seguindo o mouse
     io.observe(card);
     if(fine){
       card.addEventListener("mousemove", e => {
@@ -571,6 +712,7 @@ function renderProducts(filter = "all"){
 }
 
 renderProducts();
+io.observe(document.getElementById("awakeIntro"));
 
 // Filtros de categoria
 document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -630,11 +772,17 @@ try{
   }
 }catch(e){}
 
-/* ========= CONTROLE DE SCROLL E CLIQUE DOS CAPÍTULOS DA HERO ========= */
+/* ========= CONTROLE DE SCROLL: HERO + SEÇÃO APPLE DESPERTAR ========= */
 const hero = document.getElementById("hero");
 const steps = [...document.querySelectorAll(".step")];
 const stepBtns = [...document.querySelectorAll(".step-btn")];
 const hint = document.getElementById("hint");
+
+const awakeScroll = document.getElementById("awakeScroll");
+const awakeFrame = document.getElementById("awakeFrame");
+const awakeImg = document.getElementById("awakeImg");
+const awakeCards = [...document.querySelectorAll(".awake-card")];
+const awakeDots = [...document.querySelectorAll(".awake-dot")];
 
 function setActiveStep(idx){
   steps.forEach((s, i) => s.classList.toggle("on", i === idx));
@@ -642,11 +790,34 @@ function setActiveStep(idx){
 }
 
 function onScroll(){
+  // 1. Scroll da Hero
   const maxScroll = hero.offsetHeight - innerHeight;
   const p = Math.min(1, Math.max(0, scrollY / maxScroll));
   const activeIdx = p < 0.33 ? 0 : (p < 0.67 ? 1 : 2);
   setActiveStep(activeIdx);
   hint.style.opacity = p < 0.06 ? 1 : 0;
+
+  // 2. Scroll estilo Apple na seção O Despertar
+  const rect = awakeScroll.getBoundingClientRect();
+  const totalAwake = awakeScroll.offsetHeight - innerHeight;
+  const awP = Math.min(1, Math.max(0, -rect.top / totalAwake));
+
+  // Expansão da moldura nos primeiros 28% do scroll da seção
+  const expand = Math.min(1, Math.max(0, (awP + 0.15) / 0.42));
+  const w = 86 + expand * 10;   // de 86vw até 96vw
+  const h = 76 + expand * 16;   // de 76vh até 92vh
+  const r = 34 - expand * 10;   // de 34px até 24px
+  const scale = 1.14 - awP * 0.14; // leve zoom out cinematográfico
+
+  awakeFrame.style.setProperty("--aw-w", `${w}vw`);
+  awakeFrame.style.setProperty("--aw-h", `${h}vh`);
+  awakeFrame.style.setProperty("--aw-r", `${r}px`);
+  awakeImg.style.setProperty("--aw-scale", scale.toFixed(3));
+
+  // Alternância dos 3 cards estilo Apple
+  const awIdx = awP < 0.34 ? 0 : (awP < 0.68 ? 1 : 2);
+  awakeCards.forEach((c, i) => c.classList.toggle("on", i === awIdx));
+  awakeDots.forEach((d, i) => d.classList.toggle("on", i === awIdx));
 }
 
 stepBtns.forEach(btn => {
