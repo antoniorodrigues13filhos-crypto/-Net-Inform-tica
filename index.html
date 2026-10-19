@@ -15,19 +15,61 @@
   --royal:#0a2a66; 
   --royal-2:#124096; 
   --ivory:#f9f6f0; 
-  --mute:#a6b4d0;
+  --mute:#b8c5df;
   --gold-1:#fae8b4; 
   --gold-2:#d9a93a; 
   --gold-3:#9b6b15;
   --gold:linear-gradient(125deg,var(--gold-1) 0%,var(--gold-2) 50%,var(--gold-3) 100%);
   --serif:'Fraunces',Georgia,serif; 
   --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.77,0,.18,1);
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--night);color:var(--ivory);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--gold-1);outline-offset:3px}
+.gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;font-weight:500;padding-right:4px;text-shadow:none}
+
+/* RUÍDO / GRÃO FÍLMICO + LUZ QUE SEGUE O CURSOR */
+.grain{position:fixed;inset:-50%;z-index:9998;pointer-events:none;opacity:.09;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-5%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(0,0)}}
+.glow{position:fixed;z-index:9997;pointer-events:none;width:520px;height:520px;left:0;top:0;margin:-260px 0 0 -260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(250,232,180,.11),transparent 65%);mix-blend-mode:screen;will-change:transform}
+
+/* ABERTURA INTERATIVA (CORTINA DUPLA) */
+.intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;text-align:center;overflow:hidden}
+.panel{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(90% 70% at 50% 40%,var(--royal-2),var(--royal) 45%,var(--night));transition:transform 1.5s var(--ease)}
+.panel.l{left:0}.panel.r{right:0;background-position:right}
+.panel::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--gold-1),transparent);opacity:.7}
+.panel.l::after{right:0}.panel.r::after{left:0}
+.intro .spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(250,232,180,.22),transparent 70%);transition:opacity .6s}
+.intro-in{position:relative;z-index:2;padding:0 6vw;transition:opacity .6s,transform 1s var(--ease)}
+.intro-in>*{opacity:0;transform:translateY(24px);animation:rise 1.2s var(--ease) forwards}
+.intro-in .intro-eyebrow{font-size:12px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-1);font-weight:600;animation-delay:.2s}
+.intro-in .logo{font-family:var(--serif);font-weight:400;font-style:italic;font-size:clamp(54px,11vw,132px);line-height:1.05;letter-spacing:-.02em;margin:12px 0 8px;
+  background:linear-gradient(110deg,var(--gold-3),var(--gold-1) 40%,var(--gold-2) 55%,var(--gold-3));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:rise 1.2s var(--ease) .5s forwards,shine 4s linear 1.7s infinite}
+.intro-in .sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--mute);animation-delay:.9s}
+.enter{margin-top:42px;position:relative;width:122px;height:122px;border-radius:50%;border:0;background:rgba(3,11,28,.35);backdrop-filter:blur(6px);color:var(--gold-1);cursor:pointer;font:600 12.5px var(--sans);letter-spacing:.25em;text-transform:uppercase;animation-delay:1.3s}
+.enter svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.enter circle{fill:none;stroke-width:1.5}
+.enter .bg{stroke:rgba(250,232,180,.28)}
+.enter .fg{stroke:var(--gold-1);stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset .9s var(--ease)}
+.enter:hover .fg,.enter:focus-visible .fg{stroke-dashoffset:0}
+.enter span{position:relative;transition:letter-spacing .5s}
+.enter:hover span{letter-spacing:.35em}
+.skip{position:absolute;z-index:3;bottom:26px;left:50%;translate:-50% 0;font-size:12px;color:var(--mute);opacity:0;animation:rise 1s 2s forwards;background:none;border:0;cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
+.skip:hover{color:var(--gold-1)}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes shine{to{background-position:-220% 0}}
+.intro.open .panel.l{transform:translateX(-101%)}
+.intro.open .panel.r{transform:translateX(101%)}
+.intro.open .intro-in{opacity:0;transform:scale(1.12)}
+.intro.open .spot,.intro.open .skip{opacity:0}
 
 /* NAV FLUTUANTE GLASSMORPHISM */
 .nav-wrap{position:fixed;top:20px;inset-inline:0;z-index:100;display:flex;justify-content:center;padding:0 4vw;pointer-events:none}
@@ -47,53 +89,52 @@ a{color:inherit;text-decoration:none}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -4px rgba(250,232,180,.75)}
 .nav-cta .dot{width:7px;height:7px;border-radius:50%;background:#14532d;box-shadow:0 0 0 3px rgba(20,83,45,.3)}
 
-/* HERO INTERATIVO */
+/* HERO INTERATIVO (GRADIENTE REDUZIDO PARA DESTACAR O VÍDEO) */
 .hero{height:330vh;position:relative}
 .stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:radial-gradient(65% 65% at 70% 45%,var(--royal-2),var(--royal) 45%,var(--night))}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;transform:scale(1.03);transition:transform .8s ease-out}
-.stage::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(95deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.72) 46%,rgba(3,11,28,.25) 100%),radial-gradient(circle at 50% 100%,rgba(3,11,28,.85),transparent 60%)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;transform:scale(1.02);transition:transform .8s ease-out}
+.stage::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(95deg,rgba(3,11,28,.55) 0%,rgba(3,11,28,.20) 48%,rgba(3,11,28,.02) 100%),linear-gradient(180deg,transparent 75%,rgba(3,11,28,.65) 100%)}
 
 .hero-inner{position:relative;z-index:2;width:min(1240px,100%);margin:0 auto;padding:0 5vw;display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px}
 
 /* Textos dos slides */
 .steps{position:relative;min-height:360px;display:flex;align-items:center}
-.step{position:absolute;inset-inline:0;max-width:650px;opacity:0;transform:translateY(28px); filter:blur(6px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1),filter .75s;pointer-events:none}
+.step{position:absolute;inset-inline:0;max-width:650px;opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1),filter .75s;pointer-events:none}
 .step.on{opacity:1;transform:translateY(0);filter:blur(0);pointer-events:auto}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-1);background:rgba(250,232,180,.08);border:1px solid rgba(250,232,180,.25);padding:6px 14px;border-radius:99px;margin-bottom:22px;backdrop-filter:blur(8px)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-1);background:rgba(3,11,28,.45);border:1px solid rgba(250,232,180,.3);padding:6px 14px;border-radius:99px;margin-bottom:22px;backdrop-filter:blur(8px)}
 .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 8px var(--gold-1)}
-.step h1,.step h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.6vw,76px);line-height:1.03;letter-spacing:-.02em;color:var(--ivory)}
-.step p{margin-top:20px;color:var(--mute);max-width:48ch;font-size:clamp(15px,1.25vw,18px);font-weight:400}
-.gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;font-weight:500;padding-right:4px}
+.step h1,.step h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.6vw,76px);line-height:1.03;letter-spacing:-.02em;color:var(--ivory);text-shadow:0 8px 28px rgba(0,0,0,.55)}
+.step p{margin-top:20px;color:#dbe4f7;max-width:48ch;font-size:clamp(15px,1.25vw,18px);font-weight:400;text-shadow:0 4px 16px rgba(0,0,0,.65)}
 
 .hero-actions{margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:99px;background:var(--gold);color:#231700;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -8px rgba(217,169,58,.65);transition:transform .25s,box-shadow .25s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -6px rgba(250,232,180,.8)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:var(--ivory);font-weight:500;font-size:14px;backdrop-filter:blur(8px);transition:background .25s,border-color .25s}
-.btn-ghost:hover{background:rgba(250,232,180,.12);border-color:var(--gold-1)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(3,11,28,.45);border:1px solid rgba(255,255,255,.25);color:var(--ivory);font-weight:500;font-size:14px;backdrop-filter:blur(10px);transition:background .25s,border-color .25s}
+.btn-ghost:hover{background:rgba(250,232,180,.15);border-color:var(--gold-1)}
 
 /* Navegador lateral de capítulos da Hero */
-.hero-nav{display:flex;flex-direction:column;gap:14px;padding:18px 14px;border-radius:24px;background:rgba(3,11,28,.55);border:1px solid rgba(250,232,180,.16);backdrop-filter:blur(12px)}
+.hero-nav{display:flex;flex-direction:column;gap:14px;padding:18px 14px;border-radius:24px;background:rgba(3,11,28,.48);border:1px solid rgba(250,232,180,.2);backdrop-filter:blur(12px)}
 .step-btn{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;transition:background .3s}
-.step-btn:hover{background:rgba(255,255,255,.06)}
+.step-btn:hover{background:rgba(255,255,255,.08)}
 .step-btn .num{font-family:var(--serif);font-size:14px;color:var(--mute);transition:color .3s}
-.step-btn .bar{width:3px;height:24px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;position:relative}
+.step-btn .bar{width:3px;height:24px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;position:relative}
 .step-btn .bar::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .4s}
 .step-btn .lbl{font-size:12px;color:var(--mute);font-weight:500;letter-spacing:.02em;transition:color .3s}
-.step-btn.active{background:rgba(250,232,180,.09)}
+.step-btn.active{background:rgba(250,232,180,.12)}
 .step-btn.active .num,.step-btn.active .lbl{color:var(--gold-1)}
 .step-btn.active .bar::after{transform:scaleY(1)}
 
-/* Barra inferior da Hero (Destaques + Scroll) */
-.hero-bottom{position:absolute;z-index:3;bottom:26px;inset-inline:5vw;max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
-.badges{display:flex;gap:28px;flex-wrap:wrap;font-size:12.5px;color:var(--mute)}
+/* Barra inferior da Hero */
+.hero-bottom{position:absolute;z-index:3;bottom:26px;inset-inline:5vw;max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14)}
+.badges{display:flex;gap:28px;flex-wrap:wrap;font-size:12.5px;color:#d6e0f5;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 .badges span{display:inline-flex;align-items:center;gap:8px}
 .badges strong{color:var(--ivory);font-weight:600}
-.hint{font-size:12px;color:var(--gold-1);display:flex;align-items:center;gap:10px;letter-spacing:.08em;text-transform:uppercase;transition:opacity .4s}
-.mouse{width:20px;height:32px;border:1.5px solid rgba(250,232,180,.5);border-radius:99px;position:relative}
+.hint{font-size:12px;color:var(--gold-1);display:flex;align-items:center;gap:10px;letter-spacing:.08em;text-transform:uppercase;transition:opacity .4s;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.mouse{width:20px;height:32px;border:1.5px solid rgba(250,232,180,.6);border-radius:99px;position:relative}
 .mouse::after{content:"";position:absolute;top:6px;left:50%;translate:-50% 0;width:3px;height:6px;border-radius:99px;background:var(--gold-1);animation:wheel 1.8s infinite}
 @keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(10px);opacity:0}}
 
-/* PRODUTOS */
+/* PRODUTOS COM INCLINAÇÃO 3D E REVEAL NO SCROLL */
 .products{position:relative;z-index:5;padding:clamp(90px,11vw,150px) 5vw;background:linear-gradient(180deg,var(--night) 0%,#06173d 55%,var(--night) 100%)}
 .head{max-width:1240px;margin:0 auto 48px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
 .head-left .sub{font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-1);font-weight:600;display:block;margin-bottom:10px}
@@ -106,16 +147,19 @@ a{color:inherit;text-decoration:none}
 .filter-btn:hover{color:var(--ivory);border-color:rgba(250,232,180,.35)}
 .filter-btn.active{background:var(--gold);color:#231700;font-weight:700;border-color:transparent;box-shadow:0 6px 20px -5px rgba(217,169,58,.5)}
 
-.grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.card{--mx:50%;--my:50%;position:relative;display:flex;flex-direction:column;padding:28px;border-radius:28px;overflow:hidden;
-  background:radial-gradient(500px circle at var(--mx) var(--my),rgba(250,232,180,.11),transparent 40%),linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+.grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;perspective:1200px}
+.card{--cx:50%;--cy:0%;position:relative;display:flex;flex-direction:column;padding:28px;border-radius:28px;overflow:hidden;
+  background:linear-gradient(165deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
   border:1px solid rgba(250,232,180,.16);backdrop-filter:blur(10px);
-  transition:border-color .4s,transform .4s,box-shadow .4s}
-.card:hover{border-color:rgba(250,232,180,.55);transform:translateY(-6px);box-shadow:0 24px 48px -18px rgba(0,0,0,.7)}
+  opacity:0;translate:0 40px;transition:border-color .4s,opacity .9s,translate .9s var(--ease),transform .25s,box-shadow .4s}
+.card.in{opacity:1;translate:0 0}
+.card:hover{border-color:rgba(250,232,180,.55);box-shadow:0 24px 48px -18px rgba(0,0,0,.7)}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(340px circle at var(--cx) var(--cy),rgba(250,232,180,.16),transparent 70%);opacity:0;transition:opacity .4s}
+.card:hover::before{opacity:1}
 .card.wide{grid-column:span 2;flex-direction:row;gap:34px;align-items:stretch;
-  background:radial-gradient(600px circle at var(--mx) var(--my),rgba(250,232,180,.14),transparent 45%),linear-gradient(160deg,rgba(250,232,180,.09),rgba(14,63,156,.22))}
+  background:linear-gradient(160deg,rgba(250,232,180,.09),rgba(14,63,156,.22))}
 
-/* NOVA ART 3D INTERATIVA DOS COLCHÕES */
+/* ART 3D INTERATIVA DOS COLCHÕES */
 .card .art{position:relative;flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;border-radius:20px;padding:22px 18px 16px;margin-bottom:22px;overflow:hidden;
   background:radial-gradient(circle at 50% 25%,rgba(22,78,190,.55),rgba(4,15,38,.85));
   border:1px solid rgba(250,232,180,.14)}
@@ -131,7 +175,7 @@ a{color:inherit;text-decoration:none}
 .mattress-svg .m-layer{transition:transform .55s cubic-bezier(.16,1,.3,1)}
 .card:hover .mattress-svg .m-layer{transform:translateY(var(--lift,0px))}
 
-.body{display:flex;flex-direction:column;flex:1}
+.body{display:flex;flex-direction:column;flex:1;position:relative;z-index:1}
 .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
 .tag{font-size:11.5px;font-weight:600;color:var(--gold-1);background:rgba(250,232,180,.08);border:1px solid rgba(250,232,180,.3);padding:4px 12px;border-radius:99px}
 .feel{font-size:12px;color:var(--mute)}
@@ -175,16 +219,47 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   .hero-nav{flex-direction:row;justify-self:start;padding:8px 12px}
   .step-btn .lbl{display:none}
   .step-btn .bar{width:22px;height:3px}
+  .stage::after{background:linear-gradient(0deg,rgba(3,11,28,.65) 0%,rgba(3,11,28,.12) 65%)}
   .grid{grid-template-columns:1fr}
   .card.wide{grid-column:auto;flex-direction:column;gap:0}
   .card.wide .art{width:auto;margin-bottom:22px}
-  .badges{display:none}
+  .badges,.glow{display:none}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .intro-in>*,.skip{opacity:1;transform:none}
+  .card{opacity:1;translate:none}
+  .grain{display:none}
+}
 </style>
 </head>
-<body>
+<body class="lock">
 
+<!-- EFEITO DE GRÃO FÍLMICO E LUZ NO CURSOR -->
+<div class="grain" aria-hidden="true"></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+
+<!-- ABERTURA INTERATIVA (CORTINA DUPLA) -->
+<div class="intro" id="intro" role="dialog" aria-label="Abertura">
+  <div class="panel l"></div>
+  <div class="panel r"></div>
+  <div class="spot"></div>
+  <div class="intro-in" id="introIn">
+    <p class="intro-eyebrow">Fábrica de Colchões Premium</p>
+    <h1 class="logo">Confort Flex</h1>
+    <p class="sub">O descanso que você merece, feito à mão.</p>
+    <button class="enter" id="enter" aria-label="Entrar no site">
+      <svg viewBox="0 0 120 120">
+        <circle class="bg" cx="60" cy="60" r="54"/>
+        <circle class="fg" cx="60" cy="60" r="54"/>
+      </svg>
+      <span>Entrar</span>
+    </button>
+  </div>
+  <button class="skip" id="skip">Pular abertura</button>
+</div>
+
+<!-- NAVEGAÇÃO FLUTUANTE -->
 <div class="nav-wrap">
   <header class="nav">
     <a class="brand" href="#" aria-label="MFC Confort Flex">
@@ -296,7 +371,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
       <span class="sub">Catálogo Interativo • Raio-X de Camadas</span>
       <h2>A linha <span class="gold-text">Confort Flex</span></h2>
     </div>
-    <p>Passe o mouse sobre a estrutura 3D para expandir as camadas de cada colchão, escolha a medida e peça seu orçamento direto da fábrica.</p>
+    <p>Passe o mouse sobre os cards para inclinar em 3D e expandir as camadas de cada colchão, escolha a medida e fale direto com a fábrica.</p>
   </div>
 
   <div class="filters">
@@ -312,7 +387,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 <section class="closing" id="sob-medida">
   <h2>Não achou o tamanho <span class="gold-text">ideal</span>?</h2>
   <p>Como somos fabricantes, produzimos colchões em medidas especiais para camas sob medida, hotéis e pousadas. Fale direto com a nossa produção.</p>
-  <a class="wa wa-link" href="#"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.300 1.700 2.100 1.200 1 2.200 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>Solicitar Medida Especial no WhatsApp</a>
+  <a class="wa wa-link" href="#" id="closeWa">Solicitar Medida Especial no WhatsApp</a>
 </section>
 
 <footer>© MFC Confort Flex • Fábrica de Colchões Premium. Todos os direitos reservados.</footer>
@@ -352,31 +427,28 @@ const PRODUCTS = [
 const WA_ICON='<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.200 1 2.2 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>';
 const wa = t => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
 
-/* ========= NOVA ILUSTRAÇÃO 3D ISOMÉTRICA (.art) ========= */
+/* ========= ILUSTRAÇÃO 3D ISOMÉTRICA (.art) ========= */
 function art(p){
   const palette = [
-    {l:"#f8f3e6", r:"#e2d6bc", stroke:"#fff"}, // Topo Matelassê
-    {l:"#f5de9c", r:"#cf9e30", stroke:"#fae8b4"}, // Camada Ouro / Visco
-    {l:"#255ec4", r:"#153c87", stroke:"#6ba0ff"}, // Camada Molas / Tecnológica
-    {l:"#d9a93a", r:"#9c7118", stroke:"#f8e3a0"}, // Suporte
-    {l:"#0c2454", r:"#061536", stroke:"#2b5099"}  // Base estrutural
+    {l:"#f8f3e6", r:"#e2d6bc", stroke:"#fff"},
+    {l:"#f5de9c", r:"#cf9e30", stroke:"#fae8b4"},
+    {l:"#255ec4", r:"#153c87", stroke:"#6ba0ff"},
+    {l:"#d9a93a", r:"#9c7118", stroke:"#f8e3a0"},
+    {l:"#0c2454", r:"#061536", stroke:"#2b5099"}
   ];
   const count = p.layers;
   const step = 22;
   const baseY = 56;
   let layersSvg = "";
 
-  // Desenha de baixo para cima para sobreposição 3D perfeita
   for(let i = count - 1; i >= 0; i--){
     const y = baseY + i * step;
     const h = i === 0 ? 15 : (i === 2 && p.cat === "molas" ? 20 : 16);
     const c = palette[i % palette.length];
-    const lift = (i - (count - 1) / 2) * 9; // Expansão no hover
-    const label = (p.layerNames && p.layerNames[i]) ? p.layerNames[i] : `Camada ${i+1}`;
+    const lift = (i - (count - 1) / 2) * 9;
 
     let topFace = "";
     if(i === 0){
-      // Superfície matelassê acolchoada no topo
       topFace = `
         <polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="url(#topGrad)" stroke="#ffffff" stroke-width="1"/>
         <path d="M78,${y-14} L182,${y+14} M182,${y-14} L78,${y+14} M104,${y-21} L208,${y+7} M52,${y-7} L156,${y+21}" stroke="#d5c7a8" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.75"/>
@@ -385,7 +457,6 @@ function art(p){
       topFace = `<polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="${c.l}" opacity="0.92"/>`;
     }
 
-    // Detalhe de molas visíveis se for camada intermediária
     let springDetail = "";
     if(i === count - 2 && p.cat === "molas"){
       springDetail = `<path d="M45,${y+8} Q52,${y+14} 45,${y+20} M70,${y+15} Q77,${y+21} 70,${y+27} M95,${y+22} Q102,${y+28} 95,${y+34}" stroke="#fae8b4" stroke-width="1.4" fill="none" opacity="0.85"/>`;
@@ -404,4 +475,191 @@ function art(p){
 
   const totalH = baseY + count * step + 45;
   return `
-    <span class="art-badge">${
+    <span class="art-badge">${count} Camadas</span>
+    <svg class="mattress-svg" viewBox="0 0 260 ${totalH}" role="img" aria-label="Estrutura em ${count} camadas do colchão ${p.n}">
+      <defs>
+        <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="60%" stop-color="#f6f0e0"/>
+          <stop offset="100%" stop-color="#e5d7b8"/>
+        </linearGradient>
+      </defs>
+      ${layersSvg}
+    </svg>
+    <span class="art-hint">Passe o mouse para expandir as camadas</span>
+  `;
+}
+
+/* ========= OBSERVER DE SCROLL + INCLINAÇÃO 3D NOS CARDS ========= */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}), {threshold: .15});
+const fine = matchMedia("(hover:hover)").matches;
+
+const grid = document.getElementById("grid");
+
+function renderProducts(filter = "all"){
+  grid.innerHTML = "";
+  PRODUCTS.filter(p => filter === "all" || p.cat === filter).forEach((p, i) => {
+    const slug = p.n.toLowerCase().replace(/[^a-z0-9]+/g,"-");
+    const defaultSize = p.sizes[0];
+    const artHtml = art(p);
+
+    const card = document.createElement("article");
+    card.className = `card${p.wide && filter === "all" ? " wide" : ""}`;
+    card.style.transitionDelay = `0s, ${i * .08}s, ${i * .08}s, 0s`;
+    card.innerHTML = `
+      <div class="art">
+        <img src="produtos/${slug}.png" alt="Colchão ${p.n}">
+      </div>
+      <div class="body">
+        <div class="card-top">
+          <span class="tag">${p.tag}</span>
+          <span class="feel">${p.layerNames[0]}</span>
+        </div>
+        <h3>${p.n}</h3>
+        <p class="desc">${p.d}</p>
+        <div class="size-picker">
+          <span class="size-label">Escolha a medida:</span>
+          <div class="sizes">
+            ${p.sizes.map((sz, idx) => `<button type="button" class="sz${idx===0?' active':''}" data-size="${sz}">${sz}</button>`).join("")}
+          </div>
+        </div>
+        <ul class="specs">${p.s.map(x=>`<li><span>${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>
+        <a class="wa" href="${wa(`Olá! Tenho interesse no colchão *${p.n}* na medida *${defaultSize}*. Pode me passar valores direto da fábrica?`)}" target="_blank" rel="noopener">
+          ${WA_ICON}<span>Orçar ${p.n} (${defaultSize})</span>
+        </a>
+      </div>
+    `;
+
+    // Fallback para a arte 3D das camadas
+    const img = card.querySelector(".art img");
+    img.addEventListener("error", () => {
+      card.querySelector(".art").innerHTML = artHtml;
+    });
+
+    // Escolha de medida + atualização do link do WhatsApp
+    const sizeBtns = card.querySelectorAll(".sz");
+    const waBtn = card.querySelector(".wa");
+    const waText = waBtn.querySelector("span");
+    sizeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        sizeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const chosen = btn.dataset.size;
+        waText.textContent = `Orçar ${p.n} (${chosen})`;
+        waBtn.href = wa(`Olá! Tenho interesse no colchão *${p.n}* na medida *${chosen}*. Pode me passar valores direto da fábrica?`);
+      });
+    });
+
+    // Aparecer no scroll + Efeito Tilt 3D e Brilho seguindo o mouse
+    io.observe(card);
+    if(fine){
+      card.addEventListener("mousemove", e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        card.style.setProperty("--cx", x * 100 + "%");
+        card.style.setProperty("--cy", y * 100 + "%");
+        card.style.transform = `rotateY(${(x - .5) * 6}deg) rotateX(${(.5 - y) * 6}deg)`;
+      });
+      card.addEventListener("mouseleave", () => card.style.transform = "");
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+renderProducts();
+
+// Filtros de categoria
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderProducts(btn.dataset.filter);
+  });
+});
+
+document.getElementById("closeWa").insertAdjacentHTML("afterbegin", WA_ICON);
+document.querySelectorAll(".wa-link").forEach(a=>{
+  a.href=wa("Olá! Vim pelo site da MFC Confort Flex e gostaria de atendimento direto da fábrica.");
+  a.target="_blank";a.rel="noopener";
+});
+
+/* ========= LUZ DOURADA QUE SEGUE O CURSOR ========= */
+const glow = document.getElementById("glow");
+let gx = 0, gy = 0, tx = 0, ty = 0;
+addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
+(function loopGlow(){
+  gx += (tx - gx) * .12;
+  gy += (ty - gy) * .12;
+  glow.style.transform = `translate(${gx}px,${gy}px)`;
+  requestAnimationFrame(loopGlow);
+})();
+
+/* ========= ABERTURA INTERATIVA ========= */
+const intro = document.getElementById("intro");
+const vid = document.getElementById("bg-video");
+
+intro.addEventListener("mousemove", e => {
+  intro.style.setProperty("--mx", e.clientX + "px");
+  intro.style.setProperty("--my", e.clientY + "px");
+});
+
+function openSite(fast){
+  if(!document.getElementById("intro")) return;
+  intro.classList.add("open");
+  document.body.classList.remove("lock");
+  vid.play && vid.play().catch(()=>{});
+  setTimeout(() => intro.remove(), fast ? 50 : 1700);
+  try{ sessionStorage.setItem("mfc-intro", "1"); }catch(e){}
+}
+
+document.getElementById("enter").onclick = () => openSite();
+document.getElementById("skip").onclick = () => openSite();
+addEventListener("keydown", e => {
+  if(e.key === "Enter" && document.getElementById("intro")) openSite();
+});
+
+try{
+  if(sessionStorage.getItem("mfc-intro")){
+    intro.remove();
+    document.body.classList.remove("lock");
+    vid.play && vid.play().catch(()=>{});
+  }
+}catch(e){}
+
+/* ========= CONTROLE DE SCROLL E CLIQUE DOS CAPÍTULOS DA HERO ========= */
+const hero = document.getElementById("hero");
+const steps = [...document.querySelectorAll(".step")];
+const stepBtns = [...document.querySelectorAll(".step-btn")];
+const hint = document.getElementById("hint");
+
+function setActiveStep(idx){
+  steps.forEach((s, i) => s.classList.toggle("on", i === idx));
+  stepBtns.forEach((b, i) => b.classList.toggle("active", i === idx));
+}
+
+function onScroll(){
+  const maxScroll = hero.offsetHeight - innerHeight;
+  const p = Math.min(1, Math.max(0, scrollY / maxScroll));
+  const activeIdx = p < 0.33 ? 0 : (p < 0.67 ? 1 : 2);
+  setActiveStep(activeIdx);
+  hint.style.opacity = p < 0.06 ? 1 : 0;
+}
+
+stepBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const idx = Number(btn.dataset.step);
+    const maxScroll = hero.offsetHeight - innerHeight;
+    const targetY = hero.offsetTop + (idx * 0.42) * maxScroll;
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  });
+});
+
+addEventListener("scroll", onScroll, {passive:true});
+onScroll();
+</script>
+</body>
+</html>
