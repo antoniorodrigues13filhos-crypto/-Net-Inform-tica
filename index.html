@@ -4,113 +4,210 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google" content="notranslate">
-<title>MFC Confort Flex | Colchões premium de fábrica</title>
+<title>MFC Confort Flex | Colchões Premium de Fábrica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#04122e; --royal:#0a2f7a; --royal-2:#0e3f9c; --ivory:#f6f0e0; --mute:#b9c4de;
-  --gold-1:#f8e3a0; --gold-2:#d9a93a; --gold-3:#8c6112;
-  --gold:linear-gradient(120deg,var(--gold-1),var(--gold-2) 45%,var(--gold-3));
-  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --script:'Pinyon Script',cursive;
+  --night:#030b1c; 
+  --night-soft:#071636;
+  --royal:#0a2a66; 
+  --royal-2:#124096; 
+  --ivory:#f9f6f0; 
+  --mute:#a6b4d0;
+  --gold-1:#fae8b4; 
+  --gold-2:#d9a93a; 
+  --gold-3:#9b6b15;
+  --gold:linear-gradient(125deg,var(--gold-1) 0%,var(--gold-2) 50%,var(--gold-3) 100%);
+  --serif:'Fraunces',Georgia,serif; 
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
-body{background:var(--night);color:var(--ivory);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit}
+body{background:var(--night);color:var(--ivory);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--gold-1);outline-offset:3px}
 
-/* NAV */
-.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;background:linear-gradient(var(--night),transparent)}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand img{height:46px;width:auto;display:block}
-.brand .fallback{font-family:var(--script);font-size:30px;background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
-.brand img+.fallback{display:none}
-.nav-cta{font-size:14px;text-decoration:none;color:var(--gold-1);border:1px solid rgba(248,227,160,.4);padding:9px 20px;border-radius:99px;transition:background .3s,color .3s}
-.nav-cta:hover{background:var(--gold-1);color:var(--night)}
+/* NAV FLUTUANTE GLASSMORPHISM */
+.nav-wrap{position:fixed;top:20px;inset-inline:0;z-index:100;display:flex;justify-content:center;padding:0 4vw;pointer-events:none}
+.nav{pointer-events:auto;width:min(1240px,100%);display:flex;justify-content:space-between;align-items:center;padding:12px 22px;border-radius:99px;background:rgba(3,11,28,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(250,232,180,.16);box-shadow:0 18px 40px -15px rgba(0,0,0,.6);transition:border-color .3s,background .3s}
+.nav:hover{border-color:rgba(250,232,180,.32)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:38px;width:auto;display:block}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--gold);display:grid;place-items:center;color:var(--night);font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:-.03em;box-shadow:0 0 20px rgba(217,169,58,.4)}
+.brand .fallback{display:flex;flex-direction:column;line-height:1}
+.brand .fallback strong{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:.03em;color:var(--ivory)}
+.brand .fallback small{font-size:9px;text-transform:uppercase;letter-spacing:.22em;color:var(--gold-1);margin-top:3px}
+.brand img ~ .brand-mark, .brand img ~ .fallback{display:none}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:var(--mute);font-weight:500}
+.nav-links a{transition:color .25s;position:relative}
+.nav-links a:hover{color:var(--gold-1)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#231700;background:var(--gold);padding:10px 20px;border-radius:99px;box-shadow:0 6px 20px -4px rgba(217,169,58,.5);transition:transform .25s,box-shadow .25s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -4px rgba(250,232,180,.75)}
+.nav-cta .dot{width:7px;height:7px;border-radius:50%;background:#14532d;box-shadow:0 0 0 3px rgba(20,83,45,.3)}
 
-/* HERO com Vídeo */
-.hero{height:320vh;position:relative}
-.stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;
-  background:radial-gradient(60% 60% at 70% 40%,var(--royal-2),var(--royal) 45%,var(--night))}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
-.stage::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,18,46,.85),rgba(4,18,46,.2) 70%)}
-.steps{position:relative;z-index:2;width:min(1200px,100%);margin:0 auto;padding:0 5vw}
-.step{position:absolute;top:50%;left:5vw;max-width:620px;transform:translateY(-40%);opacity:0;transition:opacity .8s,transform .8s;pointer-events:none}
-.step.on{opacity:1;transform:translateY(-50%);pointer-events:auto}
-.step h1,.step h2{font-family:var(--serif);font-weight:500;font-size:clamp(38px,6.2vw,84px);line-height:1;letter-spacing:-.01em}
-.step p{margin-top:22px;color:var(--mute);max-width:46ch;font-size:clamp(15px,1.4vw,18px)}
-.gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
-.hint{position:absolute;z-index:3;bottom:28px;left:50%;translate:-50% 0;font-size:12px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .4s}
-.hint i{width:1px;height:34px;background:linear-gradient(var(--gold-1),transparent)}
+/* HERO INTERATIVO */
+.hero{height:330vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:radial-gradient(65% 65% at 70% 45%,var(--royal-2),var(--royal) 45%,var(--night))}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;transform:scale(1.03);transition:transform .8s ease-out}
+.stage::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(95deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.72) 46%,rgba(3,11,28,.25) 100%),radial-gradient(circle at 50% 100%,rgba(3,11,28,.85),transparent 60%)}
+
+.hero-inner{position:relative;z-index:2;width:min(1240px,100%);margin:0 auto;padding:0 5vw;display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px}
+
+/* Textos dos slides */
+.steps{position:relative;min-height:360px;display:flex;align-items:center}
+.step{position:absolute;inset-inline:0;max-width:650px;opacity:0;transform:translateY(28px); filter:blur(6px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1),filter .75s;pointer-events:none}
+.step.on{opacity:1;transform:translateY(0);filter:blur(0);pointer-events:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-1);background:rgba(250,232,180,.08);border:1px solid rgba(250,232,180,.25);padding:6px 14px;border-radius:99px;margin-bottom:22px;backdrop-filter:blur(8px)}
+.eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 8px var(--gold-1)}
+.step h1,.step h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.6vw,76px);line-height:1.03;letter-spacing:-.02em;color:var(--ivory)}
+.step p{margin-top:20px;color:var(--mute);max-width:48ch;font-size:clamp(15px,1.25vw,18px);font-weight:400}
+.gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;font-weight:500;padding-right:4px}
+
+.hero-actions{margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:99px;background:var(--gold);color:#231700;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -8px rgba(217,169,58,.65);transition:transform .25s,box-shadow .25s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -6px rgba(250,232,180,.8)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:var(--ivory);font-weight:500;font-size:14px;backdrop-filter:blur(8px);transition:background .25s,border-color .25s}
+.btn-ghost:hover{background:rgba(250,232,180,.12);border-color:var(--gold-1)}
+
+/* Navegador lateral de capítulos da Hero */
+.hero-nav{display:flex;flex-direction:column;gap:14px;padding:18px 14px;border-radius:24px;background:rgba(3,11,28,.55);border:1px solid rgba(250,232,180,.16);backdrop-filter:blur(12px)}
+.step-btn{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;transition:background .3s}
+.step-btn:hover{background:rgba(255,255,255,.06)}
+.step-btn .num{font-family:var(--serif);font-size:14px;color:var(--mute);transition:color .3s}
+.step-btn .bar{width:3px;height:24px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;position:relative}
+.step-btn .bar::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .4s}
+.step-btn .lbl{font-size:12px;color:var(--mute);font-weight:500;letter-spacing:.02em;transition:color .3s}
+.step-btn.active{background:rgba(250,232,180,.09)}
+.step-btn.active .num,.step-btn.active .lbl{color:var(--gold-1)}
+.step-btn.active .bar::after{transform:scaleY(1)}
+
+/* Barra inferior da Hero (Destaques + Scroll) */
+.hero-bottom{position:absolute;z-index:3;bottom:26px;inset-inline:5vw;max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+.badges{display:flex;gap:28px;flex-wrap:wrap;font-size:12.5px;color:var(--mute)}
+.badges span{display:inline-flex;align-items:center;gap:8px}
+.badges strong{color:var(--ivory);font-weight:600}
+.hint{font-size:12px;color:var(--gold-1);display:flex;align-items:center;gap:10px;letter-spacing:.08em;text-transform:uppercase;transition:opacity .4s}
+.mouse{width:20px;height:32px;border:1.5px solid rgba(250,232,180,.5);border-radius:99px;position:relative}
+.mouse::after{content:"";position:absolute;top:6px;left:50%;translate:-50% 0;width:3px;height:6px;border-radius:99px;background:var(--gold-1);animation:wheel 1.8s infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(10px);opacity:0}}
 
 /* PRODUTOS */
-.products{position:relative;z-index:5;padding:clamp(80px,12vw,150px) 5vw;background:linear-gradient(var(--night),#06194a 60%,var(--night))}
-.head{max-width:1200px;margin:0 auto 56px;display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
-.head h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,5vw,64px);line-height:1.02;max-width:14ch}
-.head p{color:var(--mute);max-width:42ch}
-.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{position:relative;display:flex;flex-direction:column;padding:30px;border-radius:26px;overflow:hidden;
-  background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
-  border:1px solid rgba(248,227,160,.16);backdrop-filter:blur(8px);
-  transition:border-color .4s,transform .4s}
-.card:hover{border-color:rgba(248,227,160,.55);transform:translateY(-4px)}
-.card.wide{grid-column:span 2;flex-direction:row;gap:34px;align-items:center;
-  background:linear-gradient(160deg,rgba(248,227,160,.1),rgba(14,63,156,.25))}
-.card .art{flex:0 0 auto;display:grid;place-items:center;border-radius:18px;padding:20px;margin-bottom:24px;
-  background:radial-gradient(circle at 50% 30%,rgba(14,63,156,.9),rgba(4,18,46,.6))}
-.card.wide .art{width:46%;margin:0;align-self:stretch}
-.card .art img{width:100%;height:100%;max-height:200px;object-fit:contain}
+.products{position:relative;z-index:5;padding:clamp(90px,11vw,150px) 5vw;background:linear-gradient(180deg,var(--night) 0%,#06173d 55%,var(--night) 100%)}
+.head{max-width:1240px;margin:0 auto 48px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.head-left .sub{font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-1);font-weight:600;display:block;margin-bottom:10px}
+.head h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.8vw,60px);line-height:1.04;letter-spacing:-.02em}
+.head p{color:var(--mute);max-width:42ch;font-size:15.5px}
+
+/* Filtros rápidos */
+.filters{max-width:1240px;margin:0 auto 34px;display:flex;gap:10px;flex-wrap:wrap}
+.filter-btn{all:unset;cursor:pointer;font-size:13px;font-weight:500;color:var(--mute);padding:9px 18px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:all .25s}
+.filter-btn:hover{color:var(--ivory);border-color:rgba(250,232,180,.35)}
+.filter-btn.active{background:var(--gold);color:#231700;font-weight:700;border-color:transparent;box-shadow:0 6px 20px -5px rgba(217,169,58,.5)}
+
+.grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{--mx:50%;--my:50%;position:relative;display:flex;flex-direction:column;padding:28px;border-radius:28px;overflow:hidden;
+  background:radial-gradient(500px circle at var(--mx) var(--my),rgba(250,232,180,.11),transparent 40%),linear-gradient(165deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+  border:1px solid rgba(250,232,180,.16);backdrop-filter:blur(10px);
+  transition:border-color .4s,transform .4s,box-shadow .4s}
+.card:hover{border-color:rgba(250,232,180,.55);transform:translateY(-6px);box-shadow:0 24px 48px -18px rgba(0,0,0,.7)}
+.card.wide{grid-column:span 2;flex-direction:row;gap:34px;align-items:stretch;
+  background:radial-gradient(600px circle at var(--mx) var(--my),rgba(250,232,180,.14),transparent 45%),linear-gradient(160deg,rgba(250,232,180,.09),rgba(14,63,156,.22))}
+
+/* NOVA ART 3D INTERATIVA DOS COLCHÕES */
+.card .art{position:relative;flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;border-radius:20px;padding:22px 18px 16px;margin-bottom:22px;overflow:hidden;
+  background:radial-gradient(circle at 50% 25%,rgba(22,78,190,.55),rgba(4,15,38,.85));
+  border:1px solid rgba(250,232,180,.14)}
+.card.wide .art{width:47%;margin:0}
+.card .art img{width:100%;height:100%;max-height:220px;object-fit:contain;transition:transform .5s}
+.card:hover .art img{transform:scale(1.04)}
+.art-badge{position:absolute;top:12px;left:14px;font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-1);background:rgba(3,11,28,.65);padding:4px 10px;border-radius:99px;border:1px solid rgba(250,232,180,.2)}
+.art-hint{font-size:11px;color:var(--mute);margin-top:8px;opacity:.75;transition:opacity .3s,color .3s}
+.card:hover .art-hint{opacity:1;color:var(--gold-1)}
+
+/* Animação das camadas do SVG no Hover */
+.mattress-svg{width:100%;height:auto;max-height:195px;overflow:visible;filter:drop-shadow(0 16px 20px rgba(0,0,0,.55))}
+.mattress-svg .m-layer{transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.card:hover .mattress-svg .m-layer{transform:translateY(var(--lift,0px))}
+
 .body{display:flex;flex-direction:column;flex:1}
-.tag{align-self:flex-start;font-size:12px;color:var(--gold-1);border:1px solid rgba(248,227,160,.35);padding:3px 12px;border-radius:99px;margin-bottom:14px}
-.card h3{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.1}
-.card .desc{margin:10px 0 18px;color:var(--mute);font-size:15px}
-.specs{list-style:none;padding:0;margin:0 0 26px;border-top:1px solid rgba(255,255,255,.1)}
-.specs li{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.tag{font-size:11.5px;font-weight:600;color:var(--gold-1);background:rgba(250,232,180,.08);border:1px solid rgba(250,232,180,.3);padding:4px 12px;border-radius:99px}
+.feel{font-size:12px;color:var(--mute)}
+.card h3{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.12;letter-spacing:-.01em}
+.card .desc{margin:10px 0 18px;color:var(--mute);font-size:14.5px}
+
+/* Seletor de tamanho interativo */
+.size-picker{margin-bottom:16px}
+.size-label{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:7px;display:block}
+.sizes{display:flex;gap:6px;flex-wrap:wrap}
+.sz{all:unset;cursor:pointer;font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:var(--mute);transition:all .2s}
+.sz:hover{border-color:rgba(250,232,180,.4);color:var(--ivory)}
+.sz.active{background:rgba(250,232,180,.16);border-color:var(--gold-1);color:var(--gold-1)}
+
+.specs{list-style:none;padding:0;margin:0 0 22px;border-top:1px solid rgba(255,255,255,.09)}
+.specs li{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13.5px}
 .specs span:first-child{color:var(--mute)}
-.specs span:last-child{text-align:right}
+.specs span:last-child{text-align:right;font-weight:500;color:var(--ivory)}
 
 /* BOTÃO WHATSAPP */
-.wa{margin-top:auto;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:12px;
-  padding:14px 26px;border-radius:99px;text-decoration:none;font-weight:600;font-size:15px;color:#2a1c00;
-  background:var(--gold);box-shadow:0 8px 28px -8px rgba(217,169,58,.6),inset 0 1px 0 rgba(255,255,255,.55);
+.wa{margin-top:auto;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 24px;border-radius:99px;font-weight:700;font-size:14.5px;color:#241700;
+  background:var(--gold);box-shadow:0 8px 28px -8px rgba(217,169,58,.6),inset 0 1px 0 rgba(255,255,255,.6);
   transition:transform .3s,box-shadow .3s}
-.wa svg{width:20px;height:20px;fill:currentColor;flex:none}
+.wa svg{width:19px;height:19px;fill:currentColor;flex:none}
 .wa::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg)}
-.wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px -8px rgba(248,227,160,.75),inset 0 1px 0 rgba(255,255,255,.55)}
+.wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px -6px rgba(250,232,180,.8),inset 0 1px 0 rgba(255,255,255,.6)}
 .wa:hover::after{left:130%;transition:left .8s}
 
 /* FECHAMENTO */
-.closing{text-align:center;padding:clamp(80px,12vw,140px) 5vw;background:radial-gradient(60% 80% at 50% 0%,var(--royal),var(--night))}
-.closing h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.05;max-width:16ch;margin:0 auto 20px}
-.closing p{color:var(--mute);max-width:46ch;margin:0 auto 34px}
+.closing{text-align:center;padding:clamp(80px,12vw,140px) 5vw;background:radial-gradient(60% 80% at 50% 0%,var(--royal),var(--night));border-top:1px solid rgba(250,232,180,.12)}
+.closing h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1.05;max-width:17ch;margin:0 auto 18px}
+.closing p{color:var(--mute);max-width:46ch;margin:0 auto 34px;font-size:16px}
 .closing .wa{padding:17px 38px;font-size:16px}
-footer{padding:28px 5vw;text-align:center;font-size:13px;color:var(--mute);background:var(--night)}
+footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);background:var(--night);border-top:1px solid rgba(255,255,255,.06)}
 
-@media(max-width:900px){
+@media(max-width:960px){
+  .nav-links{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-nav{flex-direction:row;justify-self:start;padding:8px 12px}
+  .step-btn .lbl{display:none}
+  .step-btn .bar{width:22px;height:3px}
   .grid{grid-template-columns:1fr}
-  .card.wide{grid-column:auto;flex-direction:column;gap:0;align-items:stretch}
-  .card.wide .art{width:auto;margin-bottom:24px}
-  .stage::after{background:linear-gradient(0deg,rgba(4,18,46,.9),rgba(4,18,46,.3))}
-  .step{top:auto;bottom:90px;transform:translateY(20px)}
-  .step.on{transform:none}
+  .card.wide{grid-column:auto;flex-direction:column;gap:0}
+  .card.wide .art{width:auto;margin-bottom:22px}
+  .badges{display:none}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.wa:hover::after{transition:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <a class="brand" href="#" aria-label="MFC Confort Flex">
-    <img src="logo.png" alt="MFC Confort Flex" onerror="this.remove()">
-    <span class="fallback">Confort Flex</span>
-  </a>
-  <a class="nav-cta wa-link" href="#">Falar no WhatsApp</a>
-</header>
+<div class="nav-wrap">
+  <header class="nav">
+    <a class="brand" href="#" aria-label="MFC Confort Flex">
+      <img src="logo.png" alt="MFC Confort Flex" onerror="this.remove()">
+      <span class="brand-mark">CF</span>
+      <span class="fallback">
+        <strong>Confort Flex</strong>
+        <small>Colchões de Fábrica</small>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#hero">Experiência</a>
+      <a href="#linha">Modelos & Camadas</a>
+      <a href="#sob-medida">Sob Medida</a>
+    </nav>
+    <a class="nav-cta wa-link" href="#">
+      <span class="dot"></span>
+      Falar com a Fábrica
+    </a>
+  </header>
+</div>
 
-<!-- HERO: Vídeo de fundo em loop -->
+<!-- HERO INTERATIVO COM VÍDEO -->
 <section class="hero" id="hero">
   <div class="stage">
     <video 
@@ -125,110 +222,186 @@ footer{padding:28px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
       onerror="this.style.display='none'">
       <source src="Criar_vídeo_do_produto_1080p_20261019021732.webm" type="video/webm">
     </video>
-    <div class="steps">
-      <div class="step on" id="s1">
-        <h1>Noites que <span class="gold-text">renovam</span> o seu dia.</h1>
-        <p>Colchões fabricados com cuidado, do projeto ao acabamento, para quem leva o descanso a sério.</p>
+
+    <div class="hero-inner">
+      <div class="steps">
+        <div class="step on" id="s1">
+          <span class="eyebrow"><i></i> Fabricação Própria • Padrão Hotelaria</span>
+          <h1>Noites que <span class="gold-text">renovam</span> o seu dia.</h1>
+          <p>Colchões projetados camada por camada na nossa fábrica, unindo engenharia ortopédica e acabamento artesanal para quem leva o descanso a sério.</p>
+          <div class="hero-actions">
+            <a href="#linha" class="btn-primary">Explorar a Linha ↓</a>
+            <a href="#" class="btn-ghost wa-link">Orçamento Direto</a>
+          </div>
+        </div>
+
+        <div class="step" id="s2">
+          <span class="eyebrow"><i></i> Engenharia do Sono • Alta Densidade</span>
+          <h2>Cada camada pensada para o seu <span class="gold-text">corpo</span>.</h2>
+          <p>Molas ensacadas individualmente, espumas viscoelásticas e tecidos nobres selecionados para oferecer suporte firme na coluna e maciez nas zonas de pressão.</p>
+          <div class="hero-actions">
+            <a href="#linha" class="btn-primary">Ver Raio-X dos Modelos ↓</a>
+          </div>
+        </div>
+
+        <div class="step" id="s3">
+          <span class="eyebrow"><i></i> Sem Intermediários • Preço de Fábrica</span>
+          <h2>Direto da fábrica, com <span class="gold-text">acabamento</span> de hotel.</h2>
+          <p>Escolha o modelo ideal, selecione a medida da sua cama e receba atendimento direto dos nossos especialistas pelo WhatsApp.</p>
+          <div class="hero-actions">
+            <a href="#" class="btn-primary wa-link">Chamar Especialista Agora</a>
+            <a href="#linha" class="btn-ghost">Comparar 5 Modelos</a>
+          </div>
+        </div>
       </div>
-      <div class="step" id="s2">
-        <h2>Cada camada pensada para o seu <span class="gold-text">corpo</span>.</h2>
-        <p>Molas, espumas e tecidos escolhidos para dar apoio onde precisa e maciez onde faz diferença.</p>
+
+      <!-- Controle Interativo dos Capítulos -->
+      <aside class="hero-nav" aria-label="Etapas de apresentação">
+        <button class="step-btn active" data-step="0">
+          <span class="num">01</span>
+          <span class="bar"></span>
+          <span class="lbl">Descanso</span>
+        </button>
+        <button class="step-btn" data-step="1">
+          <span class="num">02</span>
+          <span class="bar"></span>
+          <span class="lbl">Camadas</span>
+        </button>
+        <button class="step-btn" data-step="2">
+          <span class="num">03</span>
+          <span class="bar"></span>
+          <span class="lbl">Fábrica</span>
+        </button>
+      </aside>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="badges">
+        <span>✦ <strong>Direto da Fábrica</strong> sem revendedores</span>
+        <span>✦ <strong>Espumas Certificadas</strong> de alta resiliência</span>
+        <span>✦ <strong>Medidas Especiais</strong> sob encomenda</span>
       </div>
-      <div class="step" id="s3">
-        <h2>Direto da fábrica, com <span class="gold-text">acabamento</span> de hotel.</h2>
-        <p>Conheça a linha e peça atendimento personalizado pelo WhatsApp.</p>
+      <div class="hint" id="hint">
+        <div class="mouse"></div>
+        <span>Role ou clique nos capítulos</span>
       </div>
     </div>
-    <div class="hint" id="hint"><span>Role para conhecer</span><i></i></div>
   </div>
 </section>
 
+<!-- CATÁLOGO DE PRODUTOS -->
 <section class="products" id="linha">
   <div class="head">
-    <h2>A linha Confort Flex</h2>
-    <p>Cinco modelos para diferentes jeitos de dormir. Escolha o seu e fale direto com a fábrica.</p>
+    <div class="head-left">
+      <span class="sub">Catálogo Interativo • Raio-X de Camadas</span>
+      <h2>A linha <span class="gold-text">Confort Flex</span></h2>
+    </div>
+    <p>Passe o mouse sobre a estrutura 3D para expandir as camadas de cada colchão, escolha a medida e peça seu orçamento direto da fábrica.</p>
   </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">Todos os modelos (5)</button>
+    <button class="filter-btn" data-filter="molas">Molas Ensacadas & Bonnel</button>
+    <button class="filter-btn" data-filter="espuma">Visco & Ortopédicos</button>
+    <button class="filter-btn" data-filter="infantil">Linha Infantil</button>
+  </div>
+
   <div class="grid" id="grid"></div>
 </section>
 
-<section class="closing">
-  <h2>Não achou o tamanho ideal?</h2>
-  <p>Fabricamos medidas sob encomenda. Conte o que você precisa e nossa equipe responde pelo WhatsApp.</p>
-  <a class="wa wa-link" href="#"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.300 1.700 2.100 1.200 1 2.200 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>Chamar no WhatsApp</a>
+<section class="closing" id="sob-medida">
+  <h2>Não achou o tamanho <span class="gold-text">ideal</span>?</h2>
+  <p>Como somos fabricantes, produzimos colchões em medidas especiais para camas sob medida, hotéis e pousadas. Fale direto com a nossa produção.</p>
+  <a class="wa wa-link" href="#"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.300 1.700 2.100 1.200 1 2.200 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>Solicitar Medida Especial no WhatsApp</a>
 </section>
 
-<footer>© MFC Confort Flex. Todos os direitos reservados.</footer>
+<footer>© MFC Confort Flex • Fábrica de Colchões Premium. Todos os direitos reservados.</footer>
 
 <script>
 /* ========= CONFIGURAÇÃO ========= */
 const WA_NUMBER = "55DDDNUMERO"; // ex.: 5562999999999
 
 const PRODUCTS = [
-  {n:"Royal Ensacado", tag:"Mais procurado", wide:true, layers:5,
-   d:"Molas ensacadas individuais com pillow top. Acomoda o corpo sem passar o movimento para quem dorme ao lado.",
-   s:[["Estrutura","Molas ensacadas"],["Conforto","Pillow top macio"],["Altura","Cerca de 30 cm"],["Ideal para","Casal"]]},
-  {n:"Visco Gold", tag:"Viscoelástico", layers:4,
-   d:"Camada viscoelástica que se molda ao corpo, com base firme de espuma de alta resiliência.",
-   s:[["Estrutura","Espuma + visco"],["Conforto","Envolvente"],["Altura","Cerca de 26 cm"],["Ideal para","Solteiro e casal"]]},
-  {n:"Ortho Flex", tag:"Ortopédico", layers:3,
-   d:"Espuma de alta densidade para quem busca firmeza e alinhamento da coluna durante o sono.",
-   s:[["Estrutura","Espuma D33/D45"],["Conforto","Firme"],["Altura","Cerca de 20 cm"],["Ideal para","Todas as idades"]]},
-  {n:"Molas Bonnel Classic", tag:"Custo-benefício", layers:3,
-   d:"Molas Bonnel com tecido acolchoado e borda reforçada. Resistente e ventilado para o uso diário.",
-   s:[["Estrutura","Molas Bonnel"],["Conforto","Médio"],["Altura","Cerca de 24 cm"],["Ideal para","Quarto de casa e hóspedes"]]},
-  {n:"Kids Flex", tag:"Infantil", layers:2,
-   d:"Espuma segura e leve, com tecido macio e fácil de higienizar. Feito para crescer com a criança.",
-   s:[["Estrutura","Espuma hipoalergênica"],["Conforto","Médio-firme"],["Altura","Cerca de 14 cm"],["Ideal para","Berço e solteiro"]]}
+  {n:"Royal Ensacado", tag:"Mais procurado", cat:"molas", wide:true, layers:5,
+   layerNames:["Malha Belga Bordada","Pillow Top Visco","Espuma HR D33","Molas Ensacadas 2.0","Base Estrutural EPS"],
+   sizes:["Casal","Queen","King"],
+   d:"Molas ensacadas individuais com Pillow Top de hotelaria. Acomoda o corpo perfeitamente sem transferir movimento para quem dorme ao lado.",
+   s:[["Estrutura","Molas ensacadas individuais"],["Conforto","Pillow top macio envolvente"],["Altura","30 cm"],["Suporte","Até 130 kg por lado"]]},
+  {n:"Visco Gold", tag:"Viscoelástico NASA", cat:"espuma", layers:4,
+   layerNames:["Tecido Jacquard","Viscoelástico NASA","Espuma Alta Resiliência","Base Firme D33"],
+   sizes:["Solteiro","Casal","Queen"],
+   d:"Camada viscoelástica que se molda aos contornos do corpo aliviando pontos de pressão, com base firme de alta durabilidade.",
+   s:[["Estrutura","Espuma + Visco NASA"],["Conforto","Macio progressivo"],["Altura","26 cm"],["Ideal para","Solteiro e casal"]]},
+  {n:"Ortho Flex", tag:"Ortopédico Firme", cat:"espuma", layers:3,
+   layerNames:["Matelassê Antialérgico","Espuma D45 Certificada","Base de Suporte Ortopédico"],
+   sizes:["Solteiro","Casal","Queen"],
+   d:"Desenvolvido com espuma de alta densidade para quem busca firmeza superior e alinhamento correto da coluna durante toda a noite.",
+   s:[["Estrutura","Espuma D33 / D45"],["Conforto","Firme ortopédico"],["Altura","20 cm"],["Ideal para","Coluna alinhada"]]},
+  {n:"Molas Bonnel Classic", tag:"Custo-benefício", cat:"molas", layers:3,
+   layerNames:["Tampo Bordado Macio","Espuma de Conforto","Molas Bonnel Entrelaçadas"],
+   sizes:["Solteiro","Casal"],
+   d:"Sistema tradicional de molas Bonnel com bordas reforçadas em espuma de alta densidade. Excelente ventilação interna e resistência diária.",
+   s:[["Estrutura","Molas Bonnel"],["Conforto","Intermediário"],["Altura","24 cm"],["Ideal para","Uso diário e hóspedes"]]},
+  {n:"Kids Flex", tag:"Linha Infantil", cat:"infantil", layers:2,
+   layerNames:["Malha Hipoalergênica Suave","Núcleo D23 Sustentável"],
+   sizes:["Berço","Solteiro"],
+   d:"Espuma hipoalergênica certificada, com tecido macio de toque suave e tratamento antiácaro. Projetado para a fase de crescimento.",
+   s:[["Estrutura","Espuma hipoalergênica"],["Conforto","Médio-firme seguro"],["Altura","14 cm"],["Ideal para","Berço e cama infantil"]]}
 ];
 
 const WA_ICON='<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.200 1 2.2 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>';
 const wa = t => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
 
-/* ilustração de camadas (aparece até você ter as imagens/renders dos produtos) */
-function art(n,layers){
-  const cols=["#f6f0e0","#d9a93a","#0e3f9c","#f8e3a0","#8c6112"];
-  let r="";
-  for(let i=0;i<layers;i++){
-    r+=`<rect x="${10+i*3}" y="${34+i*20}" width="${180-i*6}" height="16" rx="8" fill="${cols[i%5]}" opacity="${.95-i*.1}"/>`;
+/* ========= NOVA ILUSTRAÇÃO 3D ISOMÉTRICA (.art) ========= */
+function art(p){
+  const palette = [
+    {l:"#f8f3e6", r:"#e2d6bc", stroke:"#fff"}, // Topo Matelassê
+    {l:"#f5de9c", r:"#cf9e30", stroke:"#fae8b4"}, // Camada Ouro / Visco
+    {l:"#255ec4", r:"#153c87", stroke:"#6ba0ff"}, // Camada Molas / Tecnológica
+    {l:"#d9a93a", r:"#9c7118", stroke:"#f8e3a0"}, // Suporte
+    {l:"#0c2454", r:"#061536", stroke:"#2b5099"}  // Base estrutural
+  ];
+  const count = p.layers;
+  const step = 22;
+  const baseY = 56;
+  let layersSvg = "";
+
+  // Desenha de baixo para cima para sobreposição 3D perfeita
+  for(let i = count - 1; i >= 0; i--){
+    const y = baseY + i * step;
+    const h = i === 0 ? 15 : (i === 2 && p.cat === "molas" ? 20 : 16);
+    const c = palette[i % palette.length];
+    const lift = (i - (count - 1) / 2) * 9; // Expansão no hover
+    const label = (p.layerNames && p.layerNames[i]) ? p.layerNames[i] : `Camada ${i+1}`;
+
+    let topFace = "";
+    if(i === 0){
+      // Superfície matelassê acolchoada no topo
+      topFace = `
+        <polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="url(#topGrad)" stroke="#ffffff" stroke-width="1"/>
+        <path d="M78,${y-14} L182,${y+14} M182,${y-14} L78,${y+14} M104,${y-21} L208,${y+7} M52,${y-7} L156,${y+21}" stroke="#d5c7a8" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.75"/>
+      `;
+    } else {
+      topFace = `<polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="${c.l}" opacity="0.92"/>`;
+    }
+
+    // Detalhe de molas visíveis se for camada intermediária
+    let springDetail = "";
+    if(i === count - 2 && p.cat === "molas"){
+      springDetail = `<path d="M45,${y+8} Q52,${y+14} 45,${y+20} M70,${y+15} Q77,${y+21} 70,${y+27} M95,${y+22} Q102,${y+28} 95,${y+34}" stroke="#fae8b4" stroke-width="1.4" fill="none" opacity="0.85"/>`;
+    }
+
+    layersSvg += `
+      <g class="m-layer" style="--lift:${lift}px">
+        ${topFace}
+        <polygon points="25,${y} 130,${y+28} 130,${y+28+h} 25,${y+h}" fill="${c.l}"/>
+        <polygon points="130,${y+28} 235,${y} 235,${y+h} 130,${y+28+h}" fill="${c.r}"/>
+        ${springDetail}
+        <line x1="130" y1="${y+28}" x2="130" y2="${y+28+h}" stroke="${c.stroke}" stroke-opacity="0.4" stroke-width="1"/>
+      </g>
+    `;
   }
-  return `<svg viewBox="0 0 200 ${50+layers*20}" width="100%" height="170" role="img" aria-label="Camadas do colchão ${n}">${r}</svg>`;
-}
 
-const grid=document.getElementById("grid");
-PRODUCTS.forEach((p)=>{
-  const slug=p.n.toLowerCase().replace(/[^a-z0-9]+/g,"-");
-  grid.insertAdjacentHTML("beforeend",`
-  <article class="card${p.wide?" wide":""}">
-    <div class="art">
-      <img src="produtos/${slug}.png" alt="Colchão ${p.n}" onerror="this.outerHTML=art('${p.n}',${p.layers})">
-    </div>
-    <div class="body">
-      <span class="tag">${p.tag}</span>
-      <h3>${p.n}</h3>
-      <p class="desc">${p.d}</p>
-      <ul class="specs">${p.s.map(x=>`<li><span>${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>
-      <a class="wa" href="${wa(`Olá! Tenho interesse no colchão ${p.n}. Pode me atender?`)}" target="_blank" rel="noopener">${WA_ICON}Pedir atendimento</a>
-    </div>
-  </article>`);
-});
-document.querySelectorAll(".wa-link").forEach(a=>{
-  a.href=wa("Olá! Vim pelo site da MFC Confort Flex e gostaria de atendimento.");a.target="_blank";a.rel="noopener";
-});
-
-/* ========= ANIMAÇÃO DE TEXTO NO SCROLL DA HERO ========= */
-const hero=document.getElementById("hero");
-const steps=[...document.querySelectorAll(".step")];
-const hint=document.getElementById("hint");
-
-function onScroll(){
-  const p=Math.min(1,Math.max(0,scrollY/(hero.offsetHeight-innerHeight)));
-  steps[0].classList.toggle("on",p<.28);
-  steps[1].classList.toggle("on",p>=.34&&p<.62);
-  steps[2].classList.toggle("on",p>=.68);
-  hint.style.opacity=p<.04?1:0;
-}
-addEventListener("scroll",onScroll,{passive:true});
-onScroll();
-</script>
-</body>
-</html>
+  const totalH = baseY + count * step + 45;
+  return `
+    <span class="art-badge">${
