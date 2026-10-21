@@ -457,7 +457,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
           <p>Escolha o modelo ideal, selecione a medida da sua cama e receba atendimento direto dos nossos especialistas pelo WhatsApp.</p>
           <div class="hero-actions">
             <a href="#" class="btn-primary wa-link">Chamar Especialista Agora</a>
-            <a href="#linha" class="btn-ghost">Comparar 5 Modelos</a>
+            <a href="#linha" class="btn-ghost">Comparar Modelos</a>
           </div>
         </div>
       </div>
@@ -484,17 +484,21 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 <section class="products" id="linha">
   <div class="head">
     <div class="head-left">
-      <span class="sub">Catálogo Interativo • Raio-X de Camadas</span>
+      <span class="sub">Catálogo Interativo</span>
       <h2>A linha <span class="gold-text">Confort Flex</span></h2>
     </div>
-    <p>Clique sobre a foto para ampliar em tela cheia e ver todos os ângulos. Escolha a medida e fale direto com a fábrica.</p>
+    <p>Clique sobre a foto para ampliar em tela cheia e ver todos os detalhes. Escolha a medida e fale direto com a fábrica.</p>
   </div>
+  
+  <!-- ATENÇÃO: Adicionei o botão de Cabeceiras aqui nos filtros! -->
   <div class="filters">
-    <button class="filter-btn active" data-filter="all">Todos os modelos (5)</button>
-    <button class="filter-btn" data-filter="molas">Molas Ensacadas & Bonnel</button>
-    <button class="filter-btn" data-filter="espuma">Visco & Ortopédicos</button>
+    <button class="filter-btn active" data-filter="all">Todos os produtos (5)</button>
+    <button class="filter-btn" data-filter="molas">Colchões de Mola</button>
+    <button class="filter-btn" data-filter="espuma">Colchões de Espuma</button>
+    <button class="filter-btn" data-filter="cabeceiras">Cabeceiras</button>
     <button class="filter-btn" data-filter="infantil">Linha Infantil</button>
   </div>
+  
   <div class="grid" id="grid"></div>
 </section>
 
@@ -563,9 +567,9 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 /* ========= CONFIGURAÇÃO ========= */
 const WA_NUMBER = "55DDDNUMERO";
 
-/* --- BANCO DE DADOS ATUALIZADO COM SISTEMA INTELIGENTE (imgTpl) --- */
+/* --- BANCO DE DADOS DOS PRODUTOS --- */
 const PRODUCTS = [
-  // CARD 1
+  // CARD 1: ROYAL
   {n:"Royal Ensacado", tag:"Mais procurado", cat:"molas", 
    imgTpl: "acoplado/{idx}acoplado.webp", fotos: 4, 
    layers:5, layerNames:["Malha Belga Bordada","Pillow Top Visco","Espuma HR D33","Molas Ensacadas 2.0","Base Estrutural EPS"],
@@ -573,7 +577,7 @@ const PRODUCTS = [
    d:"Molas ensacadas individuais com Pillow Top de hotelaria. Acomoda o corpo perfeitamente sem transferir movimento para quem dorme ao lado.",
    s:[["Estrutura","Molas ensacadas individuais"],["Conforto","Pillow top macio envolvente"],["Altura","30 cm"],["Suporte","Até 130 kg por lado"]]},
   
-  // CARD 2 (NOVO CONFORT D33 MISTO)
+  // CARD 2: CONFORT D33 MISTO
   {n:"Confort D33 Misto", tag:"D33 Especial", cat:"espuma", 
    imgTpl: "confortmisto/misto{idx}.webp", fotos: 4, 
    layers:4, layerNames:["Tecido Jacquard Bordado","Espuma D33 Selada","Placa EPS Alta Densidade","Base de Suporte"],
@@ -581,21 +585,23 @@ const PRODUCTS = [
    d:"O equilíbrio perfeito entre o conforto da espuma D33 e a firmeza da base de sustentação. Ideal para quem busca suporte ortopédico com toque macio.",
    s:[["Estrutura","Espuma D33 + EPS"],["Conforto","Firme e confortável"],["Altura","24 cm"],["Ideal para","Solteiro e casal"]]},
   
-  // CARD 3 (Sem imagens novas ainda - mantendo Arte 3D)
-  {n:"Ortho Flex", tag:"Ortopédico Firme", cat:"espuma", layers:3,
-   layerNames:["Matelassê Antialérgico","Espuma D45 Certificada","Base de Suporte Ortopédico"],
-   sizes:["Solteiro","Casal","Queen"],
-   d:"Desenvolvido com espuma de alta densidade para quem busca firmeza superior e alinhamento correto da coluna durante toda a noite.",
-   s:[["Estrutura","Espuma D33 / D45"],["Conforto","Firme ortopédico"],["Altura","20 cm"],["Ideal para","Coluna alinhada"]]},
+  // CARD 3: NOVA CABECEIRA LOREN
+  // Usando a máscara 'loren/lorem{idx}.webp' para resolver o nome dos arquivos com M.
+  {n:"Cabeceira Loren", tag:"Design Elegante", cat:"cabeceiras", 
+   imgTpl: "loren/lorem{idx}.webp", fotos: 4, 
+   layers:2, layerNames:["Estofado Claro","Oito Painéis"],
+   sizes:["Casal","Queen","King"],
+   d:"Estofado claro com oito painéis acolchoados divididos em duas fileiras simétricas. Traz conforto acústico e um toque de elegância moderna para o quarto.",
+   s:[["Estrutura","Painéis modulares"],["Revestimento","Tecido claro premium"],["Design","8 painéis (2 fileiras)"],["Instalação","Fácil fixação na parede"]]},
   
-  // CARD 4 (Sem imagens novas ainda - mantendo Arte 3D)
+  // CARD 4 (Arte 3D - Mantida)
   {n:"Molas Bonnel Classic", tag:"Custo-benefício", cat:"molas", layers:3,
    layerNames:["Tampo Bordado Macio","Espuma de Conforto","Molas Bonnel Entrelaçadas"],
    sizes:["Solteiro","Casal"],
    d:"Sistema tradicional de molas Bonnel com bordas reforçadas em espuma de alta densidade. Excelente ventilação interna e resistência diária.",
    s:[["Estrutura","Molas Bonnel"],["Conforto","Intermediário"],["Altura","24 cm"],["Ideal para","Uso diário e hóspedes"]]},
   
-  // CARD 5 (Sem imagens novas ainda - mantendo Arte 3D)
+  // CARD 5 (Arte 3D - Mantida)
   {n:"Kids Flex", tag:"Linha Infantil", cat:"infantil", layers:2,
    layerNames:["Malha Hipoalergênica Suave","Núcleo D23 Sustentável"],
    sizes:["Berço","Solteiro"],
@@ -697,7 +703,6 @@ function renderProducts(filter = "all"){
     card.className = `card`; 
     card.style.transitionDelay = `0s, ${i * .08}s, ${i * .08}s, 0s`;
     
-    // Verifica se o produto tem a tag 'imgTpl'
     let artContent = "";
     if (p.imgTpl) {
       artContent = `
@@ -723,19 +728,17 @@ function renderProducts(filter = "all"){
           </div>
         </div>
         <ul class="specs">${p.s.map(x=>`<li><span>${x[0]}</span><span>${x[1]}</span></li>`).join("")}</ul>
-        <a class="wa" href="${wa(`Olá! Tenho interesse no colchão *${p.n}* na medida *${defaultSize}*. Pode me passar valores direto da fábrica?`)}" target="_blank" rel="noopener">
+        <a class="wa" href="${wa(`Olá! Tenho interesse no modelo *${p.n}* na medida *${defaultSize}*. Pode me passar valores direto da fábrica?`)}" target="_blank" rel="noopener">
           ${WA_ICON}<span>Orçar ${p.n} (${defaultSize})</span>
         </a>
       </div>
     `;
 
-    // Aplica a lógica do carrossel/lightbox apenas se a máscara existir
     if (p.imgTpl) {
       const imgElement = card.querySelector('.imagem-ativa');
       const btnEsq = card.querySelector('.seta-esq');
       const btnDir = card.querySelector('.seta-dir');
 
-      // Setas dentro do Card
       btnDir.addEventListener('click', (e) => {
         e.preventDefault();
         let idx = parseInt(imgElement.dataset.index);
@@ -754,7 +757,6 @@ function renderProducts(filter = "all"){
         imgElement.src = p.imgTpl.replace('{idx}', idx);
       });
 
-      // Clique na Imagem para Abrir a Lightbox (Tela Cheia)
       imgElement.addEventListener('click', () => {
         lbImgTpl = p.imgTpl;
         lbTotal = p.fotos;
@@ -779,7 +781,7 @@ function renderProducts(filter = "all"){
         btn.classList.add("active");
         const chosen = btn.dataset.size;
         waText.textContent = `Orçar ${p.n} (${chosen})`;
-        waBtn.href = wa(`Olá! Tenho interesse no colchão *${p.n}* na medida *${chosen}*. Pode me passar valores direto da fábrica?`);
+        waBtn.href = wa(`Olá! Tenho interesse no modelo *${p.n}* na medida *${chosen}*. Pode me passar valores direto da fábrica?`);
       });
     });
 
