@@ -158,7 +158,10 @@ a{color:inherit;text-decoration:none}
 .card .art img{width:100%;height:100%;max-height:220px;object-fit:contain;transition:transform .5s, opacity 0.3s ease;}
 .card:hover .art img.imagem-estatica{transform:scale(1.04)}
 
-/* ESTILO EXCLUSIVO DAS SETAS DO CARROSSEL */
+/* Cursor especial quando pode expandir */
+.imagem-ativa { cursor: zoom-in; }
+
+/* ESTILO EXCLUSIVO DAS SETAS DO CARROSSEL NO CARD */
 .seta {
   position: absolute;
   top: 50%;
@@ -298,6 +301,58 @@ a{color:inherit;text-decoration:none}
 .closing .wa{padding:17px 38px;font-size:16px}
 footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);background:var(--night);border-top:1px solid rgba(255,255,255,.06)}
 
+/* === ESTILOS DA LIGHTBOX (GALERIA EM TELA CHEIA) === */
+.lightbox {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(3, 11, 28, 0.95);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease);
+}
+.lightbox.active { opacity: 1; pointer-events: auto; }
+.lightbox-img {
+  max-width: 90vw; max-height: 85vh; object-fit: contain;
+  border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transform: scale(0.85); opacity: 0; 
+  transition: transform 0.4s var(--apple-ease), opacity 0.4s;
+  will-change: transform, opacity; /* Otimização extrema para celular de 2GB RAM */
+}
+.lightbox.active .lightbox-img {
+  transform: scale(1); opacity: 1;
+}
+
+/* Animação Impressionante Final (GPU Acelerada) */
+.lightbox-img.anim-out {
+  transform: scale(0.1) translateY(400px) rotate(-10deg) !important;
+  opacity: 0 !important;
+  transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.5s !important;
+}
+
+/* Botão Fechar Premium */
+.lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(250,232,180,0.3);
+  color: var(--gold-1); font-size: 28px; width: 44px; height: 44px;
+  border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s; z-index: 10001;
+}
+.lightbox-close:hover { background: var(--gold); color: #000; transform: scale(1.1); }
+
+/* Setas maiores para Mobile na Lightbox */
+.lb-seta-esq, .lb-seta-dir {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 56px; height: 56px; font-size: 24px;
+  background: rgba(3, 11, 28, 0.5); backdrop-filter: blur(4px);
+  border: 1px solid rgba(250, 232, 180, 0.3);
+  color: var(--gold-1); border-radius: 50%;
+  cursor: pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s var(--ease); opacity: 1;
+}
+.lb-seta-esq:hover, .lb-seta-dir:hover { background: var(--gold); color: #000; transform: translateY(-50%) scale(1.1); border: none; }
+.lb-seta-esq { left: 4vw; }
+.lb-seta-dir { right: 4vw; }
+
+
 @media(max-width:960px){
   .nav-links{display:none}
   .hero-inner{grid-template-columns:1fr}
@@ -311,6 +366,11 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   .awake-frame::after{background:linear-gradient(0deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.45) 55%,rgba(3,11,28,.1) 100%)}
   .awake-overlay{align-items:flex-end;justify-content:center;padding-bottom:28px}
   .awake-card{padding:24px 22px}
+  
+  /* Ajuste responsivo das setas do Lightbox */
+  .lb-seta-esq, .lb-seta-dir { width: 44px; height: 44px; font-size: 18px; }
+  .lb-seta-esq { left: 2vw; }
+  .lb-seta-dir { right: 2vw; }
 }
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -428,7 +488,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
       <span class="sub">Catálogo Interativo • Raio-X de Camadas</span>
       <h2>A linha <span class="gold-text">Confort Flex</span></h2>
     </div>
-    <p>Passe o mouse sobre os cards para ver as camadas ou navegue pelas fotos. Escolha a medida e fale direto com a fábrica.</p>
+    <p>Clique sobre a foto para ampliar em tela cheia e ver todos os ângulos. Escolha a medida e fale direto com a fábrica.</p>
   </div>
   <div class="filters">
     <button class="filter-btn active" data-filter="all">Todos os modelos (5)</button>
@@ -492,21 +552,26 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 
 <footer>© MFC Confort Flex • Fábrica de Colchões Premium. Todos os direitos reservados.</footer>
 
+<!-- HTML DA LIGHTBOX AQUI -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lb-close" aria-label="Fechar galeria">&times;</button>
+  <button class="lb-seta-esq" id="lb-prev" aria-label="Imagem anterior">&#10094;</button>
+  <img src="" alt="Imagem Ampliada" class="lightbox-img" id="lb-img">
+  <button class="lb-seta-dir" id="lb-next" aria-label="Próxima imagem">&#10095;</button>
+</div>
+
 <script>
 /* ========= CONFIGURAÇÃO ========= */
 const WA_NUMBER = "55DDDNUMERO";
 
-/* --- BANCO DE DADOS: NOTE QUE APENAS O PRIMEIRO TEM 'pasta' --- */
-/* O parâmetro "wide" foi removido do primeiro para manter o padrão visual de todos */
 const PRODUCTS = [
   {n:"Royal Ensacado", tag:"Mais procurado", cat:"molas", 
-   pasta: "acoplado", fotos: 4,  /* CARROSSEL ATIVADO APENAS AQUI */
+   pasta: "acoplado", fotos: 4,  /* CARROSSEL/LIGHTBOX ATIVADO APENAS AQUI */
    layers:5, layerNames:["Malha Belga Bordada","Pillow Top Visco","Espuma HR D33","Molas Ensacadas 2.0","Base Estrutural EPS"],
    sizes:["Casal","Queen","King"],
    d:"Molas ensacadas individuais com Pillow Top de hotelaria. Acomoda o corpo perfeitamente sem transferir movimento para quem dorme ao lado.",
    s:[["Estrutura","Molas ensacadas individuais"],["Conforto","Pillow top macio envolvente"],["Altura","30 cm"],["Suporte","Até 130 kg por lado"]]},
   
-  /* Os demais permanecem com sua estrutura de camadas originais */
   {n:"Visco Gold", tag:"Viscoelástico NASA", cat:"espuma", layers:4,
    layerNames:["Tecido Jacquard","Viscoelástico NASA","Espuma Alta Resiliência","Base Firme D33"],
    sizes:["Solteiro","Casal","Queen"],
@@ -535,65 +600,92 @@ const PRODUCTS = [
 const WA_ICON='<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.200 1 2.2 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>';
 const wa = t => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
 
+/* ========= LÓGICA GLOBAL DA LIGHTBOX ========= */
+let lbPasta = "";
+let lbTotal = 0;
+let lbCardImgRef = null; // Guarda a referência da imagem do card para atualizar
+
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbClose = document.getElementById('lb-close');
+const lbPrev = document.getElementById('lb-prev');
+const lbNext = document.getElementById('lb-next');
+
+// Atualiza a imagem na lightbox e no card de fundo simultaneamente
+function updateLbImg(index) {
+  const newSrc = `${lbPasta}/${index}${lbPasta}.webp`;
+  lbImg.src = newSrc;
+  if(lbCardImgRef) {
+    lbCardImgRef.dataset.index = index;
+    lbCardImgRef.src = newSrc;
+  }
+}
+
+// Fechamento padrão (clicando no X)
+function closeLightbox() {
+  lb.classList.remove('active');
+  setTimeout(() => { lbImg.src = ""; }, 300); // Limpa para liberar memória
+}
+lbClose.onclick = closeLightbox;
+
+// Clique de Próximo na Lightbox
+lbNext.onclick = () => {
+  let index = parseInt(lbCardImgRef.dataset.index);
+  
+  // Se for a última imagem... a mágica acontece!
+  if (index === lbTotal) {
+    lbImg.classList.add('anim-out'); // Ativa animação 3D GPU de saída
+    
+    setTimeout(() => {
+      lb.classList.remove('active'); // Fecha o fundo
+      
+      setTimeout(() => {
+        lbImg.classList.remove('anim-out'); // Reseta a classe
+        // Volta o card original para a imagem 1
+        lbCardImgRef.dataset.index = 1;
+        lbCardImgRef.src = `${lbPasta}/1${lbPasta}.webp`;
+      }, 300); // Tempo do fadeout da lightbox
+
+    }, 500); // Tempo que a animação fica tocando antes de fechar
+
+  } else {
+    // Passa pra próxima foto normalmente
+    index++;
+    updateLbImg(index);
+  }
+};
+
+// Clique de Anterior na Lightbox
+lbPrev.onclick = () => {
+  let index = parseInt(lbCardImgRef.dataset.index);
+  index--;
+  if (index < 1) index = lbTotal;
+  updateLbImg(index);
+};
+
+
 /* ========= ILUSTRAÇÃO 3D ISOMÉTRICA (.art) ORIGINAL ========= */
 function art(p){
-  const palette = [
-    {l:"#f8f3e6", r:"#e2d6bc", stroke:"#fff"},
-    {l:"#f5de9c", r:"#cf9e30", stroke:"#fae8b4"},
-    {l:"#255ec4", r:"#153c87", stroke:"#6ba0ff"},
-    {l:"#d9a93a", r:"#9c7118", stroke:"#f8e3a0"},
-    {l:"#0c2454", r:"#061536", stroke:"#2b5099"}
-  ];
-  const count = p.layers;
-  const step = 22;
-  const baseY = 56;
-  let layersSvg = "";
-
+  const palette = [{l:"#f8f3e6",r:"#e2d6bc",stroke:"#fff"},{l:"#f5de9c",r:"#cf9e30",stroke:"#fae8b4"},{l:"#255ec4",r:"#153c87",stroke:"#6ba0ff"},{l:"#d9a93a",r:"#9c7118",stroke:"#f8e3a0"},{l:"#0c2454",r:"#061536",stroke:"#2b5099"}];
+  const count = p.layers; const step = 22; const baseY = 56; let layersSvg = "";
   for(let i = count - 1; i >= 0; i--){
     const y = baseY + i * step;
     const h = i === 0 ? 15 : (i === 2 && p.cat === "molas" ? 20 : 16);
     const c = palette[i % palette.length];
     const lift = (i - (count - 1) / 2) * 9;
-
     let topFace = "";
     if(i === 0){
-      topFace = `
-        <polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="url(#topGrad)" stroke="#ffffff" stroke-width="1"/>
-        <path d="M78,${y-14} L182,${y+14} M182,${y-14} L78,${y+14} M104,${y-21} L208,${y+7} M52,${y-7} L156,${y+21}" stroke="#d5c7a8" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.75"/>
-      `;
+      topFace = `<polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="url(#topGrad)" stroke="#ffffff" stroke-width="1"/><path d="M78,${y-14} L182,${y+14} M182,${y-14} L78,${y+14} M104,${y-21} L208,${y+7} M52,${y-7} L156,${y+21}" stroke="#d5c7a8" stroke-width="0.9" stroke-dasharray="3 3" opacity="0.75"/>`;
     } else {
       topFace = `<polygon points="130,${y-28} 235,${y} 130,${y+28} 25,${y}" fill="${c.l}" opacity="0.92"/>`;
     }
-
     let springDetail = "";
     if(i === count - 2 && p.cat === "molas"){
       springDetail = `<path d="M45,${y+8} Q52,${y+14} 45,${y+20} M70,${y+15} Q77,${y+21} 70,${y+27} M95,${y+22} Q102,${y+28} 95,${y+34}" stroke="#fae8b4" stroke-width="1.4" fill="none" opacity="0.85"/>`;
     }
-
-    layersSvg += `
-      <g class="m-layer" style="--lift:${lift}px">
-        ${topFace}
-        <polygon points="25,${y} 130,${y+28} 130,${y+28+h} 25,${y+h}" fill="${c.l}"/>
-        <polygon points="130,${y+28} 235,${y} 235,${y+h} 130,${y+28+h}" fill="${c.r}"/>
-        ${springDetail}
-        <line x1="130" y1="${y+28}" x2="130" y2="${y+28+h}" stroke="${c.stroke}" stroke-opacity="0.4" stroke-width="1"/>
-      </g>
-    `;
+    layersSvg += `<g class="m-layer" style="--lift:${lift}px">${topFace}<polygon points="25,${y} 130,${y+28} 130,${y+28+h} 25,${y+h}" fill="${c.l}"/><polygon points="130,${y+28} 235,${y} 235,${y+h} 130,${y+28+h}" fill="${c.r}"/>${springDetail}<line x1="130" y1="${y+28}" x2="130" y2="${y+28+h}" stroke="${c.stroke}" stroke-opacity="0.4" stroke-width="1"/></g>`;
   }
-
-  const totalH = baseY + count * step + 45;
-  return `
-    <span class="art-badge">${count} Camadas</span>
-    <svg class="mattress-svg" viewBox="0 0 260 ${totalH}" role="img">
-      <defs>
-        <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#ffffff"/><stop offset="60%" stop-color="#f6f0e0"/><stop offset="100%" stop-color="#e5d7b8"/>
-        </linearGradient>
-      </defs>
-      ${layersSvg}
-    </svg>
-    <span class="art-hint">Passe o mouse para expandir as camadas</span>
-  `;
+  return `<span class="art-badge">${count} Camadas</span><svg class="mattress-svg" viewBox="0 0 260 ${baseY + count * step + 45}" role="img"><defs><linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffffff"/><stop offset="60%" stop-color="#f6f0e0"/><stop offset="100%" stop-color="#e5d7b8"/></linearGradient></defs>${layersSvg}</svg><span class="art-hint">Passe o mouse para expandir as camadas</span>`;
 }
 
 /* ========= RENDERIZAÇÃO INTELIGENTE ========= */
@@ -609,15 +701,15 @@ function renderProducts(filter = "all"){
     const defaultSize = p.sizes[0];
     const slug = p.n.toLowerCase().replace(/[^a-z0-9]+/g,"-");
     const card = document.createElement("article");
-    card.className = `card`; /* Wide foi removido para ficar todos proporcionais */
+    card.className = `card`; 
     card.style.transitionDelay = `0s, ${i * .08}s, ${i * .08}s, 0s`;
     
-    // Verifica se o produto tem a tag 'pasta' para usar carrossel
+    // Verifica se o produto tem a tag 'pasta'
     let artContent = "";
     if (p.pasta) {
       artContent = `
         <button class="seta seta-esq" aria-label="Imagem anterior">&#10094;</button>
-        <img src="${p.pasta}/1${p.pasta}.webp" alt="Colchão ${p.n}" class="imagem-ativa">
+        <img src="${p.pasta}/1${p.pasta}.webp" alt="Colchão ${p.n}" class="imagem-ativa" data-index="1">
         <button class="seta seta-dir" aria-label="Próxima imagem">&#10095;</button>
       `;
     } else {
@@ -625,16 +717,12 @@ function renderProducts(filter = "all"){
     }
 
     card.innerHTML = `
-      <div class="art">
-        ${artContent}
-      </div>
+      <div class="art">${artContent}</div>
       <div class="body">
         <div class="card-top">
-          <span class="tag">${p.tag}</span>
-          <span class="feel">${p.layerNames[0]}</span>
+          <span class="tag">${p.tag}</span><span class="feel">${p.layerNames[0]}</span>
         </div>
-        <h3>${p.n}</h3>
-        <p class="desc">${p.d}</p>
+        <h3>${p.n}</h3><p class="desc">${p.d}</p>
         <div class="size-picker">
           <span class="size-label">Escolha a medida:</span>
           <div class="sizes">
@@ -648,35 +736,47 @@ function renderProducts(filter = "all"){
       </div>
     `;
 
-    // Aplica a lógica do carrossel apenas se a pasta existir
+    // Aplica a lógica do carrossel/lightbox apenas se a pasta existir
     if (p.pasta) {
-      let imgAtual = 1;
       const imgElement = card.querySelector('.imagem-ativa');
       const btnEsq = card.querySelector('.seta-esq');
       const btnDir = card.querySelector('.seta-dir');
 
+      // Setas dentro do Card
       btnDir.addEventListener('click', (e) => {
         e.preventDefault();
-        imgAtual++;
-        if (imgAtual > p.fotos) imgAtual = 1;
-        imgElement.src = `${p.pasta}/${imgAtual}${p.pasta}.webp`;
+        let idx = parseInt(imgElement.dataset.index);
+        idx++;
+        if (idx > p.fotos) idx = 1;
+        imgElement.dataset.index = idx;
+        imgElement.src = `${p.pasta}/${idx}${p.pasta}.webp`;
       });
 
       btnEsq.addEventListener('click', (e) => {
         e.preventDefault();
-        imgAtual--;
-        if (imgAtual < 1) imgAtual = p.fotos;
-        imgElement.src = `${p.pasta}/${imgAtual}${p.pasta}.webp`;
+        let idx = parseInt(imgElement.dataset.index);
+        idx--;
+        if (idx < 1) idx = p.fotos;
+        imgElement.dataset.index = idx;
+        imgElement.src = `${p.pasta}/${idx}${p.pasta}.webp`;
       });
+
+      // Clique na Imagem para Abrir a Lightbox (Tela Cheia)
+      imgElement.addEventListener('click', () => {
+        lbPasta = p.pasta;
+        lbTotal = p.fotos;
+        lbCardImgRef = imgElement; // Salva quem chamou para manter sincronizado
+        
+        let currentIndex = parseInt(imgElement.dataset.index);
+        lbImg.src = `${lbPasta}/${currentIndex}${lbPasta}.webp`;
+        lb.classList.add('active');
+      });
+
     } else {
-      // Falha de carregamento da imagem carrega a Arte 3D Original
       const img = card.querySelector(".art img");
-      img.addEventListener("error", () => {
-        card.querySelector(".art").innerHTML = art(p);
-      });
+      img.addEventListener("error", () => { card.querySelector(".art").innerHTML = art(p); });
     }
 
-    // Funcionalidades de Botões de tamanho e 3D Hover
     const sizeBtns = card.querySelectorAll(".sz");
     const waBtn = card.querySelector(".wa");
     const waText = waBtn.querySelector("span");
@@ -709,7 +809,6 @@ function renderProducts(filter = "all"){
 renderProducts();
 io.observe(document.getElementById("awakeIntro"));
 
-// Filtros de categoria
 document.querySelectorAll(".filter-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -724,25 +823,18 @@ document.querySelectorAll(".wa-link").forEach(a=>{
   a.target="_blank";a.rel="noopener";
 });
 
-/* ========= LUZ DOURADA QUE SEGUE O CURSOR ========= */
 const glow = document.getElementById("glow");
 let gx = 0, gy = 0, tx = 0, ty = 0;
 addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
 (function loopGlow(){
-  gx += (tx - gx) * .12;
-  gy += (ty - gy) * .12;
+  gx += (tx - gx) * .12; gy += (ty - gy) * .12;
   glow.style.transform = `translate(${gx}px,${gy}px)`;
   requestAnimationFrame(loopGlow);
 })();
 
-/* ========= ABERTURA INTERATIVA ========= */
 const intro = document.getElementById("intro");
 const vid = document.getElementById("bg-video");
-
-intro.addEventListener("mousemove", e => {
-  intro.style.setProperty("--mx", e.clientX + "px");
-  intro.style.setProperty("--my", e.clientY + "px");
-});
+if(intro) intro.addEventListener("mousemove", e => { intro.style.setProperty("--mx", e.clientX + "px"); intro.style.setProperty("--my", e.clientY + "px"); });
 
 function openSite(fast){
   if(!document.getElementById("intro")) return;
@@ -752,27 +844,15 @@ function openSite(fast){
   setTimeout(() => intro.remove(), fast ? 50 : 1700);
   try{ sessionStorage.setItem("mfc-intro", "1"); }catch(e){}
 }
+if(document.getElementById("enter")) document.getElementById("enter").onclick = () => openSite();
+if(document.getElementById("skip")) document.getElementById("skip").onclick = () => openSite();
+addEventListener("keydown", e => { if(e.key === "Enter" && document.getElementById("intro")) openSite(); });
+try{ if(sessionStorage.getItem("mfc-intro")){ if(intro) intro.remove(); document.body.classList.remove("lock"); vid.play && vid.play().catch(()=>{}); } }catch(e){}
 
-document.getElementById("enter").onclick = () => openSite();
-document.getElementById("skip").onclick = () => openSite();
-addEventListener("keydown", e => {
-  if(e.key === "Enter" && document.getElementById("intro")) openSite();
-});
-
-try{
-  if(sessionStorage.getItem("mfc-intro")){
-    intro.remove();
-    document.body.classList.remove("lock");
-    vid.play && vid.play().catch(()=>{});
-  }
-}catch(e){}
-
-/* ========= CONTROLE DE SCROLL: HERO + SEÇÃO APPLE DESPERTAR ========= */
 const hero = document.getElementById("hero");
 const steps = [...document.querySelectorAll(".step")];
 const stepBtns = [...document.querySelectorAll(".step-btn")];
 const hint = document.getElementById("hint");
-
 const awakeScroll = document.getElementById("awakeScroll");
 const awakeFrame = document.getElementById("awakeFrame");
 const awakeImg = document.getElementById("awakeImg");
@@ -787,24 +867,18 @@ function setActiveStep(idx){
 function onScroll(){
   const maxScroll = hero.offsetHeight - innerHeight;
   const p = Math.min(1, Math.max(0, scrollY / maxScroll));
-  const activeIdx = p < 0.33 ? 0 : (p < 0.67 ? 1 : 2);
-  setActiveStep(activeIdx);
-  hint.style.opacity = p < 0.06 ? 1 : 0;
+  setActiveStep(p < 0.33 ? 0 : (p < 0.67 ? 1 : 2));
+  if(hint) hint.style.opacity = p < 0.06 ? 1 : 0;
 
   const rect = awakeScroll.getBoundingClientRect();
   const totalAwake = awakeScroll.offsetHeight - innerHeight;
   const awP = Math.min(1, Math.max(0, -rect.top / totalAwake));
 
   const expand = Math.min(1, Math.max(0, (awP + 0.15) / 0.42));
-  const w = 86 + expand * 10;   
-  const h = 76 + expand * 16;   
-  const r = 34 - expand * 10;   
-  const scale = 1.14 - awP * 0.14; 
-
-  awakeFrame.style.setProperty("--aw-w", `${w}vw`);
-  awakeFrame.style.setProperty("--aw-h", `${h}vh`);
-  awakeFrame.style.setProperty("--aw-r", `${r}px`);
-  awakeImg.style.setProperty("--aw-scale", scale.toFixed(3));
+  awakeFrame.style.setProperty("--aw-w", `${86 + expand * 10}vw`);
+  awakeFrame.style.setProperty("--aw-h", `${76 + expand * 16}vh`);
+  awakeFrame.style.setProperty("--aw-r", `${34 - expand * 10}px`);
+  awakeImg.style.setProperty("--aw-scale", (1.14 - awP * 0.14).toFixed(3));
 
   const awIdx = awP < 0.34 ? 0 : (awP < 0.68 ? 1 : 2);
   awakeCards.forEach((c, i) => c.classList.toggle("on", i === awIdx));
@@ -813,10 +887,7 @@ function onScroll(){
 
 stepBtns.forEach(btn => {
   btn.addEventListener("click", () => {
-    const idx = Number(btn.dataset.step);
-    const maxScroll = hero.offsetHeight - innerHeight;
-    const targetY = hero.offsetTop + (idx * 0.42) * maxScroll;
-    window.scrollTo({ top: targetY, behavior: "smooth" });
+    window.scrollTo({ top: hero.offsetTop + (Number(btn.dataset.step) * 0.42) * (hero.offsetHeight - innerHeight), behavior: "smooth" });
   });
 });
 
