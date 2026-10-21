@@ -490,7 +490,6 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
     <p>Clique sobre a foto para ampliar em tela cheia e ver todos os detalhes. Escolha a medida e fale direto com a fábrica.</p>
   </div>
   
-  <!-- ATENÇÃO: Adicionei o botão de Cabeceiras aqui nos filtros! -->
   <div class="filters">
     <button class="filter-btn active" data-filter="all">Todos os produtos (5)</button>
     <button class="filter-btn" data-filter="molas">Colchões de Mola</button>
@@ -585,8 +584,7 @@ const PRODUCTS = [
    d:"O equilíbrio perfeito entre o conforto da espuma D33 e a firmeza da base de sustentação. Ideal para quem busca suporte ortopédico com toque macio.",
    s:[["Estrutura","Espuma D33 + EPS"],["Conforto","Firme e confortável"],["Altura","24 cm"],["Ideal para","Solteiro e casal"]]},
   
-  // CARD 3: NOVA CABECEIRA LOREN
-  // Usando a máscara 'loren/lorem{idx}.webp' para resolver o nome dos arquivos com M.
+  // CARD 3: CABECEIRA LOREN
   {n:"Cabeceira Loren", tag:"Design Elegante", cat:"cabeceiras", 
    imgTpl: "loren/lorem{idx}.webp", fotos: 4, 
    layers:2, layerNames:["Estofado Claro","Oito Painéis"],
@@ -594,14 +592,15 @@ const PRODUCTS = [
    d:"Estofado claro com oito painéis acolchoados divididos em duas fileiras simétricas. Traz conforto acústico e um toque de elegância moderna para o quarto.",
    s:[["Estrutura","Painéis modulares"],["Revestimento","Tecido claro premium"],["Design","8 painéis (2 fileiras)"],["Instalação","Fácil fixação na parede"]]},
   
-  // CARD 4 (Arte 3D - Mantida)
-  {n:"Molas Bonnel Classic", tag:"Custo-benefício", cat:"molas", layers:3,
-   layerNames:["Tampo Bordado Macio","Espuma de Conforto","Molas Bonnel Entrelaçadas"],
-   sizes:["Solteiro","Casal"],
-   d:"Sistema tradicional de molas Bonnel com bordas reforçadas em espuma de alta densidade. Excelente ventilação interna e resistência diária.",
-   s:[["Estrutura","Molas Bonnel"],["Conforto","Intermediário"],["Altura","24 cm"],["Ideal para","Uso diário e hóspedes"]]},
+  // CARD 4: NOVA CABECEIRA LUNA (NOVO)
+  {n:"Cabeceira Luna", tag:"Lançamento", cat:"cabeceiras", 
+   imgTpl: "luna/luna{idx}.webp", fotos: 5, 
+   layers:2, layerNames:["Tom Amendoado","Canais Verticais"],
+   sizes:["Casal","Queen","King"],
+   d:"Estofado elegante em tom amendoado com design de canais verticais, que ajuda a alongar o ambiente e traz uma sensação de conforto premium.",
+   s:[["Estrutura","Painel Estofado"],["Revestimento","Suede Amendoado"],["Design","Canais verticais"],["Instalação","Fixação simplificada"]]},
   
-  // CARD 5 (Arte 3D - Mantida)
+  // CARD 5 (Arte 3D - Mantida temporariamente)
   {n:"Kids Flex", tag:"Linha Infantil", cat:"infantil", layers:2,
    layerNames:["Malha Hipoalergênica Suave","Núcleo D23 Sustentável"],
    sizes:["Berço","Solteiro"],
@@ -707,11 +706,11 @@ function renderProducts(filter = "all"){
     if (p.imgTpl) {
       artContent = `
         <button class="seta seta-esq" aria-label="Imagem anterior">&#10094;</button>
-        <img src="${p.imgTpl.replace('{idx}', 1)}" alt="Colchão ${p.n}" class="imagem-ativa" data-index="1">
+        <img src="${p.imgTpl.replace('{idx}', 1)}" alt="${p.n}" class="imagem-ativa" data-index="1">
         <button class="seta seta-dir" aria-label="Próxima imagem">&#10095;</button>
       `;
     } else {
-      artContent = `<img src="produtos/${slug}.png" alt="Colchão ${p.n}" class="imagem-estatica">`;
+      artContent = `<img src="produtos/${slug}.png" alt="${p.n}" class="imagem-estatica">`;
     }
 
     card.innerHTML = `
