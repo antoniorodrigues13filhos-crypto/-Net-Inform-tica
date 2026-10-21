@@ -151,17 +151,35 @@ a{color:inherit;text-decoration:none}
 .card.in{opacity:1;translate:0 0}
 .card:hover{border-color:rgba(250,232,180,.55);box-shadow:0 24px 48px -18px rgba(0,0,0,.7)}
 
-/* CONTAINER DE IMAGENS ORIGINAL E COM SETAS */
-.card .art{position:relative;flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;border-radius:20px;padding:22px 18px 16px;margin-bottom:22px;overflow:hidden;
+/* === NOVO CONTAINER DE IMAGENS (LINHA FINA E FOTO ARREDONDADA) === */
+.card .art{
+  position:relative;
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  border-radius:20px;
+  padding:6px; /* Espaço bem fininho */
+  margin-bottom:22px;
+  overflow:hidden;
   background:radial-gradient(circle at 50% 25%,rgba(22,78,190,.55),rgba(4,15,38,.85));
-  border:1px solid rgba(250,232,180,.14)}
-.card .art img{width:100%;height:100%;max-height:220px;object-fit:contain;transition:transform .5s, opacity 0.3s ease;}
+  border:1px solid rgba(250,232,180,.14);
+}
+.card .art img{
+  width:100%;
+  height:100%;
+  max-height:240px;
+  object-fit:cover; /* Preenche o espaço da foto sem bordas feias */
+  border-radius:14px; /* Arredondamento da própria foto */
+  transition:transform .5s, opacity 0.3s ease;
+}
 .card:hover .art img.imagem-estatica{transform:scale(1.04)}
 
 /* Cursor especial quando pode expandir */
 .imagem-ativa { cursor: zoom-in; }
 
-/* ESTILO EXCLUSIVO DAS SETAS DO CARROSSEL NO CARD */
+/* ESTILO DAS SETAS DO CARROSSEL NO CARD */
 .seta {
   position: absolute;
   top: 50%;
@@ -190,16 +208,13 @@ a{color:inherit;text-decoration:none}
   box-shadow: 0 0 15px rgba(250,232,180,0.5);
   border: none;
 }
-.seta-esq { left: 10px; }
-.seta-dir { right: 10px; }
+.seta-esq { left: 14px; }
+.seta-dir { right: 14px; }
 
-/* SVG / BADGES ORIGINAIS */
-.art-badge{position:absolute;top:12px;left:14px;font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-1);background:rgba(3,11,28,.65);padding:4px 10px;border-radius:99px;border:1px solid rgba(250,232,180,.2)}
+/* SVG / BADGES ORIGINAIS (se necessário) */
+.art-badge{position:absolute;top:12px;left:14px;font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-1);background:rgba(3,11,28,.65);padding:4px 10px;border-radius:99px;border:1px solid rgba(250,232,180,.2); z-index: 2;}
 .art-hint{font-size:11px;color:var(--mute);margin-top:8px;opacity:.75;transition:opacity .3s,color .3s}
 .card:hover .art-hint{opacity:1;color:var(--gold-1)}
-.mattress-svg{width:100%;height:auto;max-height:195px;overflow:visible;filter:drop-shadow(0 16px 20px rgba(0,0,0,.55))}
-.mattress-svg .m-layer{transition:transform .55s var(--apple-ease)}
-.card:hover .mattress-svg .m-layer{transform:translateY(var(--lift,0px))}
 
 .body{display:flex;flex-direction:column;flex:1;position:relative;z-index:1}
 .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
@@ -491,6 +506,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   </div>
   
   <div class="filters">
+    <!-- Removido o botão Infantil, já que agora a Cabeceira Malu assumiu o lugar do último produto -->
     <button class="filter-btn active" data-filter="all">Todos os produtos (6)</button>
     <button class="filter-btn" data-filter="molas">Colchões de Mola</button>
     <button class="filter-btn" data-filter="espuma">Colchões de Espuma</button>
@@ -607,7 +623,7 @@ const PRODUCTS = [
    d:"Estofado claro com nove painéis acolchoados e moldura externa. Um design sofisticado que emoldura a cama e eleva o padrão de conforto e beleza do seu quarto.",
    s:[["Estrutura","9 painéis com moldura"],["Revestimento","Tecido claro premium"],["Design","Clássico sofisticado"],["Instalação","Fixação na parede"]]},
   
-  // CARD 6: CABECEIRA MALU (Substituindo Kids Flex)
+  // CARD 6: CABECEIRA MALU (Nova Cabeceira, substituindo Kids Flex)
   {n:"Cabeceira Malu", tag:"Capitonê Clássico", cat:"cabeceiras", 
    imgTpl: "cabeceiramalu/malu{idx}.webp", fotos: 5, 
    layers:2, layerNames:["Estofado Marrom","Botões Clássicos"],
