@@ -23,7 +23,7 @@
   --serif:'Fraunces',Georgia,serif; 
   --sans:'Plus Jakarta Sans',system-ui,sans-serif;
   --ease:cubic-bezier(.77,0,.18,1);
-  --apple-ease:cubic-bezier(.16,1,.3,1);
+  --apple-ease:cubic-bezier(0.16, 1, 0.3, 1);
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
@@ -33,48 +33,44 @@ a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--gold-1);outline-offset:3px}
 .gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;font-weight:500;padding-right:4px;text-shadow:none}
 
-/* RUÍDO / GRÃO FÍLMICO + LUZ QUE SEGUE O CURSOR */
-.grain{position:fixed;inset:-50%;z-index:9998;pointer-events:none;opacity:.09;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  animation:grain 1s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-5%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(0,0)}}
-.glow{position:fixed;z-index:9997;pointer-events:none;width:520px;height:520px;left:0;top:0;margin:-260px 0 0 -260px;border-radius:50%;
-  background:radial-gradient(circle,rgba(250,232,180,.11),transparent 65%);mix-blend-mode:screen;will-change:transform}
+/* LUZ QUE SEGUE O CURSOR (Apenas PC) */
+.glow{position:fixed;z-index:9997;pointer-events:none;width:500px;height:500px;left:0;top:0;margin:-250px 0 0 -250px;border-radius:50%;
+  background:radial-gradient(circle,rgba(250,232,180,.09),transparent 65%);mix-blend-mode:screen;will-change:transform}
 
 /* ABERTURA INTERATIVA */
 .intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;text-align:center;overflow:hidden}
-.panel{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(90% 70% at 50% 40%,var(--royal-2),var(--royal) 45%,var(--night));transition:transform 1.5s var(--ease)}
+.panel{position:absolute;top:0;bottom:0;width:50.2%;background:radial-gradient(90% 70% at 50% 40%,var(--royal-2),var(--royal) 45%,var(--night));transition:transform 1.4s var(--apple-ease);will-change:transform}
 .panel.l{left:0}.panel.r{right:0;background-position:right}
 .panel::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--gold-1),transparent);opacity:.7}
 .panel.l::after{right:0}.panel.r::after{left:0}
 .intro .spot{position:absolute;inset:0;pointer-events:none;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(250,232,180,.22),transparent 70%);transition:opacity .6s}
-.intro-in{position:relative;z-index:2;padding:0 6vw;transition:opacity .6s,transform 1s var(--ease)}
-.intro-in>*{opacity:0;transform:translateY(24px);animation:rise 1.2s var(--ease) forwards}
-.intro-in .intro-eyebrow{font-size:12px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-1);font-weight:600;animation-delay:.2s}
+.intro-in{position:relative;z-index:2;padding:0 6vw;transition:opacity .6s,transform 1s var(--apple-ease)}
+.intro-in>*{opacity:0;transform:translate3d(0,24px,0);animation:rise 1.1s var(--apple-ease) forwards}
+.intro-in .intro-eyebrow{font-size:12px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-1);font-weight:600;animation-delay:.15s}
 .intro-in .logo{font-family:var(--serif);font-weight:400;font-style:italic;font-size:clamp(54px,11vw,132px);line-height:1.05;letter-spacing:-.02em;margin:12px 0 8px;
   background:linear-gradient(110deg,var(--gold-3),var(--gold-1) 40%,var(--gold-2) 55%,var(--gold-3));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:rise 1.2s var(--ease) .5s forwards,shine 4s linear 1.7s infinite}
-.intro-in .sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--mute);animation-delay:.9s}
-.enter{margin-top:42px;position:relative;width:122px;height:122px;border-radius:50%;border:0;background:rgba(3,11,28,.35);backdrop-filter:blur(6px);color:var(--gold-1);cursor:pointer;font:600 12.5px var(--sans);letter-spacing:.25em;text-transform:uppercase;animation-delay:1.3s}
+  animation:rise 1.1s var(--apple-ease) .35s forwards,shine 5s linear 1.5s infinite}
+.intro-in .sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.2vw,26px);color:var(--mute);animation-delay:.6s}
+.enter{margin-top:42px;position:relative;width:122px;height:122px;border-radius:50%;border:0;background:rgba(3,11,28,.35);backdrop-filter:blur(6px);color:var(--gold-1);cursor:pointer;font:600 12.5px var(--sans);letter-spacing:.25em;text-transform:uppercase;animation-delay:.85s}
 .enter svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .enter circle{fill:none;stroke-width:1.5}
 .enter .bg{stroke:rgba(250,232,180,.28)}
-.enter .fg{stroke:var(--gold-1);stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset .9s var(--ease)}
+.enter .fg{stroke:var(--gold-1);stroke-dasharray:339.3;stroke-dashoffset:339.3;transition:stroke-dashoffset .9s var(--apple-ease)}
 .enter:hover .fg,.enter:focus-visible .fg{stroke-dashoffset:0}
 .enter span{position:relative;transition:letter-spacing .5s}
 .enter:hover span{letter-spacing:.35em}
-.skip{position:absolute;z-index:3;bottom:26px;left:50%;translate:-50% 0;font-size:12px;color:var(--mute);opacity:0;animation:rise 1s 2s forwards;background:none;border:0;cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
+.skip{position:absolute;z-index:3;bottom:26px;left:50%;translate:-50% 0;font-size:12px;color:var(--mute);opacity:0;animation:rise 1s 1.2s forwards;background:none;border:0;cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
 .skip:hover{color:var(--gold-1)}
-@keyframes rise{to{opacity:1;transform:none}}
+@keyframes rise{to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes shine{to{background-position:-220% 0}}
-.intro.open .panel.l{transform:translateX(-101%)}
-.intro.open .panel.r{transform:translateX(101%)}
-.intro.open .intro-in{opacity:0;transform:scale(1.12)}
+.intro.open .panel.l{transform:translate3d(-101%,0,0)}
+.intro.open .panel.r{transform:translate3d(101%,0,0)}
+.intro.open .intro-in{opacity:0;transform:scale3d(1.08,1.08,1)}
 .intro.open .spot,.intro.open .skip{opacity:0}
 
 /* NAV FLUTUANTE */
 .nav-wrap{position:fixed;top:20px;inset-inline:0;z-index:100;display:flex;justify-content:center;padding:0 4vw;pointer-events:none}
-.nav{pointer-events:auto;width:min(1240px,100%);display:flex;justify-content:space-between;align-items:center;padding:12px 22px;border-radius:99px;background:rgba(3,11,28,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(250,232,180,.16);box-shadow:0 18px 40px -15px rgba(0,0,0,.6);transition:border-color .3s,background .3s}
+.nav{pointer-events:auto;width:min(1240px,100%);display:flex;justify-content:space-between;align-items:center;padding:12px 22px;border-radius:99px;background:rgba(3,11,28,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(250,232,180,.16);box-shadow:0 18px 40px -15px rgba(0,0,0,.6);transition:border-color .3s}
 .nav:hover{border-color:rgba(250,232,180,.32)}
 .brand{display:flex;align-items:center;gap:12px}
 .brand-mark{width:40px;height:40px;border-radius:50%;background:var(--gold);display:grid;place-items:center;overflow:hidden;border:1.5px solid rgba(250,232,180,.55);box-shadow:0 0 20px rgba(217,169,58,.4);flex-shrink:0}
@@ -89,34 +85,60 @@ a{color:inherit;text-decoration:none}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -4px rgba(250,232,180,.75)}
 .nav-cta .dot{width:7px;height:7px;border-radius:50%;background:#14532d;box-shadow:0 0 0 3px rgba(20,83,45,.3)}
 
-/* HERO INTERATIVO */
-.hero{height:330vh;position:relative}
+/* =========================================================
+   HERO INTERATIVO COM TEXTOS EM CASCATA NÍVEL APPLE (GPU)
+========================================================= */
+.hero{height:280vh;position:relative}
 .stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:radial-gradient(65% 65% at 70% 45%,var(--royal-2),var(--royal) 45%,var(--night))}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;transform:scale(1.02);transition:transform .8s ease-out}
-.stage::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(95deg,rgba(3,11,28,.55) 0%,rgba(3,11,28,.20) 48%,rgba(3,11,28,.02) 100%),linear-gradient(180deg,transparent 75%,rgba(3,11,28,.65) 100%)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;transform:scale3d(1.02,1.02,1)}
+.stage::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(95deg,rgba(3,11,28,.65) 0%,rgba(3,11,28,.25) 48%,rgba(3,11,28,.05) 100%),linear-gradient(180deg,transparent 75%,rgba(3,11,28,.75) 100%)}
 
 .hero-inner{position:relative;z-index:2;width:min(1240px,100%);margin:0 auto;padding:0 5vw;display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px}
 
-.steps{position:relative;min-height:360px;display:flex;align-items:center}
-.step{position:absolute;inset-inline:0;max-width:650px;opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .75s var(--apple-ease),transform .75s var(--apple-ease),filter .75s;pointer-events:none}
-.step.on{opacity:1;transform:translateY(0);filter:blur(0);pointer-events:auto}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-1);background:rgba(3,11,28,.45);border:1px solid rgba(250,232,180,.3);padding:6px 14px;border-radius:99px;margin-bottom:22px;backdrop-filter:blur(8px)}
+.steps{position:relative;min-height:380px;display:flex;align-items:center;transform:translate3d(0, var(--hero-parallax, 0px), 0);will-change:transform}
+.step{
+  position:absolute;inset-inline:0;max-width:650px;
+  pointer-events:none;
+  visibility:hidden;
+}
+.step.on{
+  pointer-events:auto;
+  visibility:visible;
+}
+
+/* Animação individual em cascata para cada linha de texto (Zero Blur = 120fps no Mobile) */
+.step .eyebrow,
+.step h1, .step h2,
+.step p,
+.step .hero-actions {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  transition: opacity 0.85s var(--apple-ease), transform 0.85s var(--apple-ease);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.step.on .eyebrow { opacity: 1; transform: translate3d(0, 0, 0); transition-delay: 0.02s; }
+.step.on h1, .step.on h2 { opacity: 1; transform: translate3d(0, 0, 0); transition-delay: 0.10s; }
+.step.on p { opacity: 1; transform: translate3d(0, 0, 0); transition-delay: 0.18s; }
+.step.on .hero-actions { opacity: 1; transform: translate3d(0, 0, 0); transition-delay: 0.26s; }
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-1);background:rgba(3,11,28,.55);border:1px solid rgba(250,232,180,.3);padding:6px 14px;border-radius:99px;margin-bottom:22px}
 .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 8px var(--gold-1)}
-.step h1,.step h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.6vw,76px);line-height:1.03;letter-spacing:-.02em;color:var(--ivory);text-shadow:0 8px 28px rgba(0,0,0,.55)}
+.step h1,.step h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5.5vw,74px);line-height:1.04;letter-spacing:-.02em;color:var(--ivory);text-shadow:0 8px 28px rgba(0,0,0,.55)}
 .step p{margin-top:20px;color:#dbe4f7;max-width:48ch;font-size:clamp(15px,1.25vw,18px);font-weight:400;text-shadow:0 4px 16px rgba(0,0,0,.65)}
 
 .hero-actions{margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:99px;background:var(--gold);color:#231700;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -8px rgba(217,169,58,.65);transition:transform .25s,box-shadow .25s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -6px rgba(250,232,180,.8)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(3,11,28,.45);border:1px solid rgba(255,255,255,.25);color:var(--ivory);font-weight:500;font-size:14px;backdrop-filter:blur(10px);transition:background .25s,border-color .25s}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(3,11,28,.55);border:1px solid rgba(255,255,255,.25);color:var(--ivory);font-weight:500;font-size:14px;transition:background .25s,border-color .25s}
 .btn-ghost:hover{background:rgba(250,232,180,.15);border-color:var(--gold-1)}
 
-.hero-nav{display:flex;flex-direction:column;gap:14px;padding:18px 14px;border-radius:24px;background:rgba(3,11,28,.48);border:1px solid rgba(250,232,180,.2);backdrop-filter:blur(12px)}
+.hero-nav{display:flex;flex-direction:column;gap:14px;padding:18px 14px;border-radius:24px;background:rgba(3,11,28,.58);border:1px solid rgba(250,232,180,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .step-btn{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;transition:background .3s}
 .step-btn:hover{background:rgba(255,255,255,.08)}
 .step-btn .num{font-family:var(--serif);font-size:14px;color:var(--mute);transition:color .3s}
 .step-btn .bar{width:3px;height:24px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;position:relative}
-.step-btn .bar::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .4s}
+.step-btn .bar::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleY(0);transform-origin:top;transition:transform .4s var(--apple-ease)}
 .step-btn .lbl{font-size:12px;color:var(--mute);font-weight:500;letter-spacing:.02em;transition:color .3s}
 .step-btn.active{background:rgba(250,232,180,.12)}
 .step-btn.active .num,.step-btn.active .lbl{color:var(--gold-1)}
@@ -146,12 +168,12 @@ a{color:inherit;text-decoration:none}
 .grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;perspective:1200px}
 .card{--cx:50%;--cy:0%;position:relative;display:flex;flex-direction:column;padding:28px;border-radius:28px;overflow:hidden;
   background:linear-gradient(165deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
-  border:1px solid rgba(250,232,180,.16);backdrop-filter:blur(10px);
-  opacity:0;translate:0 40px;transition:border-color .4s,opacity .9s,translate .9s var(--ease),transform .25s,box-shadow .4s}
-.card.in{opacity:1;translate:0 0}
+  border:1px solid rgba(250,232,180,.16);
+  opacity:0;transform:translate3d(0,36px,0);transition:border-color .4s,opacity .8s var(--apple-ease),transform .8s var(--apple-ease),box-shadow .4s}
+.card.in{opacity:1;transform:translate3d(0,0,0)}
 .card:hover{border-color:rgba(250,232,180,.55);box-shadow:0 24px 48px -18px rgba(0,0,0,.7)}
 
-/* === NOVO CONTAINER DE IMAGENS (LINHA FINA E FOTO ARREDONDADA) === */
+/* CONTAINER DE IMAGENS COM BORDA FINA E ELEGANTE */
 .card .art{
   position:relative;
   flex:0 0 auto;
@@ -160,7 +182,7 @@ a{color:inherit;text-decoration:none}
   justify-content:center;
   align-items:center;
   border-radius:20px;
-  padding:6px; /* Espaço bem fininho */
+  padding:6px;
   margin-bottom:22px;
   overflow:hidden;
   background:radial-gradient(circle at 50% 25%,rgba(22,78,190,.55),rgba(4,15,38,.85));
@@ -170,22 +192,20 @@ a{color:inherit;text-decoration:none}
   width:100%;
   height:100%;
   max-height:240px;
-  object-fit:cover; /* Preenche o espaço da foto sem bordas feias */
-  border-radius:14px; /* Arredondamento da própria foto */
-  transition:transform .5s, opacity 0.3s ease;
+  object-fit:cover;
+  border-radius:14px;
+  transition:transform .5s var(--apple-ease), opacity 0.3s ease;
 }
 .card:hover .art img.imagem-estatica{transform:scale(1.04)}
 
-/* Cursor especial quando pode expandir */
 .imagem-ativa { cursor: zoom-in; }
 
-/* ESTILO DAS SETAS DO CARROSSEL NO CARD */
+/* SETAS DO CARROSSEL NO CARD */
 .seta {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(3, 11, 28, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(3, 11, 28, 0.55);
   border: 1px solid rgba(250, 232, 180, 0.3);
   color: var(--gold-1);
   width: 36px;
@@ -196,7 +216,7 @@ a{color:inherit;text-decoration:none}
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  transition: all 0.3s var(--ease);
+  transition: all 0.25s var(--apple-ease);
   z-index: 10;
   font-size: 14px;
 }
@@ -210,11 +230,6 @@ a{color:inherit;text-decoration:none}
 }
 .seta-esq { left: 14px; }
 .seta-dir { right: 14px; }
-
-/* SVG / BADGES ORIGINAIS (se necessário) */
-.art-badge{position:absolute;top:12px;left:14px;font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-1);background:rgba(3,11,28,.65);padding:4px 10px;border-radius:99px;border:1px solid rgba(250,232,180,.2); z-index: 2;}
-.art-hint{font-size:11px;color:var(--mute);margin-top:8px;opacity:.75;transition:opacity .3s,color .3s}
-.card:hover .art-hint{opacity:1;color:var(--gold-1)}
 
 .body{display:flex;flex-direction:column;flex:1;position:relative;z-index:1}
 .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
@@ -246,30 +261,42 @@ a{color:inherit;text-decoration:none}
 .wa:hover{transform:translateY(-2px);box-shadow:0 14px 34px -6px rgba(250,232,180,.8),inset 0 1px 0 rgba(255,255,255,.6)}
 .wa:hover::after{left:130%;transition:left .8s}
 
-/* SEÇÃO APPLE */
+/* =========================================================
+   SEÇÃO APPLE (O DESPERTAR) - 100% GPU COMPOSITED (ZERO LAG)
+========================================================= */
 .awakening{position:relative;z-index:5;background:var(--night);padding-top:40px}
 .awake-intro{max-width:920px;margin:0 auto 56px;padding:0 5vw;text-align:center}
-.awake-intro .sub{display:inline-block;font-size:12px;text-transform:uppercase;letter-spacing:.24em;color:var(--gold-1);font-weight:600;margin-bottom:14px;opacity:0;transform:translateY(24px);transition:opacity .8s var(--apple-ease),transform .8s var(--apple-ease)}
-.awake-intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5.2vw,66px);line-height:1.05;letter-spacing:-.02em;opacity:0;transform:translateY(32px);transition:opacity .9s var(--apple-ease) .1s,transform .9s var(--apple-ease) .1s}
-.awake-intro p{color:var(--mute);max-width:52ch;margin:18px auto 0;font-size:clamp(15.5px,1.3vw,18px);opacity:0;transform:translateY(32px);transition:opacity .9s var(--apple-ease) .2s,transform .9s var(--apple-ease) .2s}
-.awake-intro.in .sub,.awake-intro.in h2,.awake-intro.in p{opacity:1;transform:none}
+.awake-intro .sub{display:inline-block;font-size:12px;text-transform:uppercase;letter-spacing:.24em;color:var(--gold-1);font-weight:600;margin-bottom:14px;opacity:0;transform:translate3d(0,26px,0);transition:opacity .9s var(--apple-ease),transform .9s var(--apple-ease)}
+.awake-intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5.2vw,66px);line-height:1.05;letter-spacing:-.02em;opacity:0;transform:translate3d(0,30px,0);transition:opacity .9s var(--apple-ease) .1s,transform .9s var(--apple-ease) .1s}
+.awake-intro p{color:var(--mute);max-width:52ch;margin:18px auto 0;font-size:clamp(15.5px,1.3vw,18px);opacity:0;transform:translate3d(0,30px,0);transition:opacity .9s var(--apple-ease) .2s,transform .9s var(--apple-ease) .2s}
+.awake-intro.in .sub,.awake-intro.in h2,.awake-intro.in p{opacity:1;transform:translate3d(0,0,0)}
 
-.awake-scroll{height:310vh;position:relative}
-.awake-sticky{position:sticky;top:0;height:100vh;width:100%;display:grid;place-items:center;overflow:hidden;padding:0 2vw}
+.awake-scroll{height:280vh;position:relative}
+.awake-sticky{
+  position:sticky;top:0;height:100vh;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* Moldura com dimensão fixa animada via scale3d na GPU */
 .awake-frame{
   position:relative;
-  width:var(--aw-w, 86vw);
-  height:var(--aw-h, 76vh);
-  border-radius:var(--aw-r, 34px);
+  width:95vw;
+  height:88vh;
+  max-width:1400px;
+  border-radius:30px;
   overflow:hidden;
-  box-shadow:0 40px 100px -20px rgba(0,0,0,.85);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.8);
   border:1px solid rgba(250,232,180,.22);
-  will-change:width,height,border-radius;
+  transform:scale3d(var(--aw-frame-scale, 0.9), var(--aw-frame-scale, 0.9), 1);
+  will-change:transform;
+  backface-visibility:hidden;
 }
 .awake-img{
   width:100%;height:100%;object-fit:cover;object-position:left center;
-  transform:scale(var(--aw-scale, 1.12));
+  transform:scale3d(var(--aw-img-scale, 1.12), var(--aw-img-scale, 1.12), 1);
   will-change:transform;
+  backface-visibility:hidden;
 }
 .awake-frame::after{
   content:"";position:absolute;inset:0;
@@ -284,19 +311,30 @@ a{color:inherit;text-decoration:none}
   width:min(1240px,100%);margin:0 auto;padding:0 5vw;
   display:flex;justify-content:flex-end;align-items:center;
 }
-.awake-cards{position:relative;width:min(500px,100%);min-height:360px;display:flex;align-items:center}
+.awake-cards{
+  position:relative;width:min(500px,100%);min-height:360px;display:flex;align-items:center;
+  transform:translate3d(0, var(--aw-card-parallax, 0px), 0);
+  will-change:transform;
+}
 .awake-card{
   position:absolute;inset-inline:0;
   padding:36px 34px;border-radius:28px;
-  background:rgba(3,11,28,.62);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(3,11,28,.76);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(250,232,180,.22);
   box-shadow:0 24px 60px -15px rgba(0,0,0,.7);
-  opacity:0;transform:translateY(42px) scale(.96);filter:blur(10px);
-  transition:opacity .8s var(--apple-ease),transform .8s var(--apple-ease),filter .8s var(--apple-ease);
+  opacity:0;
+  transform:translate3d(0, 36px, 0) scale3d(.97, .97, 1);
+  transition:opacity 0.7s var(--apple-ease), transform 0.7s var(--apple-ease);
   pointer-events:none;
+  will-change:transform, opacity;
+  backface-visibility:hidden;
 }
-.awake-card.on{opacity:1;transform:translateY(0) scale(1);filter:blur(0);pointer-events:auto}
+.awake-card.on{
+  opacity:1;
+  transform:translate3d(0, 0, 0) scale3d(1, 1, 1);
+  pointer-events:auto;
+}
 .awake-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-1);margin-bottom:14px}
 .awake-kicker::before{content:"";width:22px;height:1.5px;background:var(--gold)}
 .awake-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.2vw,42px);line-height:1.08;letter-spacing:-.02em;color:var(--ivory)}
@@ -307,8 +345,10 @@ a{color:inherit;text-decoration:none}
 .metric span{font-size:11.5px;color:var(--mute);line-height:1.3;display:block;margin-top:4px}
 
 .awake-dots{position:absolute;right:28px;top:50%;translate:0 -50%;z-index:3;display:flex;flex-direction:column;gap:10px}
-.awake-dot{width:4px;height:28px;border-radius:99px;background:rgba(255,255,255,.22);transition:background .4s,height .4s}
-.awake-dot.on{background:var(--gold-1);height:44px;box-shadow:0 0 12px rgba(250,232,180,.6)}
+.awake-dot{width:4px;height:28px;border-radius:99px;background:rgba(255,255,255,.22);overflow:hidden;position:relative;transition:height .4s var(--apple-ease)}
+.awake-dot::after{content:"";position:absolute;inset:0;background:var(--gold-1);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--apple-ease)}
+.awake-dot.on{height:44px;box-shadow:0 0 12px rgba(250,232,180,.45)}
+.awake-dot.on::after{transform:scaleY(1)}
 
 .closing{text-align:center;padding:clamp(80px,12vw,140px) 5vw;background:radial-gradient(60% 80% at 50% 0%,var(--royal),var(--night));border-top:1px solid rgba(250,232,180,.12)}
 .closing h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1.05;max-width:17ch;margin:0 auto 18px}
@@ -328,22 +368,20 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 .lightbox-img {
   max-width: 90vw; max-height: 85vh; object-fit: contain;
   border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-  transform: scale(0.85); opacity: 0; 
+  transform: scale3d(0.85, 0.85, 1); opacity: 0; 
   transition: transform 0.4s var(--apple-ease), opacity 0.4s;
   will-change: transform, opacity;
 }
 .lightbox.active .lightbox-img {
-  transform: scale(1); opacity: 1;
+  transform: scale3d(1, 1, 1); opacity: 1;
 }
 
-/* Animação Impressionante Final (GPU Acelerada) */
 .lightbox-img.anim-out {
-  transform: scale(0.1) translateY(400px) rotate(-10deg) !important;
+  transform: scale3d(0.1, 0.1, 1) translate3d(0, 400px, 0) rotate(-10deg) !important;
   opacity: 0 !important;
   transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.5s !important;
 }
 
-/* Botão Fechar Premium */
 .lightbox-close {
   position: absolute; top: 20px; right: 24px;
   background: rgba(255,255,255,0.05); border: 1px solid rgba(250,232,180,0.3);
@@ -353,11 +391,10 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 }
 .lightbox-close:hover { background: var(--gold); color: #000; transform: scale(1.1); }
 
-/* Setas maiores para Mobile na Lightbox */
 .lb-seta-esq, .lb-seta-dir {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 56px; height: 56px; font-size: 24px;
-  background: rgba(3, 11, 28, 0.5); backdrop-filter: blur(4px);
+  background: rgba(3, 11, 28, 0.5);
   border: 1px solid rgba(250, 232, 180, 0.3);
   color: var(--gold-1); border-radius: 50%;
   cursor: pointer; z-index: 10001; display: flex; align-items: center; justify-content: center;
@@ -369,19 +406,22 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 
 @media(max-width:960px){
   .nav-links{display:none}
+  .hero{height:240vh}
   .hero-inner{grid-template-columns:1fr}
-  .hero-nav{flex-direction:row;justify-self:start;padding:8px 12px}
+  .hero-nav{flex-direction:row;justify-self:start;padding:8px 12px;backdrop-filter:none}
   .step-btn .lbl{display:none}
   .step-btn .bar{width:22px;height:3px}
-  .stage::after{background:linear-gradient(0deg,rgba(3,11,28,.65) 0%,rgba(3,11,28,.12) 65%)}
+  .stage::after{background:linear-gradient(0deg,rgba(3,11,28,.75) 0%,rgba(3,11,28,.2) 65%)}
   .grid{grid-template-columns:1fr}
   .badges,.glow,.awake-dots{display:none}
+  .awake-scroll{height:240vh}
+  .awake-frame{width:96vw;height:86vh;border-radius:24px}
   .awake-img{object-position:28% center}
-  .awake-frame::after{background:linear-gradient(0deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.45) 55%,rgba(3,11,28,.1) 100%)}
+  .awake-frame::after{background:linear-gradient(0deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.48) 55%,rgba(3,11,28,.1) 100%)}
   .awake-overlay{align-items:flex-end;justify-content:center;padding-bottom:28px}
-  .awake-card{padding:24px 22px}
+  .awake-card{padding:24px 22px;background:rgba(3,11,28,.88);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .seta{opacity:1} /* Em celulares, setas sempre visíveis para facilitar o toque */
   
-  /* Ajuste responsivo das setas do Lightbox */
   .lb-seta-esq, .lb-seta-dir { width: 44px; height: 44px; font-size: 18px; }
   .lb-seta-esq { left: 2vw; }
   .lb-seta-dir { right: 2vw; }
@@ -389,14 +429,12 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
   .intro-in>*,.skip,.awake-intro .sub,.awake-intro h2,.awake-intro p{opacity:1;transform:none}
-  .card{opacity:1;translate:none}
-  .grain{display:none}
+  .card{opacity:1;transform:none}
 }
 </style>
 </head>
 <body class="lock">
 
-<div class="grain" aria-hidden="true"></div>
 <div class="glow" id="glow" aria-hidden="true"></div>
 
 <div class="intro" id="intro" role="dialog" aria-label="Abertura">
@@ -448,7 +486,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
       <source src="Criar_vídeo_do_produto_1080p_20261019021732.webm" type="video/webm">
     </video>
     <div class="hero-inner">
-      <div class="steps">
+      <div class="steps" id="heroSteps">
         <div class="step on" id="s1">
           <span class="eyebrow"><i></i> Fabricação Própria • Padrão Hotelaria</span>
           <h1>Noites que <span class="gold-text">renovam</span> o seu dia.</h1>
@@ -463,7 +501,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
           <h2>Cada camada pensada para o seu <span class="gold-text">corpo</span>.</h2>
           <p>Molas ensacadas individualmente, espumas viscoelásticas e tecidos nobres selecionados para oferecer suporte firme na coluna e maciez nas zonas de pressão.</p>
           <div class="hero-actions">
-            <a href="#linha" class="btn-primary">Ver Raio-X dos Modelos ↓</a>
+            <a href="#linha" class="btn-primary">Ver Catálogo de Modelos ↓</a>
           </div>
         </div>
         <div class="step" id="s3">
@@ -506,7 +544,6 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   </div>
   
   <div class="filters">
-    <!-- Removido o botão Infantil, já que agora a Cabeceira Malu assumiu o lugar do último produto -->
     <button class="filter-btn active" data-filter="all">Todos os produtos (6)</button>
     <button class="filter-btn" data-filter="molas">Colchões de Mola</button>
     <button class="filter-btn" data-filter="espuma">Colchões de Espuma</button>
@@ -525,9 +562,9 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   <div class="awake-scroll" id="awakeScroll">
     <div class="awake-sticky">
       <div class="awake-frame" id="awakeFrame">
-        <img src="Remove_text_from_image_2K_20261019151427.webp" alt="Mulher despertando renovada" class="awake-img" id="awakeImg">
+        <img src="Remove_text_from_image_2K_20261019151427.webp" alt="Mulher despertando renovada" class="awake-img" id="awakeImg" decoding="async">
         <div class="awake-overlay">
-          <div class="awake-cards">
+          <div class="awake-cards" id="awakeCardsWrap">
             <article class="awake-card on" data-aw="0">
               <span class="awake-kicker">01 • Alívio de Pressão</span>
               <h3>O verdadeiro luxo acontece quando você <span class="gold-text">abre os olhos</span>.</h3>
@@ -546,7 +583,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
             <article class="awake-card" data-aw="2">
               <span class="awake-kicker">03 • Padrão Cinco Estrelas</span>
               <h3>Transforme suas manhãs pelos próximos <span class="gold-text">anos</span>.</h3>
-              <p>Acordar bem muda o seu humor, a sua energia e a sua saúde. Fale agora com um consultor da fábrica e descubra qual dos nossos 5 modelos foi feito para o seu biotipo.</p>
+              <p>Acordar bem muda o seu humor, a sua energia e a sua saúde. Fale agora com um consultor da fábrica e descubra qual dos nossos modelos foi feito para o seu biotipo.</p>
               <div class="hero-actions" style="margin-top:24px">
                 <a href="#" class="btn-primary wa-link">Escolher Meu Colchão Ideal</a>
               </div>
@@ -583,7 +620,6 @@ const WA_NUMBER = "55DDDNUMERO";
 
 /* --- BANCO DE DADOS DOS PRODUTOS --- */
 const PRODUCTS = [
-  // CARD 1: ROYAL
   {n:"Royal Ensacado", tag:"Mais procurado", cat:"molas", 
    imgTpl: "acoplado/{idx}acoplado.webp", fotos: 4, 
    layers:5, layerNames:["Malha Belga Bordada","Pillow Top Visco","Espuma HR D33","Molas Ensacadas 2.0","Base Estrutural EPS"],
@@ -591,7 +627,6 @@ const PRODUCTS = [
    d:"Molas ensacadas individuais com Pillow Top de hotelaria. Acomoda o corpo perfeitamente sem transferir movimento para quem dorme ao lado.",
    s:[["Estrutura","Molas ensacadas individuais"],["Conforto","Pillow top macio envolvente"],["Altura","30 cm"],["Suporte","Até 130 kg por lado"]]},
   
-  // CARD 2: CONFORT D33 MISTO
   {n:"Confort D33 Misto", tag:"D33 Especial", cat:"espuma", 
    imgTpl: "confortmisto/misto{idx}.webp", fotos: 4, 
    layers:4, layerNames:["Tecido Jacquard Bordado","Espuma D33 Selada","Placa EPS Alta Densidade","Base de Suporte"],
@@ -599,7 +634,6 @@ const PRODUCTS = [
    d:"O equilíbrio perfeito entre o conforto da espuma D33 e a firmeza da base de sustentação. Ideal para quem busca suporte ortopédico com toque macio.",
    s:[["Estrutura","Espuma D33 + EPS"],["Conforto","Firme e confortável"],["Altura","24 cm"],["Ideal para","Solteiro e casal"]]},
   
-  // CARD 3: CABECEIRA LOREN
   {n:"Cabeceira Loren", tag:"Design Elegante", cat:"cabeceiras", 
    imgTpl: "loren/lorem{idx}.webp", fotos: 4, 
    layers:2, layerNames:["Estofado Claro","Oito Painéis"],
@@ -607,7 +641,6 @@ const PRODUCTS = [
    d:"Estofado claro com oito painéis acolchoados divididos em duas fileiras simétricas. Traz conforto acústico e um toque de elegância moderna para o quarto.",
    s:[["Estrutura","Painéis modulares"],["Revestimento","Tecido claro premium"],["Design","8 painéis (2 fileiras)"],["Instalação","Fácil fixação na parede"]]},
   
-  // CARD 4: CABECEIRA LUNA
   {n:"Cabeceira Luna", tag:"Lançamento", cat:"cabeceiras", 
    imgTpl: "luna/luna{idx}.webp", fotos: 5, 
    layers:2, layerNames:["Tom Amendoado","Canais Verticais"],
@@ -615,7 +648,6 @@ const PRODUCTS = [
    d:"Estofado elegante em tom amendoado com design de canais verticais, que ajuda a alongar o ambiente e traz uma sensação de conforto premium.",
    s:[["Estrutura","Painel Estofado"],["Revestimento","Suede Amendoado"],["Design","Canais verticais"],["Instalação","Fixação simplificada"]]},
 
-  // CARD 5: CABECEIRA MAYA
   {n:"Cabeceira Maya", tag:"Design Premium", cat:"cabeceiras", 
    imgTpl: "maya/maya{idx}.webp", fotos: 4, 
    layers:2, layerNames:["Estofado Claro","Moldura Externa"],
@@ -623,7 +655,6 @@ const PRODUCTS = [
    d:"Estofado claro com nove painéis acolchoados e moldura externa. Um design sofisticado que emoldura a cama e eleva o padrão de conforto e beleza do seu quarto.",
    s:[["Estrutura","9 painéis com moldura"],["Revestimento","Tecido claro premium"],["Design","Clássico sofisticado"],["Instalação","Fixação na parede"]]},
   
-  // CARD 6: CABECEIRA MALU (Nova Cabeceira, substituindo Kids Flex)
   {n:"Cabeceira Malu", tag:"Capitonê Clássico", cat:"cabeceiras", 
    imgTpl: "cabeceiramalu/malu{idx}.webp", fotos: 5, 
    layers:2, layerNames:["Estofado Marrom","Botões Clássicos"],
@@ -686,10 +717,10 @@ lbPrev.onclick = () => {
   updateLbImg(index);
 };
 
-/* ========= RENDERIZAÇÃO INTELIGENTE ========= */
+/* ========= RENDERIZAÇÃO DOS PRODUTOS ========= */
 const io = new IntersectionObserver(es => es.forEach(e => {
   if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
-}), {threshold: .15});
+}), {threshold: .12});
 const fine = matchMedia("(hover:hover)").matches;
 const grid = document.getElementById("grid");
 
@@ -700,17 +731,17 @@ function renderProducts(filter = "all"){
     const slug = p.n.toLowerCase().replace(/[^a-z0-9]+/g,"-");
     const card = document.createElement("article");
     card.className = `card`; 
-    card.style.transitionDelay = `0s, ${i * .08}s, ${i * .08}s, 0s`;
+    card.style.transitionDelay = `${i * .06}s`;
     
     let artContent = "";
     if (p.imgTpl) {
       artContent = `
         <button class="seta seta-esq" aria-label="Imagem anterior">&#10094;</button>
-        <img src="${p.imgTpl.replace('{idx}', 1)}" alt="${p.n}" class="imagem-ativa" data-index="1">
+        <img src="${p.imgTpl.replace('{idx}', 1)}" alt="${p.n}" class="imagem-ativa" data-index="1" loading="lazy" decoding="async">
         <button class="seta seta-dir" aria-label="Próxima imagem">&#10095;</button>
       `;
     } else {
-      artContent = `<img src="produtos/${slug}.png" alt="${p.n}" class="imagem-estatica">`;
+      artContent = `<img src="produtos/${slug}.png" alt="${p.n}" class="imagem-estatica" loading="lazy" decoding="async">`;
     }
 
     card.innerHTML = `
@@ -786,17 +817,15 @@ function renderProducts(filter = "all"){
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width;
         const y = (e.clientY - r.top) / r.height;
-        card.style.setProperty("--cx", x * 100 + "%");
-        card.style.setProperty("--cy", y * 100 + "%");
-        card.style.transform = `rotateY(${(x - .5) * 6}deg) rotateX(${(.5 - y) * 6}deg)`;
+        card.style.transform = `rotateY(${(x - .5) * 5}deg) rotateX(${(.5 - y) * 5}deg)`;
       });
       card.addEventListener("mouseleave", () => card.style.transform = "");
     }
     grid.appendChild(card);
   });
+  setTimeout(cacheMetrics, 100);
 }
 
-renderProducts();
 io.observe(document.getElementById("awakeIntro"));
 
 document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -813,25 +842,35 @@ document.querySelectorAll(".wa-link").forEach(a=>{
   a.target="_blank";a.rel="noopener";
 });
 
-const glow = document.getElementById("glow");
-let gx = 0, gy = 0, tx = 0, ty = 0;
-addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
-(function loopGlow(){
-  gx += (tx - gx) * .12; gy += (ty - gy) * .12;
-  glow.style.transform = `translate(${gx}px,${gy}px)`;
-  requestAnimationFrame(loopGlow);
-})();
+/* Luz do cursor ativa apenas em PC (poupa bateria e RAM no celular) */
+if(fine){
+  const glow = document.getElementById("glow");
+  let gx = 0, gy = 0, tx = 0, ty = 0, glowActive = false;
+  addEventListener("mousemove", e => {
+    tx = e.clientX; ty = e.clientY;
+    if(!glowActive){ glowActive = true; requestAnimationFrame(loopGlow); }
+  }, {passive:true});
+  function loopGlow(){
+    gx += (tx - gx) * .15; gy += (ty - gy) * .15;
+    glow.style.transform = `translate3d(${gx.toFixed(1)}px,${gy.toFixed(1)}px,0)`;
+    if(Math.abs(tx - gx) > 0.5 || Math.abs(ty - gy) > 0.5){
+      requestAnimationFrame(loopGlow);
+    } else {
+      glowActive = false;
+    }
+  }
+}
 
 const intro = document.getElementById("intro");
 const vid = document.getElementById("bg-video");
-if(intro) intro.addEventListener("mousemove", e => { intro.style.setProperty("--mx", e.clientX + "px"); intro.style.setProperty("--my", e.clientY + "px"); });
+if(intro && fine) intro.addEventListener("mousemove", e => { intro.style.setProperty("--mx", e.clientX + "px"); intro.style.setProperty("--my", e.clientY + "px"); }, {passive:true});
 
 function openSite(fast){
   if(!document.getElementById("intro")) return;
   intro.classList.add("open");
   document.body.classList.remove("lock");
   vid.play && vid.play().catch(()=>{});
-  setTimeout(() => intro.remove(), fast ? 50 : 1700);
+  setTimeout(() => { intro.remove(); cacheMetrics(); }, fast ? 50 : 1400);
   try{ sessionStorage.setItem("mfc-intro", "1"); }catch(e){}
 }
 if(document.getElementById("enter")) document.getElementById("enter").onclick = () => openSite();
@@ -839,50 +878,115 @@ if(document.getElementById("skip")) document.getElementById("skip").onclick = ()
 addEventListener("keydown", e => { if(e.key === "Enter" && document.getElementById("intro")) openSite(); });
 try{ if(sessionStorage.getItem("mfc-intro")){ if(intro) intro.remove(); document.body.classList.remove("lock"); vid.play && vid.play().catch(()=>{}); } }catch(e){}
 
+
+/* =========================================================================
+   MOTOR APPLE SCROLLYTELLING SOB DEMANDA (ZERO LAYOUT THRASHING)
+   - Não lê getBoundingClientRect() durante o scroll (evita engasgos)
+   - Roda apenas quando há movimento e desliga sozinho quando para
+========================================================================== */
 const hero = document.getElementById("hero");
+const heroSteps = document.getElementById("heroSteps");
 const steps = [...document.querySelectorAll(".step")];
 const stepBtns = [...document.querySelectorAll(".step-btn")];
 const hint = document.getElementById("hint");
+
 const awakeScroll = document.getElementById("awakeScroll");
 const awakeFrame = document.getElementById("awakeFrame");
 const awakeImg = document.getElementById("awakeImg");
+const awakeCardsWrap = document.getElementById("awakeCardsWrap");
 const awakeCards = [...document.querySelectorAll(".awake-card")];
 const awakeDots = [...document.querySelectorAll(".awake-dot")];
 
+let heroTop = 0, heroMax = 1;
+let awakeTop = 0, awakeMax = 1;
+let targetHeroP = 0, currentHeroP = 0;
+let targetAwakeP = 0, currentAwakeP = 0;
+let isAnimatingScroll = false;
+let lastHeroIdx = -1, lastAwakeIdx = -1;
+
+// Mede as posições apenas quando a tela carrega ou muda de tamanho
+function cacheMetrics(){
+  const sy = window.scrollY;
+  const hRect = hero.getBoundingClientRect();
+  heroTop = hRect.top + sy;
+  heroMax = Math.max(1, hero.offsetHeight - window.innerHeight);
+
+  const aRect = awakeScroll.getBoundingClientRect();
+  awakeTop = aRect.top + sy;
+  awakeMax = Math.max(1, awakeScroll.offsetHeight - window.innerHeight);
+  updateTargets();
+}
+
+function updateTargets(){
+  const sy = window.scrollY;
+  targetHeroP = Math.min(1, Math.max(0, (sy - heroTop) / heroMax));
+  targetAwakeP = Math.min(1, Math.max(0, (sy - awakeTop) / awakeMax));
+  if(!isAnimatingScroll){
+    isAnimatingScroll = true;
+    requestAnimationFrame(smoothScrollEngine);
+  }
+}
+
 function setActiveStep(idx){
+  if(idx === lastHeroIdx) return;
+  lastHeroIdx = idx;
   steps.forEach((s, i) => s.classList.toggle("on", i === idx));
   stepBtns.forEach((b, i) => b.classList.toggle("active", i === idx));
 }
 
-function onScroll(){
-  const maxScroll = hero.offsetHeight - innerHeight;
-  const p = Math.min(1, Math.max(0, scrollY / maxScroll));
-  setActiveStep(p < 0.33 ? 0 : (p < 0.67 ? 1 : 2));
-  if(hint) hint.style.opacity = p < 0.06 ? 1 : 0;
+function setActiveAwake(idx){
+  if(idx === lastAwakeIdx) return;
+  lastAwakeIdx = idx;
+  awakeCards.forEach((c, i) => c.classList.toggle("on", i === idx));
+  awakeDots.forEach((d, i) => d.classList.toggle("on", i === idx));
+}
 
-  const rect = awakeScroll.getBoundingClientRect();
-  const totalAwake = awakeScroll.offsetHeight - innerHeight;
-  const awP = Math.min(1, Math.max(0, -rect.top / totalAwake));
+function smoothScrollEngine(){
+  // Amortecimento estilo Apple (0.14 = responsivo no touch e ultra suave no mouse)
+  currentHeroP += (targetHeroP - currentHeroP) * 0.14;
+  currentAwakeP += (targetAwakeP - currentAwakeP) * 0.14;
 
-  const expand = Math.min(1, Math.max(0, (awP + 0.15) / 0.42));
-  awakeFrame.style.setProperty("--aw-w", `${86 + expand * 10}vw`);
-  awakeFrame.style.setProperty("--aw-h", `${76 + expand * 16}vh`);
-  awakeFrame.style.setProperty("--aw-r", `${34 - expand * 10}px`);
-  awakeImg.style.setProperty("--aw-scale", (1.14 - awP * 0.14).toFixed(3));
+  // 1. HERO: Troca de textos em cascata + leve flutuação parallax
+  const hIdx = currentHeroP < 0.34 ? 0 : (currentHeroP < 0.68 ? 1 : 2);
+  setActiveStep(hIdx);
+  const heroLocalOffset = ((currentHeroP * 3) % 1 - 0.5) * -18;
+  heroSteps.style.setProperty("--hero-parallax", `${heroLocalOffset.toFixed(1)}px`);
+  if(hint) hint.style.opacity = currentHeroP < 0.05 ? 1 : 0;
 
-  const awIdx = awP < 0.34 ? 0 : (awP < 0.68 ? 1 : 2);
-  awakeCards.forEach((c, i) => c.classList.toggle("on", i === awIdx));
-  awakeDots.forEach((d, i) => d.classList.toggle("on", i === awIdx));
+  // 2. O DESPERTAR: Expansão GPU (scale3d) + Parallax contínuo nos cards
+  const expand = Math.min(1, Math.max(0, (currentAwakeP + 0.12) / 0.45));
+  const frameScale = 0.88 + (expand * 0.12); // Cresce de 88% a 100% na GPU sem travar
+  const imgScale = 1.14 - (currentAwakeP * 0.14); // Zoom out cinematográfico
+
+  awakeFrame.style.setProperty("--aw-frame-scale", frameScale.toFixed(4));
+  awakeImg.style.setProperty("--aw-img-scale", imgScale.toFixed(4));
+
+  const awIdx = currentAwakeP < 0.34 ? 0 : (currentAwakeP < 0.68 ? 1 : 2);
+  setActiveAwake(awIdx);
+
+  // Movimento suave de flutuação vertical no card ativo
+  const cardParallax = (0.5 - currentAwakeP) * 28;
+  awakeCardsWrap.style.setProperty("--aw-card-parallax", `${cardParallax.toFixed(1)}px`);
+
+  // Continua o loop apenas se ainda houver diferença para interpolar
+  if(Math.abs(targetHeroP - currentHeroP) > 0.0005 || Math.abs(targetAwakeP - currentAwakeP) > 0.0005){
+    requestAnimationFrame(smoothScrollEngine);
+  } else {
+    isAnimatingScroll = false;
+  }
 }
 
 stepBtns.forEach(btn => {
   btn.addEventListener("click", () => {
-    window.scrollTo({ top: hero.offsetTop + (Number(btn.dataset.step) * 0.42) * (hero.offsetHeight - innerHeight), behavior: "smooth" });
+    cacheMetrics();
+    window.scrollTo({ top: heroTop + (Number(btn.dataset.step) * 0.42) * heroMax, behavior: "smooth" });
   });
 });
 
-addEventListener("scroll", onScroll, {passive:true});
-onScroll();
+renderProducts();
+cacheMetrics();
+addEventListener("resize", cacheMetrics, {passive:true});
+addEventListener("scroll", updateTargets, {passive:true});
 </script>
 </body>
 </html>
