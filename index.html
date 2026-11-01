@@ -81,7 +81,7 @@ a{color:inherit;text-decoration:none}
 .nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:var(--mute);font-weight:500}
 .nav-links a{transition:color .25s;position:relative}
 .nav-links a:hover{color:var(--gold-1)}
-.nav-cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#231700;background:var(--gold);padding:10px 20px;border-radius:99px;box-shadow:0 6px 20px -4px rgba(217,169,58,.5);transition:transform .25s,box-shadow .25s}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#231700;background:var(--gold);padding:10px 20px;border-radius:99px;box-shadow:0 6px 20px -4px rgba(217,169,58,.5);transition:transform .25s,box-shadow .25s;cursor:pointer;border:0}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 26px -4px rgba(250,232,180,.75)}
 .nav-cta .dot{width:7px;height:7px;border-radius:50%;background:#14532d;box-shadow:0 0 0 3px rgba(20,83,45,.3)}
 
@@ -106,7 +106,6 @@ a{color:inherit;text-decoration:none}
   visibility:visible;
 }
 
-/* Animação individual em cascata para cada linha de texto (Zero Blur = 120fps no Mobile) */
 .step .eyebrow,
 .step h1, .step h2,
 .step p,
@@ -128,9 +127,9 @@ a{color:inherit;text-decoration:none}
 .step p{margin-top:20px;color:#dbe4f7;max-width:48ch;font-size:clamp(15px,1.25vw,18px);font-weight:400;text-shadow:0 4px 16px rgba(0,0,0,.65)}
 
 .hero-actions{margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:99px;background:var(--gold);color:#231700;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -8px rgba(217,169,58,.65);transition:transform .25s,box-shadow .25s}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:99px;background:var(--gold);color:#231700;font-weight:700;font-size:14.5px;box-shadow:0 12px 30px -8px rgba(217,169,58,.65);transition:transform .25s,box-shadow .25s;cursor:pointer;border:0}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -6px rgba(250,232,180,.8)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(3,11,28,.55);border:1px solid rgba(255,255,255,.25);color:var(--ivory);font-weight:500;font-size:14px;transition:background .25s,border-color .25s}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;background:rgba(3,11,28,.55);border:1px solid rgba(255,255,255,.25);color:var(--ivory);font-weight:500;font-size:14px;transition:background .25s,border-color .25s;cursor:pointer}
 .btn-ghost:hover{background:rgba(250,232,180,.15);border-color:var(--gold-1)}
 
 .hero-nav{display:flex;flex-direction:column;gap:14px;padding:18px 14px;border-radius:24px;background:rgba(3,11,28,.58);border:1px solid rgba(250,232,180,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -173,7 +172,6 @@ a{color:inherit;text-decoration:none}
 .card.in{opacity:1;transform:translate3d(0,0,0)}
 .card:hover{border-color:rgba(250,232,180,.55);box-shadow:0 24px 48px -18px rgba(0,0,0,.7)}
 
-/* CONTAINER DE IMAGENS COM BORDA FINA E ELEGANTE */
 .card .art{
   position:relative;
   flex:0 0 auto;
@@ -250,11 +248,12 @@ a{color:inherit;text-decoration:none}
 .specs span:first-child{color:var(--mute)}
 .specs span:last-child{text-align:right;font-weight:500;color:var(--ivory)}
 
-/* BOTÃO WHATSAPP */
+/* BOTÃO WHATSAPP NOS CARDS */
 .wa{margin-top:auto;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;
   padding:14px 24px;border-radius:99px;font-weight:700;font-size:14.5px;color:#241700;
   background:var(--gold);box-shadow:0 8px 28px -8px rgba(217,169,58,.6),inset 0 1px 0 rgba(255,255,255,.6);
   transition:transform .3s,box-shadow .3s}
+.wa img.wa-custom-ico{width:20px;height:20px;object-fit:contain;flex:none}
 .wa svg{width:19px;height:19px;fill:currentColor;flex:none}
 .wa::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg)}
@@ -262,7 +261,7 @@ a{color:inherit;text-decoration:none}
 .wa:hover::after{left:130%;transition:left .8s}
 
 /* =========================================================
-   SEÇÃO APPLE (O DESPERTAR) - 100% GPU COMPOSITED (ZERO LAG)
+   SEÇÃO APPLE (O DESPERTAR) - 100% GPU COMPOSITED
 ========================================================= */
 .awakening{position:relative;z-index:5;background:var(--night);padding-top:40px}
 .awake-intro{max-width:920px;margin:0 auto 56px;padding:0 5vw;text-align:center}
@@ -278,7 +277,6 @@ a{color:inherit;text-decoration:none}
   overflow:hidden;
 }
 
-/* Moldura com dimensão fixa animada via scale3d na GPU */
 .awake-frame{
   position:relative;
   width:95vw;
@@ -354,7 +352,7 @@ a{color:inherit;text-decoration:none}
 .closing h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1.05;max-width:17ch;margin:0 auto 18px}
 .closing p{color:var(--mute);max-width:46ch;margin:0 auto 34px;font-size:16px}
 .closing .wa{padding:17px 38px;font-size:16px}
-footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);background:var(--night);border-top:1px solid rgba(255,255,255,.06)}
+footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute);background:var(--night);border-top:1px solid rgba(255,255,255,.06)}
 
 /* === ESTILOS DA LIGHTBOX (GALERIA EM TELA CHEIA) === */
 .lightbox {
@@ -375,13 +373,11 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 .lightbox.active .lightbox-img {
   transform: scale3d(1, 1, 1); opacity: 1;
 }
-
 .lightbox-img.anim-out {
   transform: scale3d(0.1, 0.1, 1) translate3d(0, 400px, 0) rotate(-10deg) !important;
   opacity: 0 !important;
   transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.5s !important;
 }
-
 .lightbox-close {
   position: absolute; top: 20px; right: 24px;
   background: rgba(255,255,255,0.05); border: 1px solid rgba(250,232,180,0.3);
@@ -404,6 +400,501 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
 .lb-seta-esq { left: 4vw; }
 .lb-seta-dir { right: 4vw; }
 
+/* =========================================================
+   CHAT INTERATIVO IA EM TEMPO REAL (SOLANA)
+========================================================= */
+.solana-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  font-family: var(--sans);
+}
+
+/* Balão de chamada flutuante ao lado do botão */
+.chat-teaser {
+  position: absolute;
+  bottom: 78px;
+  right: 0;
+  background: rgba(7, 22, 54, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(250, 232, 180, 0.35);
+  color: var(--ivory);
+  padding: 12px 16px;
+  border-radius: 18px 18px 4px 18px;
+  width: max-content;
+  max-width: 260px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0) scale(0.95);
+  pointer-events: none;
+  transition: all 0.45s var(--apple-ease);
+}
+.chat-teaser.show {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  pointer-events: auto;
+  cursor: pointer;
+}
+.chat-teaser strong {
+  color: var(--gold-1);
+  display: block;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+.chat-teaser-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: 0;
+  color: var(--mute);
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Botão Flutuante (Launcher) */
+.chat-launcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 8px;
+  border-radius: 99px;
+  background: linear-gradient(135deg, rgba(10, 42, 102, 0.95), rgba(3, 11, 28, 0.96));
+  border: 1.5px solid rgba(250, 232, 180, 0.45);
+  box-shadow: 0 14px 34px -6px rgba(0, 0, 0, 0.75), 0 0 24px rgba(217, 169, 58, 0.28);
+  color: var(--ivory);
+  cursor: pointer;
+  transition: transform 0.3s var(--apple-ease), box-shadow 0.3s var(--apple-ease), border-color 0.3s;
+}
+.chat-launcher:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--gold-1);
+  box-shadow: 0 18px 40px -6px rgba(0, 0, 0, 0.85), 0 0 30px rgba(250, 232, 180, 0.45);
+}
+.launcher-avatar-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 2px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.launcher-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  background: var(--night-soft);
+}
+.launcher-wa-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--night);
+  background: #25D366;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+.launcher-info {
+  text-align: left;
+  line-height: 1.2;
+}
+.launcher-info strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ivory);
+}
+.online-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.05); }
+}
+.launcher-info span {
+  font-size: 11.5px;
+  color: var(--gold-1);
+  font-weight: 500;
+}
+.unread-badge {
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--night);
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.5);
+}
+
+/* Janela do Chat */
+.chat-window {
+  position: absolute;
+  bottom: 76px;
+  right: 0;
+  width: min(390px, calc(100vw - 32px));
+  height: min(580px, calc(100vh - 120px));
+  background: rgba(4, 13, 33, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(250, 232, 180, 0.28);
+  border-radius: 26px;
+  box-shadow: 0 28px 70px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(10, 42, 102, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.94);
+  transform-origin: bottom right;
+  pointer-events: none;
+  transition: opacity 0.4s var(--apple-ease), transform 0.4s var(--apple-ease);
+}
+.chat-window.open {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  pointer-events: auto;
+}
+
+/* Cabeçalho do Chat */
+.chat-header {
+  padding: 15px 18px;
+  background: linear-gradient(135deg, rgba(18, 64, 150, 0.55), rgba(3, 11, 28, 0.9));
+  border-bottom: 1px solid rgba(250, 232, 180, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.chat-agent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.chat-agent-avatar {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.chat-agent-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.chat-agent-avatar .status-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid var(--night);
+}
+.chat-agent-meta h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ivory);
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ai-pill {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: rgba(250, 232, 180, 0.15);
+  border: 1px solid rgba(250, 232, 180, 0.35);
+  color: var(--gold-1);
+}
+.chat-agent-meta p {
+  font-size: 11.5px;
+  color: var(--mute);
+  margin-top: 2px;
+}
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chat-icon-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(250, 232, 180, 0.2);
+  color: var(--mute);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+.chat-icon-btn:hover {
+  background: rgba(250, 232, 180, 0.16);
+  color: var(--gold-1);
+  border-color: var(--gold-1);
+}
+
+/* Corpo de Mensagens */
+.chat-body {
+  flex: 1;
+  padding: 18px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scroll-behavior: smooth;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(18, 64, 150, 0.22), transparent 55%),
+    radial-gradient(circle at 20% 90%, rgba(217, 169, 58, 0.08), transparent 50%);
+}
+.chat-body::-webkit-scrollbar { width: 5px; }
+.chat-body::-webkit-scrollbar-thumb { background: rgba(250, 232, 180, 0.22); border-radius: 99px; }
+
+.chat-time-divider {
+  align-self: center;
+  font-size: 11px;
+  color: var(--mute);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+}
+
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  animation: msgPop 0.35s var(--apple-ease) forwards;
+}
+@keyframes msgPop {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.97); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+.msg-row.user {
+  justify-content: flex-end;
+}
+.msg-mini-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(250, 232, 180, 0.45);
+  flex-shrink: 0;
+}
+.msg-bubble {
+  max-width: 80%;
+  padding: 11px 14px;
+  border-radius: 18px;
+  font-size: 13.8px;
+  line-height: 1.45;
+  position: relative;
+}
+.msg-row.bot .msg-bubble {
+  background: rgba(14, 34, 76, 0.78);
+  border: 1px solid rgba(250, 232, 180, 0.18);
+  color: var(--ivory);
+  border-bottom-left-radius: 4px;
+}
+.msg-row.user .msg-bubble {
+  background: var(--gold);
+  color: #231700;
+  font-weight: 600;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 6px 18px -4px rgba(217, 169, 58, 0.45);
+}
+.msg-meta {
+  display: block;
+  font-size: 10px;
+  margin-top: 4px;
+  opacity: 0.68;
+  text-align: right;
+}
+
+/* Indicador Digitando */
+.typing-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: msgPop 0.25s var(--apple-ease) forwards;
+}
+.typing-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 18px 18px 18px 4px;
+  background: rgba(14, 34, 76, 0.65);
+  border: 1px solid rgba(250, 232, 180, 0.18);
+  font-size: 12px;
+  color: var(--mute);
+}
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.typing-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-1);
+  animation: bounceDot 1.2s infinite ease-in-out;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+@keyframes bounceDot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Botões Interativos de Resposta Rápida */
+.chat-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  padding-left: 36px;
+  animation: msgPop 0.4s var(--apple-ease) forwards;
+}
+.chat-opt-btn {
+  all: unset;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(250, 232, 180, 0.08);
+  border: 1px solid rgba(250, 232, 180, 0.32);
+  color: var(--gold-1);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: all 0.22s var(--apple-ease);
+}
+.chat-opt-btn:hover {
+  background: var(--gold);
+  color: #231700;
+  border-color: transparent;
+  transform: translateX(3px);
+  box-shadow: 0 6px 18px -4px rgba(217, 169, 58, 0.5);
+}
+.chat-opt-btn::after {
+  content: "→";
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Botão Final de Transferência para o WhatsApp da Fábrica */
+.chat-wa-transfer {
+  margin-top: 6px;
+  margin-left: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13.5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 26px -6px rgba(37, 211, 102, 0.65);
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: msgPop 0.4s var(--apple-ease) forwards;
+}
+.chat-wa-transfer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -4px rgba(37, 211, 102, 0.85);
+}
+.chat-wa-transfer img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Barra de Digitação Livre no Rodapé do Chat */
+.chat-footer {
+  padding: 11px 14px;
+  background: rgba(3, 11, 28, 0.92);
+  border-top: 1px solid rgba(250, 232, 180, 0.14);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chat-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(250, 232, 180, 0.2);
+  border-radius: 99px;
+  padding: 10px 15px;
+  color: var(--ivory);
+  font: 400 13px var(--sans);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.chat-input::placeholder { color: rgba(184, 197, 223, 0.6); }
+.chat-input:focus { border-color: var(--gold-1); }
+.chat-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--gold);
+  color: #231700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.chat-send-btn:hover { transform: scale(1.07); }
+
 @media(max-width:960px){
   .nav-links{display:none}
   .hero{height:240vh}
@@ -420,11 +911,18 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   .awake-frame::after{background:linear-gradient(0deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.48) 55%,rgba(3,11,28,.1) 100%)}
   .awake-overlay{align-items:flex-end;justify-content:center;padding-bottom:28px}
   .awake-card{padding:24px 22px;background:rgba(3,11,28,.88);backdrop-filter:none;-webkit-backdrop-filter:none}
-  .seta{opacity:1} /* Em celulares, setas sempre visíveis para facilitar o toque */
+  .seta{opacity:1}
   
   .lb-seta-esq, .lb-seta-dir { width: 44px; height: 44px; font-size: 18px; }
   .lb-seta-esq { left: 2vw; }
   .lb-seta-dir { right: 2vw; }
+
+  .solana-widget { bottom: 16px; right: 16px; }
+  .chat-window {
+    bottom: 72px;
+    width: calc(100vw - 32px);
+    height: min(530px, calc(100vh - 110px));
+  }
 }
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
@@ -473,10 +971,10 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
       <a href="#despertar">O Despertar</a>
       <a href="#sob-medida">Sob Medida</a>
     </nav>
-    <a class="nav-cta wa-link" href="#">
+    <button type="button" class="nav-cta open-chat-trigger">
       <span class="dot"></span>
       Falar com a Fábrica
-    </a>
+    </button>
   </header>
 </div>
 
@@ -493,7 +991,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
           <p>Colchões projetados camada por camada na nossa fábrica, unindo engenharia ortopédica e acabamento artesanal para quem leva o descanso a sério.</p>
           <div class="hero-actions">
             <a href="#linha" class="btn-primary">Explorar a Linha ↓</a>
-            <a href="#" class="btn-ghost wa-link">Orçamento Direto</a>
+            <button type="button" class="btn-ghost open-chat-trigger">Orçamento Direto</button>
           </div>
         </div>
         <div class="step" id="s2">
@@ -509,7 +1007,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
           <h2>Direto da fábrica, com <span class="gold-text">acabamento</span> de hotel.</h2>
           <p>Escolha o modelo ideal, selecione a medida da sua cama e receba atendimento direto dos nossos especialistas pelo WhatsApp.</p>
           <div class="hero-actions">
-            <a href="#" class="btn-primary wa-link">Chamar Especialista Agora</a>
+            <button type="button" class="btn-primary open-chat-trigger">Chamar Especialista Agora</button>
             <a href="#linha" class="btn-ghost">Comparar Modelos</a>
           </div>
         </div>
@@ -585,7 +1083,7 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
               <h3>Transforme suas manhãs pelos próximos <span class="gold-text">anos</span>.</h3>
               <p>Acordar bem muda o seu humor, a sua energia e a sua saúde. Fale agora com um consultor da fábrica e descubra qual dos nossos modelos foi feito para o seu biotipo.</p>
               <div class="hero-actions" style="margin-top:24px">
-                <a href="#" class="btn-primary wa-link">Escolher Meu Colchão Ideal</a>
+                <button type="button" class="btn-primary open-chat-trigger">Escolher Meu Colchão Ideal</button>
               </div>
             </article>
           </div>
@@ -614,9 +1112,63 @@ footer{padding:32px 5vw;text-align:center;font-size:13px;color:var(--mute);backg
   <button class="lb-seta-dir" id="lb-next" aria-label="Próxima imagem">&#10095;</button>
 </div>
 
+<!-- =========================================================
+     WIDGET DE CHAT INTERATIVO IA (SOLANA)
+========================================================= -->
+<div class="solana-widget" id="solanaWidget">
+  <!-- Balão de Chamada -->
+  <div class="chat-teaser" id="chatTeaser">
+    <button class="chat-teaser-close" id="closeTeaser" aria-label="Fechar aviso">&times;</button>
+    <strong id="teaserGreeting">Solana • Online agora</strong>
+    <span id="teaserText">Oi! 👋 Posso te ajudar a escolher seu colchão ou cotar direto da fábrica?</span>
+  </div>
+
+  <!-- Janela Principal do Chat -->
+  <div class="chat-window" id="chatWindow" role="dialog" aria-label="Chat de Atendimento Solana">
+    <div class="chat-header">
+      <div class="chat-agent">
+        <div class="chat-agent-avatar">
+          <img src="solana.webp" alt="Atendente Solana">
+          <span class="status-dot"></span>
+        </div>
+        <div class="chat-agent-meta">
+          <h4>Solana <span class="ai-pill">IA Online</span></h4>
+          <p id="chatClockStatus">Consultora da Fábrica • Online</p>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button type="button" class="chat-icon-btn" id="chatResetBtn" title="Reiniciar conversa" aria-label="Reiniciar conversa">&#8635;</button>
+        <button type="button" class="chat-icon-btn" id="chatCloseBtn" title="Fechar chat" aria-label="Fechar chat">&times;</button>
+      </div>
+    </div>
+
+    <div class="chat-body" id="chatBody"></div>
+
+    <form class="chat-footer" id="chatForm" autocomplete="off">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua mensagem ou escolha acima..." />
+      <button type="submit" class="chat-send-btn" aria-label="Enviar mensagem">&#10148;</button>
+    </form>
+  </div>
+
+  <!-- Botão Flutuante (Launcher) -->
+  <button type="button" class="chat-launcher" id="chatLauncher" aria-label="Abrir atendimento inteligente">
+    <span class="unread-badge" id="unreadBadge">1</span>
+    <div class="launcher-avatar-wrap">
+      <img src="solana.webp" alt="Solana" class="launcher-avatar">
+      <img src="38c0619b-5c73-4ffb-9178-477245f55b82.webp" alt="WhatsApp" class="launcher-wa-badge">
+    </div>
+    <div class="launcher-info">
+      <strong><span class="online-dot"></span> Solana IA</strong>
+      <span id="launcherSub">Atendimento Online</span>
+    </div>
+  </button>
+</div>
+
 <script>
-/* ========= CONFIGURAÇÃO ========= */
-const WA_NUMBER = "55DDDNUMERO";
+/* ========= CONFIGURAÇÃO OFICIAL ========= */
+const WA_NUMBER = "556293024417";
+const WA_GIT_ICON = "38c0619b-5c73-4ffb-9178-477245f55b82.webp";
+const ATTENDANT_PHOTO = "solana.webp";
 
 /* --- BANCO DE DADOS DOS PRODUTOS --- */
 const PRODUCTS = [
@@ -663,7 +1215,7 @@ const PRODUCTS = [
    s:[["Estrutura","Painel Estofado"],["Revestimento","Suede Marrom"],["Design","Capitonê"],["Instalação","Fixação na parede"]]}
 ];
 
-const WA_ICON='<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.200 1 2.2 1.400 2.500 1.500.3.2.5.1.7-.1l.9-1.100c.2-.3.4-.2.7-.1l1.900.9c.3.1.5.2.5.4.100.1.100.8-.1 1.400Z"/></svg>';
+const WA_ICON = `<img src="${WA_GIT_ICON}" alt="WhatsApp" class="wa-custom-ico">`;
 const wa = t => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
 
 /* ========= LÓGICA GLOBAL DA LIGHTBOX ========= */
@@ -838,11 +1390,11 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 
 document.getElementById("closeWa").insertAdjacentHTML("afterbegin", WA_ICON);
 document.querySelectorAll(".wa-link").forEach(a=>{
-  a.href=wa("Olá! Vim pelo site da MFC Confort Flex e gostaria de atendimento direto da fábrica.");
+  a.href=wa("Olá! Vim pelo site da MFC Confort Flex e gostaria de solicitar uma medida especial direto da fábrica.");
   a.target="_blank";a.rel="noopener";
 });
 
-/* Luz do cursor ativa apenas em PC (poupa bateria e RAM no celular) */
+/* Luz do cursor ativa apenas em PC */
 if(fine){
   const glow = document.getElementById("glow");
   let gx = 0, gy = 0, tx = 0, ty = 0, glowActive = false;
@@ -861,28 +1413,348 @@ if(fine){
   }
 }
 
+/* =========================================================
+   MOTOR DE IA EM TEMPO REAL - CHAT SOLANA
+========================================================= */
+const chatWindow = document.getElementById("chatWindow");
+const chatLauncher = document.getElementById("chatLauncher");
+const chatCloseBtn = document.getElementById("chatCloseBtn");
+const chatResetBtn = document.getElementById("chatResetBtn");
+const chatBody = document.getElementById("chatBody");
+const chatForm = document.getElementById("chatForm");
+const chatInput = document.getElementById("chatInput");
+const chatTeaser = document.getElementById("chatTeaser");
+const closeTeaser = document.getElementById("closeTeaser");
+const unreadBadge = document.getElementById("unreadBadge");
+const chatClockStatus = document.getElementById("chatClockStatus");
+const teaserGreeting = document.getElementById("teaserGreeting");
+const launcherSub = document.getElementById("launcherSub");
+
+let chatStarted = false;
+let chatStep = "INIT"; // INIT -> PROFILE -> CLIENT_CHOICE / CORP_CHOICE -> DONE
+let clientType = "";   // "cliente" ou "empresa"
+let typingTimer = null;
+
+// Detecta se é dia, tarde ou noite e formata a hora atual
+function getTimeContext() {
+  const now = new Date();
+  const h = now.getHours();
+  const m = String(now.getMinutes()).padStart(2, "0");
+  const timeStr = `${String(h).padStart(2, "0")}:${m}`;
+
+  let greeting = "Boa noite";
+  let period = "noite";
+  let emoji = "🌙";
+
+  if (h >= 5 && h < 12) {
+    greeting = "Bom dia";
+    period = "manhã";
+    emoji = "☀️";
+  } else if (h >= 12 && h < 18) {
+    greeting = "Boa tarde";
+    period = "tarde";
+    emoji = "🌤️";
+  }
+
+  return { greeting, period, emoji, timeStr };
+}
+
+function updateLiveClockUI() {
+  const { greeting, timeStr } = getTimeContext();
+  chatClockStatus.textContent = `${greeting} • Online agora (${timeStr})`;
+  teaserGreeting.textContent = `Solana • ${greeting} (${timeStr})`;
+  launcherSub.textContent = `${greeting} • Online`;
+}
+updateLiveClockUI();
+setInterval(updateLiveClockUI, 30000);
+
+function scrollChatBottom() {
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+// Exibe "Solana está digitando..." com leve delay realista
+function showBotMessage(htmlText, delay = 750) {
+  return new Promise(resolve => {
+    const typingEl = document.createElement("div");
+    typingEl.className = "typing-row";
+    typingEl.innerHTML = `
+      <img src="${ATTENDANT_PHOTO}" alt="Solana" class="msg-mini-avatar">
+      <div class="typing-bubble">
+        <span>Solana digitando</span>
+        <div class="typing-dots"><span></span><span></span><span></span></div>
+      </div>
+    `;
+    chatBody.appendChild(typingEl);
+    scrollChatBottom();
+
+    typingTimer = setTimeout(() => {
+      typingEl.remove();
+      const { timeStr } = getTimeContext();
+      const row = document.createElement("div");
+      row.className = "msg-row bot";
+      row.innerHTML = `
+        <img src="${ATTENDANT_PHOTO}" alt="Solana" class="msg-mini-avatar">
+        <div class="msg-bubble">
+          <div>${htmlText}</div>
+          <span class="msg-meta">${timeStr}</span>
+        </div>
+      `;
+      chatBody.appendChild(row);
+      scrollChatBottom();
+      resolve();
+    }, delay);
+  });
+}
+
+function appendUserMessage(text) {
+  const { timeStr } = getTimeContext();
+  const row = document.createElement("div");
+  row.className = "msg-row user";
+  row.innerHTML = `
+    <div class="msg-bubble">
+      <div>${text}</div>
+      <span class="msg-meta">${timeStr} ✓✓</span>
+    </div>
+  `;
+  chatBody.appendChild(row);
+  scrollChatBottom();
+}
+
+function showQuickOptions(options) {
+  const wrap = document.createElement("div");
+  wrap.className = "chat-options";
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chat-opt-btn";
+    btn.textContent = opt.label;
+    btn.onclick = () => {
+      wrap.remove();
+      handleUserChoice(opt.value, opt.label);
+    };
+    wrap.appendChild(btn);
+  });
+  chatBody.appendChild(wrap);
+  scrollChatBottom();
+}
+
+function showWhatsAppTransferBtn(waMessage, buttonLabel) {
+  const link = document.createElement("a");
+  link.className = "chat-wa-transfer";
+  link.href = wa(waMessage);
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.innerHTML = `
+    <img src="${WA_GIT_ICON}" alt="WhatsApp">
+    <span>${buttonLabel}</span>
+  `;
+  chatBody.appendChild(link);
+  scrollChatBottom();
+}
+
+// Inicia a conversa com saudação de horário
+async function startConversation() {
+  chatStarted = true;
+  chatStep = "PROFILE";
+  clientType = "";
+  chatBody.innerHTML = "";
+
+  const { greeting, emoji, timeStr } = getTimeContext();
+
+  const divider = document.createElement("div");
+  divider.className = "chat-time-divider";
+  divider.textContent = `Hoje • ${greeting} • ${timeStr}`;
+  chatBody.appendChild(divider);
+
+  await showBotMessage(`${greeting}! ${emoji} Já são <strong>${timeStr}</strong>. Sou a <strong>Solana</strong>, da MFC Confort Flex.`, 650);
+  await showBotMessage(`Você busca comprar para <strong>uso pessoal</strong> ou é <strong>empresa</strong> buscando grandes quantidades?`, 850);
+
+  showQuickOptions([
+    { label: "🏠 Sou Cliente (Para minha casa)", value: "cliente" },
+    { label: "🏢 Sou Empresa (Grandes quantidades)", value: "empresa" }
+  ]);
+}
+
+// Elogio curto personalizado + transferência para o WhatsApp
+async function finalizeSelection(choiceKey, displayLabel) {
+  chatStep = "DONE";
+  const { greeting, timeStr } = getTimeContext();
+
+  let elogio = "";
+  let waMsg = "";
+  let btnText = "Continuar no WhatsApp da Fábrica";
+
+  if (clientType === "cliente") {
+    if (choiceKey === "royal") {
+      elogio = "Excelente escolha! 😍 O <strong>Royal Ensacado</strong> tem padrão de hotel 5 estrelas e um conforto incrível.";
+    } else if (choiceKey === "d33") {
+      elogio = "Ótima escolha! 👏 O <strong>Confort D33</strong> une firmeza ortopédica e maciez na medida certa.";
+    } else if (choiceKey === "cabeceira") {
+      elogio = "Que bom gosto! ✨ Nossas <strong>Cabeceiras Estofadas</strong> deixam o quarto super elegante e aconchegante.";
+    } else {
+      elogio = `Adorei a sua escolha! 🌟 Como somos fábrica própria, fazemos <strong>${displayLabel}</strong> com acabamento impecável.`;
+    }
+
+    waMsg = `${greeting}! Conversei com a Solana no site às ${timeStr}. Sou cliente final e quero atendimento para: *${displayLabel}*.`;
+    btnText = "Receber Orçamento no WhatsApp";
+  } else {
+    if (choiceKey === "hotel") {
+      elogio = "Excelente visão! 🌟 Hóspedes que dormem em colchões de padrão hoteleiro sempre avaliam com 5 estrelas.";
+    } else if (choiceKey === "atacado") {
+      elogio = "Ótima escolha de negócio! 🚀 Comprando em lote direto da fábrica você garante margem alta e qualidade premium.";
+    } else if (choiceKey === "kit_corp") {
+      elogio = "Escolha inteligente! 👏 Padronizar os quartos com nosso kit de Colchões + Cabeceiras valoriza muito o seu espaço.";
+    } else {
+      elogio = `Excelente iniciativa! 🏆 Nossa fábrica tem condição especial em grandes quantidades para <strong>${displayLabel}</strong>.`;
+    }
+
+    waMsg = `${greeting}! Conversei com a Solana no site às ${timeStr}. Sou *EMPRESA (Grandes Quantidades)* e busco cotação de fábrica para: *${displayLabel}*.`;
+    btnText = "Falar com Setor Atacado no WhatsApp";
+  }
+
+  await showBotMessage(elogio, 750);
+  await showBotMessage(`Já liberei seu atendimento prioritário. Clique abaixo para falar no WhatsApp da empresa:`, 800);
+  showWhatsAppTransferBtn(waMsg, btnText);
+}
+
+// Processa cliques nos botões ou texto digitado
+async function handleUserChoice(value, labelText) {
+  // Remove opções abertas anteriores se o usuário digitou em vez de clicar
+  const oldOpts = chatBody.querySelector(".chat-options");
+  if (oldOpts) oldOpts.remove();
+
+  appendUserMessage(labelText);
+
+  if (chatStep === "PROFILE") {
+    const low = value.toLowerCase();
+    const isCorp = low.includes("empresa") || low.includes("atacado") || low.includes("hotel") || low.includes("pousada") || low.includes("revenda") || low.includes("quantidade") || low.includes("lote") || low.includes("cnpj");
+
+    if (isCorp) {
+      clientType = "empresa";
+      chatStep = "CORP_CHOICE";
+      await showBotMessage(`Perfeito! Atendemos redes de hotéis, pousadas e revendas direto da fábrica. 🏭`, 700);
+      await showBotMessage(`O que a sua empresa precisa cotar hoje?`, 800);
+      showQuickOptions([
+        { label: "🏨 Colchões para Hotel / Pousada", value: "hotel" },
+        { label: "📦 Compra em Atacado / Revenda", value: "atacado" },
+        { label: "🛏️ Kit Colchões + Cabeceiras em Lote", value: "kit_corp" },
+        { label: "📐 Medidas Especiais em Quantidade", value: "sob_medida_corp" }
+      ]);
+    } else {
+      clientType = "cliente";
+      chatStep = "CLIENT_CHOICE";
+      await showBotMessage(`Maravilha! Nada melhor que um colchão novo direto da fábrica. ✨`, 700);
+      await showBotMessage(`O que você está procurando hoje?`, 800);
+      showQuickOptions([
+        { label: "🛏️ Colchão Royal (Molas Ensacadas)", value: "royal" },
+        { label: "☁️ Colchão Confort D33 (Espuma)", value: "d33" },
+        { label: "👑 Cabeceiras Estofadas", value: "cabeceira" },
+        { label: "📏 Colchão Sob Medida", value: "medida_especial" }
+      ]);
+    }
+    return;
+  }
+
+  if (chatStep === "CLIENT_CHOICE" || chatStep === "CORP_CHOICE") {
+    let key = value;
+    const low = labelText.toLowerCase();
+    if (low.includes("mola") || low.includes("royal")) key = "royal";
+    else if (low.includes("espuma") || low.includes("d33") || low.includes("misto")) key = "d33";
+    else if (low.includes("cabeceira") || low.includes("loren") || low.includes("luna") || low.includes("maya") || low.includes("malu")) key = "cabeceira";
+    else if (low.includes("hotel") || low.includes("pousada")) key = "hotel";
+    else if (low.includes("atacado") || low.includes("revenda")) key = "atacado";
+
+    await finalizeSelection(key, labelText);
+    return;
+  }
+
+  if (chatStep === "DONE") {
+    await finalizeSelection("custom", labelText);
+  }
+}
+
+// Envio pelo formulário de texto livre
+chatForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const txt = chatInput.value.trim();
+  if (!txt) return;
+  chatInput.value = "";
+  handleUserChoice(txt, txt);
+});
+
+// Abrir / Fechar / Reiniciar Chat
+function openChat() {
+  chatWindow.classList.add("open");
+  chatTeaser.classList.remove("show");
+  unreadBadge.style.display = "none";
+  if (!chatStarted) startConversation();
+}
+
+function closeChat() {
+  chatWindow.classList.remove("open");
+}
+
+chatLauncher.addEventListener("click", () => {
+  if (chatWindow.classList.contains("open")) closeChat();
+  else openChat();
+});
+chatCloseBtn.addEventListener("click", closeChat);
+chatResetBtn.addEventListener("click", () => {
+  if (typingTimer) clearTimeout(typingTimer);
+  startConversation();
+});
+chatTeaser.addEventListener("click", e => {
+  if (e.target === closeTeaser) return;
+  openChat();
+});
+closeTeaser.addEventListener("click", e => {
+  e.stopPropagation();
+  chatTeaser.classList.remove("show");
+});
+
+// Conecta os botões de destaque do topo/hero para abrir o chat interativo
+document.querySelectorAll(".open-chat-trigger").forEach(btn => {
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    openChat();
+  });
+});
+
+/* ========= ABERTURA DO SITE ========= */
 const intro = document.getElementById("intro");
 const vid = document.getElementById("bg-video");
 if(intro && fine) intro.addEventListener("mousemove", e => { intro.style.setProperty("--mx", e.clientX + "px"); intro.style.setProperty("--my", e.clientY + "px"); }, {passive:true});
+
+function scheduleTeaser() {
+  setTimeout(() => {
+    if (!chatWindow.classList.contains("open")) {
+      chatTeaser.classList.add("show");
+    }
+  }, 2200);
+}
 
 function openSite(fast){
   if(!document.getElementById("intro")) return;
   intro.classList.add("open");
   document.body.classList.remove("lock");
   vid.play && vid.play().catch(()=>{});
-  setTimeout(() => { intro.remove(); cacheMetrics(); }, fast ? 50 : 1400);
+  setTimeout(() => { intro.remove(); cacheMetrics(); scheduleTeaser(); }, fast ? 50 : 1400);
   try{ sessionStorage.setItem("mfc-intro", "1"); }catch(e){}
 }
 if(document.getElementById("enter")) document.getElementById("enter").onclick = () => openSite();
 if(document.getElementById("skip")) document.getElementById("skip").onclick = () => openSite();
 addEventListener("keydown", e => { if(e.key === "Enter" && document.getElementById("intro")) openSite(); });
-try{ if(sessionStorage.getItem("mfc-intro")){ if(intro) intro.remove(); document.body.classList.remove("lock"); vid.play && vid.play().catch(()=>{}); } }catch(e){}
-
+try{
+  if(sessionStorage.getItem("mfc-intro")){
+    if(intro) intro.remove();
+    document.body.classList.remove("lock");
+    vid.play && vid.play().catch(()=>{});
+    scheduleTeaser();
+  }
+}catch(e){}
 
 /* =========================================================================
    MOTOR APPLE SCROLLYTELLING SOB DEMANDA (ZERO LAYOUT THRASHING)
-   - Não lê getBoundingClientRect() durante o scroll (evita engasgos)
-   - Roda apenas quando há movimento e desliga sozinho quando para
 ========================================================================== */
 const hero = document.getElementById("hero");
 const heroSteps = document.getElementById("heroSteps");
@@ -904,7 +1776,6 @@ let targetAwakeP = 0, currentAwakeP = 0;
 let isAnimatingScroll = false;
 let lastHeroIdx = -1, lastAwakeIdx = -1;
 
-// Mede as posições apenas quando a tela carrega ou muda de tamanho
 function cacheMetrics(){
   const sy = window.scrollY;
   const hRect = hero.getBoundingClientRect();
@@ -942,21 +1813,18 @@ function setActiveAwake(idx){
 }
 
 function smoothScrollEngine(){
-  // Amortecimento estilo Apple (0.14 = responsivo no touch e ultra suave no mouse)
   currentHeroP += (targetHeroP - currentHeroP) * 0.14;
   currentAwakeP += (targetAwakeP - currentAwakeP) * 0.14;
 
-  // 1. HERO: Troca de textos em cascata + leve flutuação parallax
   const hIdx = currentHeroP < 0.34 ? 0 : (currentHeroP < 0.68 ? 1 : 2);
   setActiveStep(hIdx);
   const heroLocalOffset = ((currentHeroP * 3) % 1 - 0.5) * -18;
   heroSteps.style.setProperty("--hero-parallax", `${heroLocalOffset.toFixed(1)}px`);
   if(hint) hint.style.opacity = currentHeroP < 0.05 ? 1 : 0;
 
-  // 2. O DESPERTAR: Expansão GPU (scale3d) + Parallax contínuo nos cards
   const expand = Math.min(1, Math.max(0, (currentAwakeP + 0.12) / 0.45));
-  const frameScale = 0.88 + (expand * 0.12); // Cresce de 88% a 100% na GPU sem travar
-  const imgScale = 1.14 - (currentAwakeP * 0.14); // Zoom out cinematográfico
+  const frameScale = 0.88 + (expand * 0.12);
+  const imgScale = 1.14 - (currentAwakeP * 0.14);
 
   awakeFrame.style.setProperty("--aw-frame-scale", frameScale.toFixed(4));
   awakeImg.style.setProperty("--aw-img-scale", imgScale.toFixed(4));
@@ -964,11 +1832,9 @@ function smoothScrollEngine(){
   const awIdx = currentAwakeP < 0.34 ? 0 : (currentAwakeP < 0.68 ? 1 : 2);
   setActiveAwake(awIdx);
 
-  // Movimento suave de flutuação vertical no card ativo
   const cardParallax = (0.5 - currentAwakeP) * 28;
   awakeCardsWrap.style.setProperty("--aw-card-parallax", `${cardParallax.toFixed(1)}px`);
 
-  // Continua o loop apenas se ainda houver diferença para interpolar
   if(Math.abs(targetHeroP - currentHeroP) > 0.0005 || Math.abs(targetAwakeP - currentAwakeP) > 0.0005){
     requestAnimationFrame(smoothScrollEngine);
   } else {
