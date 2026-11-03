@@ -24,6 +24,8 @@
   --sans:'Plus Jakarta Sans',system-ui,sans-serif;
   --ease:cubic-bezier(.77,0,.18,1);
   --apple-ease:cubic-bezier(0.16, 1, 0.3, 1);
+  /* Ponto focal do rosto da atendente (50% horizontal, 15% vertical a partir do topo) */
+  --solana-pos: 50% 15%;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
@@ -401,7 +403,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 .lb-seta-dir { right: 4vw; }
 
 /* =========================================================
-   CHAT INTERATIVO IA EM TEMPO REAL (SOLANA)
+   CHAT INTERATIVO IA EM TEMPO REAL (BIA)
 ========================================================= */
 .solana-widget {
   position: fixed;
@@ -414,7 +416,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 /* Balão de chamada flutuante ao lado do botão */
 .chat-teaser {
   position: absolute;
-  bottom: 78px;
+  bottom: 82px;
   right: 0;
   background: rgba(7, 22, 54, 0.94);
   backdrop-filter: blur(14px);
@@ -481,20 +483,29 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 }
 .launcher-avatar-wrap {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   padding: 2px;
   background: var(--gold);
   flex-shrink: 0;
+  overflow: visible;
+}
+.launcher-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--night-soft);
 }
 .launcher-avatar {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
+  object-position: var(--solana-pos);
+  transform: scale(1.08);
+  transform-origin: 50% 18%;
   display: block;
-  background: var(--night-soft);
 }
 .launcher-wa-badge {
   position: absolute;
@@ -507,6 +518,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
   border: 1.5px solid var(--night);
   background: #25D366;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  z-index: 2;
 }
 .launcher-info {
   text-align: left;
@@ -558,7 +570,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 /* Janela do Chat */
 .chat-window {
   position: absolute;
-  bottom: 76px;
+  bottom: 80px;
   right: 0;
   width: min(390px, calc(100vw - 32px));
   height: min(580px, calc(100vh - 120px));
@@ -600,18 +612,28 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 }
 .chat-agent-avatar {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   padding: 2px;
   background: var(--gold);
   flex-shrink: 0;
 }
-.chat-agent-avatar img {
+.chat-agent-avatar-inner {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  overflow: hidden;
+  background: var(--night-soft);
+}
+.chat-agent-avatar img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: var(--solana-pos);
+  transform: scale(1.08);
+  transform-origin: 50% 18%;
+  display: block;
 }
 .chat-agent-avatar .status-dot {
   position: absolute;
@@ -622,6 +644,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
   border-radius: 50%;
   background: #22c55e;
   border: 2px solid var(--night);
+  z-index: 2;
 }
 .chat-agent-meta h4 {
   font-size: 15px;
@@ -715,12 +738,14 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
   justify-content: flex-end;
 }
 .msg-mini-avatar {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(250, 232, 180, 0.45);
+  object-position: var(--solana-pos);
+  border: 1.5px solid rgba(250, 232, 180, 0.55);
   flex-shrink: 0;
+  background: var(--night-soft);
 }
 .msg-bubble {
   max-width: 80%;
@@ -793,7 +818,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
   flex-direction: column;
   gap: 8px;
   margin-top: 4px;
-  padding-left: 36px;
+  padding-left: 40px;
   animation: msgPop 0.4s var(--apple-ease) forwards;
 }
 .chat-opt-btn {
@@ -828,7 +853,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 /* Botão Final de Transferência para o WhatsApp da Fábrica */
 .chat-wa-transfer {
   margin-top: 6px;
-  margin-left: 36px;
+  margin-left: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -919,7 +944,7 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 
   .solana-widget { bottom: 16px; right: 16px; }
   .chat-window {
-    bottom: 72px;
+    bottom: 76px;
     width: calc(100vw - 32px);
     height: min(530px, calc(100vh - 110px));
   }
@@ -1113,31 +1138,32 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 </div>
 
 <!-- =========================================================
-     WIDGET DE CHAT INTERATIVO IA (SOLANA)
+     WIDGET DE CHAT INTERATIVO IA (BIA)
 ========================================================= -->
 <div class="solana-widget" id="solanaWidget">
   <!-- Balão de Chamada -->
   <div class="chat-teaser" id="chatTeaser">
     <button class="chat-teaser-close" id="closeTeaser" aria-label="Fechar aviso">&times;</button>
-    <strong id="teaserGreeting">Solana • Online agora</strong>
+    <strong id="teaserGreeting">Bia • Online agora</strong>
     <span id="teaserText">Oi! 👋 Posso te ajudar a escolher seu colchão ou cotar direto da fábrica?</span>
   </div>
 
   <!-- Janela Principal do Chat -->
-  <div class="chat-window" id="chatWindow" role="dialog" aria-label="Chat de Atendimento Solana">
+  <div class="chat-window" id="chatWindow" role="dialog" aria-label="Chat de Atendimento Bia">
     <div class="chat-header">
       <div class="chat-agent">
         <div class="chat-agent-avatar">
-          <img src="solana.webp" alt="Atendente Solana">
+          <div class="chat-agent-avatar-inner">
+            <img src="solana.webp" alt="Atendente Bia">
+          </div>
           <span class="status-dot"></span>
         </div>
         <div class="chat-agent-meta">
-          <h4>Solana <span class="ai-pill">IA Online</span></h4>
+          <h4>Bia <span class="ai-pill">IA Online</span></h4>
           <p id="chatClockStatus">Consultora da Fábrica • Online</p>
         </div>
       </div>
       <div class="chat-header-actions">
-        <button type="button" class="chat-icon-btn" id="chatResetBtn" title="Reiniciar conversa" aria-label="Reiniciar conversa">&#8635;</button>
         <button type="button" class="chat-icon-btn" id="chatCloseBtn" title="Fechar chat" aria-label="Fechar chat">&times;</button>
       </div>
     </div>
@@ -1154,11 +1180,13 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
   <button type="button" class="chat-launcher" id="chatLauncher" aria-label="Abrir atendimento inteligente">
     <span class="unread-badge" id="unreadBadge">1</span>
     <div class="launcher-avatar-wrap">
-      <img src="solana.webp" alt="Solana" class="launcher-avatar">
+      <div class="launcher-avatar-inner">
+        <img src="solana.webp" alt="Bia" class="launcher-avatar">
+      </div>
       <img src="38c0619b-5c73-4ffb-9178-477245f55b82.webp" alt="WhatsApp" class="launcher-wa-badge">
     </div>
     <div class="launcher-info">
-      <strong><span class="online-dot"></span> Solana IA</strong>
+      <strong><span class="online-dot"></span> Bia IA</strong>
       <span id="launcherSub">Atendimento Online</span>
     </div>
   </button>
@@ -1169,6 +1197,9 @@ footer{padding:32px 5vw 100px;text-align:center;font-size:13px;color:var(--mute)
 const WA_NUMBER = "556293024417";
 const WA_GIT_ICON = "38c0619b-5c73-4ffb-9178-477245f55b82.webp";
 const ATTENDANT_PHOTO = "solana.webp";
+
+/* URL OFICIAL CONECTADA AO GOOGLE APPS SCRIPT */
+const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzp2jMt4B6NBy3Ol_A94xOuFI6yjk1yAp6OPIJtjjMRYyvc5euWr7B8xTAbB_4N8Sls/exec";
 
 /* --- BANCO DE DADOS DOS PRODUTOS --- */
 const PRODUCTS = [
@@ -1414,12 +1445,11 @@ if(fine){
 }
 
 /* =========================================================
-   MOTOR DE IA EM TEMPO REAL - CHAT SOLANA
+   MOTOR DE IA EM TEMPO REAL - CHAT BIA + GOOGLE PLANILHAS
 ========================================================= */
 const chatWindow = document.getElementById("chatWindow");
 const chatLauncher = document.getElementById("chatLauncher");
 const chatCloseBtn = document.getElementById("chatCloseBtn");
-const chatResetBtn = document.getElementById("chatResetBtn");
 const chatBody = document.getElementById("chatBody");
 const chatForm = document.getElementById("chatForm");
 const chatInput = document.getElementById("chatInput");
@@ -1431,9 +1461,41 @@ const teaserGreeting = document.getElementById("teaserGreeting");
 const launcherSub = document.getElementById("launcherSub");
 
 let chatStarted = false;
-let chatStep = "INIT"; // INIT -> PROFILE -> CLIENT_CHOICE / CORP_CHOICE -> DONE
-let clientType = "";   // "cliente" ou "empresa"
+// Fluxo: INIT -> PROFILE -> ASK_NAME -> ASK_CITY -> ASK_PHONE -> CLIENT_CHOICE / CORP_CHOICE -> DONE
+let chatStep = "INIT";
+let clientType = ""; // "cliente" ou "empresa"
 let typingTimer = null;
+
+// Dados do cliente para envio à Planilha Google
+let leadData = {
+  tipo: "",
+  nome: "",
+  cidade: "",
+  telefone: "",
+  interesse: ""
+};
+
+// Envia os dados silenciosamente para o Google Planilhas (Apps Script)
+function sendLeadToSheet(acao = "inserir") {
+  if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL.includes("COLE_AQUI")) return;
+
+  const payload = {
+    acao: acao,
+    dataHora: new Date().toLocaleString("pt-BR"),
+    tipo: leadData.tipo,
+    nome: leadData.nome,
+    cidade: leadData.cidade,
+    telefone: leadData.telefone,
+    interesse: leadData.interesse || "Aguardando escolha de produto"
+  };
+
+  fetch(GOOGLE_SHEETS_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
 
 // Detecta se é dia, tarde ou noite e formata a hora atual
 function getTimeContext() {
@@ -1462,7 +1524,7 @@ function getTimeContext() {
 function updateLiveClockUI() {
   const { greeting, timeStr } = getTimeContext();
   chatClockStatus.textContent = `${greeting} • Online agora (${timeStr})`;
-  teaserGreeting.textContent = `Solana • ${greeting} (${timeStr})`;
+  teaserGreeting.textContent = `Bia • ${greeting} (${timeStr})`;
   launcherSub.textContent = `${greeting} • Online`;
 }
 updateLiveClockUI();
@@ -1472,15 +1534,15 @@ function scrollChatBottom() {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Exibe "Solana está digitando..." com leve delay realista
+// Exibe "Bia digitando..." com leve delay realista
 function showBotMessage(htmlText, delay = 750) {
   return new Promise(resolve => {
     const typingEl = document.createElement("div");
     typingEl.className = "typing-row";
     typingEl.innerHTML = `
-      <img src="${ATTENDANT_PHOTO}" alt="Solana" class="msg-mini-avatar">
+      <img src="${ATTENDANT_PHOTO}" alt="Bia" class="msg-mini-avatar">
       <div class="typing-bubble">
-        <span>Solana digitando</span>
+        <span>Bia digitando</span>
         <div class="typing-dots"><span></span><span></span><span></span></div>
       </div>
     `;
@@ -1493,7 +1555,7 @@ function showBotMessage(htmlText, delay = 750) {
       const row = document.createElement("div");
       row.className = "msg-row bot";
       row.innerHTML = `
-        <img src="${ATTENDANT_PHOTO}" alt="Solana" class="msg-mini-avatar">
+        <img src="${ATTENDANT_PHOTO}" alt="Bia" class="msg-mini-avatar">
         <div class="msg-bubble">
           <div>${htmlText}</div>
           <span class="msg-meta">${timeStr}</span>
@@ -1557,6 +1619,8 @@ async function startConversation() {
   chatStarted = true;
   chatStep = "PROFILE";
   clientType = "";
+  leadData = { tipo: "", nome: "", cidade: "", telefone: "", interesse: "" };
+  chatInput.placeholder = "Digite sua mensagem ou escolha acima...";
   chatBody.innerHTML = "";
 
   const { greeting, emoji, timeStr } = getTimeContext();
@@ -1566,19 +1630,23 @@ async function startConversation() {
   divider.textContent = `Hoje • ${greeting} • ${timeStr}`;
   chatBody.appendChild(divider);
 
-  await showBotMessage(`${greeting}! ${emoji} Já são <strong>${timeStr}</strong>. Sou a <strong>Solana</strong>, da MFC Confort Flex.`, 650);
-  await showBotMessage(`Você busca comprar para <strong>uso pessoal</strong> ou é <strong>empresa</strong> buscando grandes quantidades?`, 850);
+  await showBotMessage(`${greeting}! ${emoji} Já são <strong>${timeStr}</strong>. Sou a <strong>Bia</strong>, da MFC Confort Flex.`, 650);
+  await showBotMessage(`Você busca comprar como <strong>Cliente Normal</strong> (uso pessoal) ou possui <strong>CNPJ</strong> (empresa / grandes quantidades)?`, 850);
 
   showQuickOptions([
-    { label: "🏠 Sou Cliente (Para minha casa)", value: "cliente" },
-    { label: "🏢 Sou Empresa (Grandes quantidades)", value: "empresa" }
+    { label: "🏠 Sou Cliente Normal (Para minha casa)", value: "cliente" },
+    { label: "🏢 Sou CNPJ / Empresa (Grandes quantidades)", value: "empresa" }
   ]);
 }
 
-// Elogio curto personalizado + transferência para o WhatsApp
+// Elogio curto personalizado + atualização na planilha + transferência para o WhatsApp
 async function finalizeSelection(choiceKey, displayLabel) {
   chatStep = "DONE";
+  chatInput.placeholder = "Digite sua mensagem...";
   const { greeting, timeStr } = getTimeContext();
+
+  leadData.interesse = displayLabel;
+  sendLeadToSheet("atualizar_interesse");
 
   let elogio = "";
   let waMsg = "";
@@ -1586,54 +1654,98 @@ async function finalizeSelection(choiceKey, displayLabel) {
 
   if (clientType === "cliente") {
     if (choiceKey === "royal") {
-      elogio = "Excelente escolha! 😍 O <strong>Royal Ensacado</strong> tem padrão de hotel 5 estrelas e um conforto incrível.";
+      elogio = `Excelente escolha, <strong>${leadData.nome}</strong>! 😍 O <strong>Royal Ensacado</strong> tem padrão de hotel 5 estrelas e um conforto incrível.`;
     } else if (choiceKey === "d33") {
-      elogio = "Ótima escolha! 👏 O <strong>Confort D33</strong> une firmeza ortopédica e maciez na medida certa.";
+      elogio = `Ótima escolha, <strong>${leadData.nome}</strong>! 👏 O <strong>Confort D33</strong> une firmeza ortopédica e maciez na medida certa.`;
     } else if (choiceKey === "cabeceira") {
-      elogio = "Que bom gosto! ✨ Nossas <strong>Cabeceiras Estofadas</strong> deixam o quarto super elegante e aconchegante.";
+      elogio = `Que bom gosto, <strong>${leadData.nome}</strong>! ✨ Nossas <strong>Cabeceiras Estofadas</strong> deixam o quarto super elegante e aconchegante.`;
     } else {
-      elogio = `Adorei a sua escolha! 🌟 Como somos fábrica própria, fazemos <strong>${displayLabel}</strong> com acabamento impecável.`;
+      elogio = `Adorei a sua escolha, <strong>${leadData.nome}</strong>! 🌟 Como somos fábrica própria, fazemos <strong>${displayLabel}</strong> com acabamento impecável.`;
     }
 
-    waMsg = `${greeting}! Conversei com a Solana no site às ${timeStr}. Sou cliente final e quero atendimento para: *${displayLabel}*.`;
+    waMsg = `${greeting}! Conversei com a Bia no site às ${timeStr}.\n\n*Perfil:* Cliente Normal\n*Nome:* ${leadData.nome}\n*Cidade:* ${leadData.cidade}\n*Telefone:* ${leadData.telefone}\n*Interesse:* ${displayLabel}`;
     btnText = "Receber Orçamento no WhatsApp";
   } else {
     if (choiceKey === "hotel") {
-      elogio = "Excelente visão! 🌟 Hóspedes que dormem em colchões de padrão hoteleiro sempre avaliam com 5 estrelas.";
+      elogio = `Excelente visão, <strong>${leadData.nome}</strong>! 🌟 Hóspedes que dormem em colchões de padrão hoteleiro sempre avaliam com 5 estrelas.`;
     } else if (choiceKey === "atacado") {
-      elogio = "Ótima escolha de negócio! 🚀 Comprando em lote direto da fábrica você garante margem alta e qualidade premium.";
+      elogio = `Ótima escolha de negócio, <strong>${leadData.nome}</strong>! 🚀 Comprando em lote direto da fábrica você garante margem alta e qualidade premium.`;
     } else if (choiceKey === "kit_corp") {
-      elogio = "Escolha inteligente! 👏 Padronizar os quartos com nosso kit de Colchões + Cabeceiras valoriza muito o seu espaço.";
+      elogio = `Escolha inteligente, <strong>${leadData.nome}</strong>! 👏 Padronizar os quartos com nosso kit de Colchões + Cabeceiras valoriza muito o seu espaço.`;
     } else {
-      elogio = `Excelente iniciativa! 🏆 Nossa fábrica tem condição especial em grandes quantidades para <strong>${displayLabel}</strong>.`;
+      elogio = `Excelente iniciativa, <strong>${leadData.nome}</strong>! 🏆 Nossa fábrica tem condição especial em grandes quantidades para <strong>${displayLabel}</strong>.`;
     }
 
-    waMsg = `${greeting}! Conversei com a Solana no site às ${timeStr}. Sou *EMPRESA (Grandes Quantidades)* e busco cotação de fábrica para: *${displayLabel}*.`;
+    waMsg = `${greeting}! Conversei com a Bia no site às ${timeStr}.\n\n*Perfil:* CNPJ / Empresa\n*Nome:* ${leadData.nome}\n*Cidade:* ${leadData.cidade}\n*Telefone:* ${leadData.telefone}\n*Interesse:* ${displayLabel}`;
     btnText = "Falar com Setor Atacado no WhatsApp";
   }
 
   await showBotMessage(elogio, 750);
-  await showBotMessage(`Já liberei seu atendimento prioritário. Clique abaixo para falar no WhatsApp da empresa:`, 800);
+  await showBotMessage(`Seus dados já foram registrados! Clique abaixo para falar direto no WhatsApp da fábrica:`, 800);
   showWhatsAppTransferBtn(waMsg, btnText);
 }
 
 // Processa cliques nos botões ou texto digitado
 async function handleUserChoice(value, labelText) {
-  // Remove opções abertas anteriores se o usuário digitou em vez de clicar
   const oldOpts = chatBody.querySelector(".chat-options");
   if (oldOpts) oldOpts.remove();
 
   appendUserMessage(labelText);
 
+  // ETAPA 1: Escolheu CNPJ ou Cliente Normal -> Pergunta o Nome para ambos
   if (chatStep === "PROFILE") {
     const low = value.toLowerCase();
-    const isCorp = low.includes("empresa") || low.includes("atacado") || low.includes("hotel") || low.includes("pousada") || low.includes("revenda") || low.includes("quantidade") || low.includes("lote") || low.includes("cnpj");
+    const isCorp = low.includes("empresa") || low.includes("atacado") || low.includes("hotel") || low.includes("pousada") || low.includes("revenda") || low.includes("quantidade") || low.includes("lote") || low.includes("cnpj") || low.includes("cnp");
 
     if (isCorp) {
       clientType = "empresa";
+      leadData.tipo = "CNPJ / Empresa";
+      await showBotMessage(`Perfeito! Atendemos CNPJ, redes de hotéis, pousadas e revendas direto da fábrica. 🏭`, 650);
+    } else {
+      clientType = "cliente";
+      leadData.tipo = "Cliente Normal";
+      await showBotMessage(`Maravilha! Nada melhor que escolher seu colchão novo direto da fábrica. ✨`, 650);
+    }
+
+    chatStep = "ASK_NAME";
+    await showBotMessage(`Para começarmos o seu atendimento, qual é o seu <strong>nome</strong>?`, 700);
+    chatInput.placeholder = "Digite seu nome aqui...";
+    chatInput.focus();
+    return;
+  }
+
+  // ETAPA 2: Recebeu o Nome -> Pergunta a Cidade
+  if (chatStep === "ASK_NAME") {
+    leadData.nome = labelText;
+    chatStep = "ASK_CITY";
+    await showBotMessage(`Muito prazer, <strong>${leadData.nome}</strong>! 😊 E de qual <strong>cidade</strong> você está falando?`, 700);
+    chatInput.placeholder = "Digite sua cidade...";
+    chatInput.focus();
+    return;
+  }
+
+  // ETAPA 3: Recebeu a Cidade -> Pergunta o Número do Telefone
+  if (chatStep === "ASK_CITY") {
+    leadData.cidade = labelText;
+    chatStep = "ASK_PHONE";
+    await showBotMessage(`Ótimo! Agora me informe o seu <strong>número de telefone / WhatsApp</strong> (com DDD):`, 700);
+    chatInput.placeholder = "Ex: (62) 99999-9999...";
+    chatInput.focus();
+    return;
+  }
+
+  // ETAPA 4: Recebeu o Telefone -> Salva na Planilha Google e Mostra as Opções
+  if (chatStep === "ASK_PHONE") {
+    leadData.telefone = labelText;
+    chatInput.placeholder = "Escolha uma opção acima ou digite...";
+
+    // Envia Nome, Cidade, Telefone e Tipo imediatamente para o Google Planilhas
+    sendLeadToSheet("inserir");
+
+    if (clientType === "empresa") {
       chatStep = "CORP_CHOICE";
-      await showBotMessage(`Perfeito! Atendemos redes de hotéis, pousadas e revendas direto da fábrica. 🏭`, 700);
-      await showBotMessage(`O que a sua empresa precisa cotar hoje?`, 800);
+      await showBotMessage(`Perfeito, <strong>${leadData.nome}</strong>! Já anotei seu contato de <strong>${leadData.cidade}</strong>. ✅`, 650);
+      await showBotMessage(`O que a sua empresa precisa cotar hoje?`, 750);
       showQuickOptions([
         { label: "🏨 Colchões para Hotel / Pousada", value: "hotel" },
         { label: "📦 Compra em Atacado / Revenda", value: "atacado" },
@@ -1641,10 +1753,9 @@ async function handleUserChoice(value, labelText) {
         { label: "📐 Medidas Especiais em Quantidade", value: "sob_medida_corp" }
       ]);
     } else {
-      clientType = "cliente";
       chatStep = "CLIENT_CHOICE";
-      await showBotMessage(`Maravilha! Nada melhor que um colchão novo direto da fábrica. ✨`, 700);
-      await showBotMessage(`O que você está procurando hoje?`, 800);
+      await showBotMessage(`Perfeito, <strong>${leadData.nome}</strong>! Já anotei seu contato de <strong>${leadData.cidade}</strong>. ✅`, 650);
+      await showBotMessage(`Qual modelo você está procurando hoje?`, 750);
       showQuickOptions([
         { label: "🛏️ Colchão Royal (Molas Ensacadas)", value: "royal" },
         { label: "☁️ Colchão Confort D33 (Espuma)", value: "d33" },
@@ -1655,6 +1766,7 @@ async function handleUserChoice(value, labelText) {
     return;
   }
 
+  // ETAPA 5: Escolheu o Produto -> Atualiza a Planilha e libera o WhatsApp
   if (chatStep === "CLIENT_CHOICE" || chatStep === "CORP_CHOICE") {
     let key = value;
     const low = labelText.toLowerCase();
@@ -1682,7 +1794,7 @@ chatForm.addEventListener("submit", e => {
   handleUserChoice(txt, txt);
 });
 
-// Abrir / Fechar / Reiniciar Chat
+// Abrir / Fechar Chat
 function openChat() {
   chatWindow.classList.add("open");
   chatTeaser.classList.remove("show");
@@ -1699,10 +1811,6 @@ chatLauncher.addEventListener("click", () => {
   else openChat();
 });
 chatCloseBtn.addEventListener("click", closeChat);
-chatResetBtn.addEventListener("click", () => {
-  if (typingTimer) clearTimeout(typingTimer);
-  startConversation();
-});
 chatTeaser.addEventListener("click", e => {
   if (e.target === closeTeaser) return;
   openChat();
