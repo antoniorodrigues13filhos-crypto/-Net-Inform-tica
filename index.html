@@ -19,7 +19,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Preload de ativos críticos para redes lentas (2G/4G) -->
 <link rel="preload" as="image" href="WhatsApp Image 2026-10-14 at 16.47.03.webp">
 <link rel="preload" as="image" href="solana.webp">
 
@@ -77,7 +76,6 @@ body.lock {
   touch-action: none;
 }
 
-/* Trava de scroll para o Chat em Tela Cheia sem perder a posição da página */
 body.chat-locked {
   position: fixed;
   left: 0;
@@ -112,7 +110,6 @@ button, input {
   text-shadow: none;
 }
 
-/* LUZ QUE SEGUE O CURSOR (Apenas PC) */
 .glow {
   position: fixed;
   z-index: 9990;
@@ -128,7 +125,6 @@ button, input {
   will-change: transform;
 }
 
-/* ABERTURA INTERATIVA */
 .intro {
   position: fixed;
   top: 0;
@@ -310,7 +306,6 @@ button, input {
 .intro.open .intro-in { opacity: 0; transform: scale3d(1.08, 1.08, 1); }
 .intro.open .spot, .intro.open .skip { opacity: 0; }
 
-/* NAV FLUTUANTE */
 .nav-wrap {
   position: fixed;
   top: max(16px, env(safe-area-inset-top));
@@ -436,9 +431,6 @@ button, input {
   flex-shrink: 0;
 }
 
-/* =========================================================
-   HERO INTERATIVO COM TEXTOS EM CASCATA NÍVEL APPLE (GPU)
-========================================================= */
 .hero {
   height: 280vh;
   position: relative;
@@ -452,7 +444,6 @@ button, input {
   overflow: hidden;
   display: flex;
   align-items: center;
-  /* Gradiente atua como fallback instantâneo enquanto o vídeo carrega no 2G/4G */
   background: radial-gradient(65% 65% at 70% 45%, var(--royal-2), var(--royal) 45%, var(--night));
 }
 
@@ -753,7 +744,6 @@ button, input {
   100% { transform: translate3d(-50%, 10px, 0); opacity: 0; }
 }
 
-/* PRODUTOS */
 .products {
   position: relative;
   z-index: 5;
@@ -884,7 +874,6 @@ button, input {
 .card:hover .art img.imagem-estatica { transform: scale(1.04); }
 .imagem-ativa { cursor: zoom-in; }
 
-/* SETAS DO CARROSSEL NO CARD */
 .seta {
   position: absolute;
   top: 50%;
@@ -958,7 +947,6 @@ button, input {
 .specs span:first-child { color: var(--mute); }
 .specs span:last-child { text-align: right; font-weight: 500; color: var(--ivory); }
 
-/* BOTÃO WHATSAPP NOS CARDS */
 .wa {
   margin-top: auto;
   position: relative;
@@ -997,9 +985,6 @@ button, input {
 
 .wa:hover::after { left: 130%; transition: left .8s; }
 
-/* =========================================================
-   SEÇÃO APPLE (O DESPERTAR) - 100% GPU COMPOSITED
-========================================================= */
 .awakening { position: relative; z-index: 5; background: var(--night); padding-top: 40px; }
 .awake-intro { max-width: 920px; margin: 0 auto 56px; padding: 0 5vw; text-align: center; }
 .awake-intro .sub {
@@ -1238,7 +1223,6 @@ footer {
   border-top: 1px solid rgba(255, 255, 255, .06);
 }
 
-/* === ESTILOS DA LIGHTBOX (GALERIA EM TELA CHEIA) === */
 .lightbox {
   position: fixed;
   top: 0;
@@ -1331,9 +1315,6 @@ footer {
 .lb-seta-esq { left: 4vw; }
 .lb-seta-dir { right: 4vw; }
 
-/* =========================================================
-   CHAT INTERATIVO IA EM TELA CHEIA (BIA)
-========================================================= */
 .solana-widget {
   position: fixed;
   bottom: max(20px, env(safe-area-inset-bottom));
@@ -1342,7 +1323,6 @@ footer {
   font-family: var(--sans);
 }
 
-/* Balão de chamada flutuante ao lado do botão */
 .chat-teaser {
   position: absolute;
   bottom: 80px;
@@ -1395,7 +1375,6 @@ footer {
   padding: 4px;
 }
 
-/* Botão Flutuante (Launcher) */
 .chat-launcher {
   position: relative;
   display: flex;
@@ -1503,9 +1482,6 @@ footer {
   box-shadow: 0 4px 10px rgba(239, 68, 68, 0.5);
 }
 
-/* =========================================================
-   JANELA DO CHAT EM TELA INTEIRA (FULLSCREEN MODAL)
-========================================================= */
 .chat-window {
   position: fixed;
   top: var(--vv-top, 0px);
@@ -1547,7 +1523,6 @@ footer {
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
 }
 
-/* Cabeçalho do Chat em Tela Cheia com Botão X em Destaque */
 .chat-header {
   padding: max(14px, env(safe-area-inset-top)) 20px 14px;
   background: linear-gradient(135deg, rgba(18, 64, 150, 0.65), rgba(3, 11, 28, 0.95));
@@ -1638,7 +1613,6 @@ footer {
   align-items: center;
 }
 
-/* Botão X para fechar o chat e voltar exatamente de onde parou */
 .chat-icon-btn {
   background: rgba(250, 232, 180, 0.12);
   border: 1.5px solid rgba(250, 232, 180, 0.45);
@@ -1668,7 +1642,6 @@ footer {
   transform: scale(1.04);
 }
 
-/* Corpo de Mensagens */
 .chat-body {
   flex: 1;
   padding: 22px 20px;
@@ -1754,7 +1727,6 @@ footer {
   text-align: right;
 }
 
-/* Indicador Digitando */
 .typing-row {
   display: flex;
   align-items: center;
@@ -1790,7 +1762,6 @@ footer {
   40% { transform: translateY(-4px); opacity: 1; }
 }
 
-/* Botões Interativos de Resposta Rápida */
 .chat-options {
   display: flex;
   flex-direction: column;
@@ -1835,7 +1806,6 @@ footer {
   flex-shrink: 0;
 }
 
-/* Botão Final de Transferência para o WhatsApp da Fábrica */
 .chat-wa-transfer {
   margin-top: 8px;
   margin-left: 44px;
@@ -1869,7 +1839,6 @@ footer {
   flex-shrink: 0;
 }
 
-/* Barra de Digitação Livre no Rodapé do Chat */
 .chat-footer {
   padding: 12px 18px max(12px, env(safe-area-inset-bottom));
   background: rgba(3, 11, 28, 0.96);
@@ -1880,7 +1849,6 @@ footer {
   flex-shrink: 0;
 }
 
-/* font-size: 16px impede zoom forçado no Safari iOS */
 .chat-input {
   flex: 1;
   background: rgba(255, 255, 255, 0.07);
@@ -1916,7 +1884,6 @@ footer {
 
 .chat-send-btn:hover { transform: scale(1.07); }
 
-/* RESPONSIVIDADE MOBILE & TABLET */
 @media (max-width: 960px) {
   .nav-links { display: none; }
   .nav { padding: 10px 14px; }
@@ -2198,7 +2165,6 @@ footer {
 
 <footer>© MFC Confort Flex • Fábrica de Colchões Premium. Todos os direitos reservados.</footer>
 
-<!-- HTML DA LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-label="Galeria de Fotos">
   <button type="button" class="lightbox-close" id="lb-close" aria-label="Fechar galeria">&times;</button>
   <button type="button" class="lb-seta-esq" id="lb-prev" aria-label="Imagem anterior">&#10094;</button>
@@ -2206,7 +2172,6 @@ footer {
   <button type="button" class="lb-seta-dir" id="lb-next" aria-label="Próxima imagem">&#10095;</button>
 </div>
 
-<!-- WIDGET DE CHAT INTERATIVO IA EM TELA CHEIA (BIA) -->
 <div class="solana-widget" id="solanaWidget">
   <div class="chat-teaser" id="chatTeaser">
     <button type="button" class="chat-teaser-close" id="closeTeaser" aria-label="Fechar aviso">&times;</button>
@@ -2262,23 +2227,14 @@ footer {
 </div>
 
 <script>
-/* ========= CONFIGURAÇÃO OFICIAL ========= */
 const WA_NUMBER = "556293024417";
 const WA_GIT_ICON = "38c0619b-5c73-4ffb-9178-477245f55b82.webp";
 const ATTENDANT_PHOTO = "solana.webp";
 
-/* URL OFICIAL CONECTADA AO GOOGLE APPS SCRIPT */
 const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzp2jMt4B6NBy3Ol_A94xOuFI6yjk1yAp6OPIJtjjMRYyvc5euWr7B8xTAbB_4N8Sls/exec";
 
 /* --- BANCO DE DADOS DOS PRODUTOS ATUALIZADO --- */
 const PRODUCTS = [
-  {n:"Royal Ensacado", tag:"Mais procurado", cat:"molas",
-   imgTpl: "acoplado/{idx}acoplado.webp", fotos: 4,
-   layers:5, layerNames:["Malha Belga Bordada","Pillow Top Visco","Espuma HR D33","Molas Ensacadas 2.0","Base Estrutural EPS"],
-   sizes:["Casal","Queen","King"],
-   d:"Molas ensacadas individuais com Pillow Top de hotelaria. Acomoda o corpo perfeitamente sem transferir movimento para quem dorme ao lado.",
-   s:[["Estrutura","Molas ensacadas individuais"],["Conforto","Pillow top macio envolvente"],["Altura","30 cm"],["Suporte","Até 130 kg por lado"]]},
-
   {n:"Colchão D33 Casal", tag:"Alta Densidade", cat:"espuma",
    imgTpl: "d33/{idx}.webp", fotos: 5,
    layers:4, layerNames:["Tecido Matelassê","Espuma Certificada D33","Placa de Estabilização","Suporte Firme"],
@@ -2287,7 +2243,7 @@ const PRODUCTS = [
    s:[["Estrutura","Espuma Certificada D33"],["Conforto","Firme e Anatômico"],["Altura","14 cm"],["Suporte","Até 100 kg por pessoa"]]},
 
   {n:"Colchão D20 Solteiro", tag:"Praticidade & Conforto", cat:"espuma",
-   imgTpl: "d20 12cm solteiro/{idx}.webp", fotos: 5,
+   imgTpl: "ok/{idx}.webp", fotos: 5,
    layers:3, layerNames:["Tecido Confortável","Espuma D20 Flexível","Base de Suporte"],
    sizes:["Solteiro"],
    d:"Leve, prático e confortável. Desenvolvido com espuma D20 de alta qualidade, perfeito para camas de solteiro, quartos de hóspedes e beliches.",
@@ -2325,9 +2281,6 @@ const PRODUCTS = [
 const WA_ICON = `<img src="${WA_GIT_ICON}" alt="WhatsApp" class="wa-custom-ico" width="20" height="20" decoding="async">`;
 const wa = t => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
 
-/* =========================================================
-   MOTOR KEEP-ALIVE DE VÍDEO PARA REDES LENTAS (2G / 4G)
-========================================================= */
 const vid = document.getElementById("bg-video");
 
 function initResilientVideo() {
@@ -2378,7 +2331,6 @@ function initResilientVideo() {
 
 initResilientVideo();
 
-/* ========= LÓGICA GLOBAL DA LIGHTBOX + SWIPE MOBILE ========= */
 let lbImgTpl = "";
 let lbTotal = 0;
 let lbCardImgRef = null;
@@ -2455,7 +2407,6 @@ lb.addEventListener("touchend", e => {
   }
 }, { passive: true });
 
-/* ========= RENDERIZAÇÃO DOS PRODUTOS ========= */
 const io = ("IntersectionObserver" in window)
   ? new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
@@ -2621,9 +2572,6 @@ if (fine) {
   }
 }
 
-/* =========================================================
-   MOTOR DE IA EM TEMPO REAL - CHAT BIA TELA CHEIA + PLANILHAS
-========================================================= */
 const chatWindow = document.getElementById("chatWindow");
 const chatLauncher = document.getElementById("chatLauncher");
 const chatCloseBtn = document.getElementById("chatCloseBtn");
@@ -2839,10 +2787,8 @@ async function finalizeSelection(choiceKey, displayLabel) {
   let btnText = "Continuar no WhatsApp da Fábrica";
 
   if (clientType === "cliente") {
-    if (choiceKey === "royal") {
-      elogio = `Excelente escolha, <strong>${leadData.nome}</strong>! 😍 O <strong>Royal Ensacado</strong> tem padrão de hotel 5 estrelas e um conforto incrível.`;
-    } else if (choiceKey === "d33") {
-      elogio = `Ótima escolha, <strong>${leadData.nome}</strong>! 👏 O <strong>Colchão D33</strong> garante excelente durabilidade e firmeza para a coluna.`;
+    if (choiceKey === "d33") {
+      elogio = `Ótima escolha, <strong>${leadData.nome}</strong>! 👏 O <strong>Colchão D33 Casal</strong> garante excelente durabilidade e firmeza para a coluna.`;
     } else if (choiceKey === "d20") {
       elogio = `Ótima escolha, <strong>${leadData.nome}</strong>! 🛏️ O <strong>Colchão D20 Solteiro</strong> é prático e muito confortável.`;
     } else if (choiceKey === "cabeceira") {
@@ -2929,7 +2875,6 @@ async function handleUserChoice(value, labelText) {
       await showBotMessage(`Perfeito, <strong>${leadData.nome}</strong>! Já anotei seu contato de <strong>${leadData.cidade}</strong>. ✅`, 650);
       await showBotMessage(`Qual modelo você está procurando hoje?`, 750);
       showQuickOptions([
-        { label: "🛏️ Colchão Royal (Molas Ensacadas)", value: "royal" },
         { label: "☁️ Colchão D33 Casal", value: "d33" },
         { label: "🌟 Colchão D20 Solteiro", value: "d20" },
         { label: "👑 Cabeceiras Estofadas", value: "cabeceira" }
@@ -2941,8 +2886,7 @@ async function handleUserChoice(value, labelText) {
   if (chatStep === "CLIENT_CHOICE" || chatStep === "CORP_CHOICE") {
     let key = value;
     const low = labelText.toLowerCase();
-    if (low.includes("mola") || low.includes("royal")) key = "royal";
-    else if (low.includes("d33")) key = "d33";
+    if (low.includes("d33")) key = "d33";
     else if (low.includes("d20") || low.includes("solteiro")) key = "d20";
     else if (low.includes("cabeceira")) key = "cabeceira";
 
@@ -3033,7 +2977,6 @@ window.addEventListener("keydown", e => {
   }
 });
 
-/* ========= ABERTURA DO SITE ========= */
 const intro = document.getElementById("intro");
 if (intro && fine) {
   intro.addEventListener("mousemove", e => {
@@ -3079,9 +3022,6 @@ try {
   }
 } catch (e) {}
 
-/* =========================================================================
-   MOTOR APPLE SCROLLYTELLING SOB DEMANDA (ZERO LAYOUT THRASHING)
-========================================================================== */
 const hero = document.getElementById("hero");
 const heroSteps = document.getElementById("heroSteps");
 const steps = [...document.querySelectorAll(".step")];
