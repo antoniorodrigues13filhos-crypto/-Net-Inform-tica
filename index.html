@@ -2103,7 +2103,7 @@ footer {
   </div>
 
   <div class="filters">
-    <button type="button" class="filter-btn active" data-filter="all">Todos os produtos (7)</button>
+    <button type="button" class="filter-btn active" data-filter="all">Todos os produtos (6)</button>
     <button type="button" class="filter-btn" data-filter="molas">Colchões de Mola</button>
     <button type="button" class="filter-btn" data-filter="espuma">Colchões de Espuma</button>
     <button type="button" class="filter-btn" data-filter="cabeceiras">Cabeceiras</button>
@@ -2233,49 +2233,90 @@ const ATTENDANT_PHOTO = "solana.webp";
 
 const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzp2jMt4B6NBy3Ol_A94xOuFI6yjk1yAp6OPIJtjjMRYyvc5euWr7B8xTAbB_4N8Sls/exec";
 
-/* --- BANCO DE DADOS DOS PRODUTOS ATUALIZADO --- */
+/* --- BANCO DE DADOS DOS PRODUTOS COM OS NOMES REAIS DAS IMAGENS --- */
 const PRODUCTS = [
-  {n:"Colchão D33 Casal", tag:"Alta Densidade", cat:"espuma",
-   imgTpl: "d33/{idx}.webp", fotos: 5,
-   layers:4, layerNames:["Tecido Matelassê","Espuma Certificada D33","Placa de Estabilização","Suporte Firme"],
-   sizes:["Casal"],
-   d:"Conforto firme e durabilidade superior com espuma de alta densidade D33, ideal para suporte correto da coluna e noites de sono reparadoras.",
-   s:[["Estrutura","Espuma Certificada D33"],["Conforto","Firme e Anatômico"],["Altura","14 cm"],["Suporte","Até 100 kg por pessoa"]]},
-
-  {n:"Colchão D20 Solteiro", tag:"Praticidade & Conforto", cat:"espuma",
-   imgTpl: "ok/{idx}.webp", fotos: 5,
-   layers:3, layerNames:["Tecido Confortável","Espuma D20 Flexível","Base de Suporte"],
-   sizes:["Solteiro"],
-   d:"Leve, prático e confortável. Desenvolvido com espuma D20 de alta qualidade, perfeito para camas de solteiro, quartos de hóspedes e beliches.",
-   s:[["Estrutura","Espuma D20 Flexível"],["Conforto","Suave e Acolhedor"],["Altura","12 cm"],["Ideal para","Solteiro e crianças"]]},
-
-  {n:"Cabeceira Loren", tag:"Design Elegante", cat:"cabeceiras",
-   imgTpl: "loren/lorem{idx}.webp", fotos: 4,
-   layers:2, layerNames:["Estofado Claro","Oito Painéis"],
-   sizes:["Casal","Queen","King"],
-   d:"Estofado claro com oito painéis acolchoados divididos em duas fileiras simétricas. Traz conforto acústico e um toque de elegância moderna para o quarto.",
-   s:[["Estrutura","Painéis modulares"],["Revestimento","Tecido claro premium"],["Design","8 painéis (2 fileiras)"],["Instalação","Fácil fixação na parede"]]},
-
-  {n:"Cabeceira Luna", tag:"Lançamento", cat:"cabeceiras",
-   imgTpl: "luna/luna{idx}.webp", fotos: 5,
-   layers:2, layerNames:["Tom Amendoado","Canais Verticais"],
-   sizes:["Casal","Queen","King"],
-   d:"Estofado elegante em tom amendoado com design de canais verticais, que ajuda a alongar o ambiente e traz uma sensação de conforto premium.",
-   s:[["Estrutura","Painel Estofado"],["Revestimento","Suede Amendoado"],["Design","Canais verticais"],["Instalação","Fixação simplificada"]]},
-
-  {n:"Cabeceira Maya", tag:"Design Premium", cat:"cabeceiras",
-   imgTpl: "maya/maya{idx}.webp", fotos: 4,
-   layers:2, layerNames:["Estofado Claro","Moldura Externa"],
-   sizes:["Casal","Queen","King"],
-   d:"Estofado claro com nove painéis acolchoados e moldura externa. Um design sofisticado que emoldura a cama e eleva o padrão de conforto e beleza do seu quarto.",
-   s:[["Estrutura","9 painéis com moldura"],["Revestimento","Tecido claro premium"],["Design","Clássico sofisticado"],["Instalação","Fixação na parede"]]},
-
-  {n:"Cabeceira Malu", tag:"Capitonê Clássico", cat:"cabeceiras",
-   imgTpl: "cabeceiramalu/malu{idx}.webp", fotos: 5,
-   layers:2, layerNames:["Estofado Marrom","Botões Clássicos"],
-   sizes:["Casal","Queen","King"],
-   d:"Cabeceira capitonê em tom marrom com visual elegante e aconchegante. O acabamento com botões profundos cria um visual clássico e atemporal para a sua cama.",
-   s:[["Estrutura","Painel Estofado"],["Revestimento","Suede Marrom"],["Design","Capitonê"],["Instalação","Fixação na parede"]]}
+  {
+    n: "Colchão D33 Casal",
+    tag: "Alta Densidade",
+    cat: "espuma",
+    images: [
+      "d33/1.webp",
+      "d33/Redo_mattress_showroom_image_7aeda46d.webp",
+      "d33/Redo_mattress_showroom_image_7e1892b7.webp",
+      "d33/Redo_mattress_showroom_image_ad1da808.webp",
+      "d33/Redo_mattress_showroom_image_af6c2320_2K.webp"
+    ],
+    layers: 4,
+    layerNames: ["Tecido Matelassê", "Espuma Certificada D33", "Placa de Estabilização", "Suporte Firme"],
+    sizes: ["Casal"],
+    d: "Conforto firme e durabilidade superior com espuma de alta densidade D33, ideal para suporte correto da coluna e noites de sono reparadoras.",
+    s: [["Estrutura", "Espuma Certificada D33"], ["Conforto", "Firme e Anatômico"], ["Altura", "14 cm"], ["Suporte", "Até 100 kg por pessoa"]]
+  },
+  {
+    n: "Colchão D20 Solteiro",
+    tag: "Praticidade & Conforto",
+    cat: "espuma",
+    images: [
+      "ok/1.webp",
+      "ok/WhatsApp_Image_2026-11-13_at_14.15.11.jpeg_ac416738.webp",
+      "ok/WhatsApp_Image_2026-11-13_at_14.15.11.jpeg_d50891a2 (1).webp",
+      "ok/WhatsApp_Image_2026-11-13_at_14.15.11.jpeg_f9dcdcfe.webp",
+      "ok/outro_ambiente_5904d7d7.webp"
+    ],
+    layers: 3,
+    layerNames: ["Tecido Confortável", "Espuma D20 Flexível", "Base de Suporte"],
+    sizes: ["Solteiro"],
+    d: "Leve, prático e confortável. Desenvolvido com espuma D20 de alta qualidade, perfeito para camas de solteiro, quartos de hóspedes e beliches.",
+    s: [["Estrutura", "Espuma D20 Flexível"], ["Conforto", "Suave e Acolhedor"], ["Altura", "12 cm"], ["Ideal para", "Solteiro e crianças"]]
+  },
+  {
+    n: "Cabeceira Loren",
+    tag: "Design Elegante",
+    cat: "cabeceiras",
+    imgTpl: "loren/lorem{idx}.webp",
+    fotos: 4,
+    layers: 2,
+    layerNames: ["Estofado Claro", "Oito Painéis"],
+    sizes: ["Casal", "Queen", "King"],
+    d: "Estofado claro com oito painéis acolchoados divididos em duas fileiras simétricas. Traz conforto acústico e um toque de elegância moderna para o quarto.",
+    s: [["Estrutura", "Painéis modulares"], ["Revestimento", "Tecido claro premium"], ["Design", "8 painéis (2 fileiras)"], ["Instalação", "Fácil fixação na parede"]]
+  },
+  {
+    n: "Cabeceira Luna",
+    tag: "Lançamento",
+    cat: "cabeceiras",
+    imgTpl: "luna/luna{idx}.webp",
+    fotos: 5,
+    layers: 2,
+    layerNames: ["Tom Amendoado", "Canais Verticais"],
+    sizes: ["Casal", "Queen", "King"],
+    d: "Estofado elegante em tom amendoado com design de canais verticais, que ajuda a alongar o ambiente e traz uma sensação de conforto premium.",
+    s: [["Estrutura", "Painel Estofado"], ["Revestimento", "Suede Amendoado"], ["Design", "Canais verticais"], ["Instalação", "Fixação simplificada"]]
+  },
+  {
+    n: "Cabeceira Maya",
+    tag: "Design Premium",
+    cat: "cabeceiras",
+    imgTpl: "maya/maya{idx}.webp",
+    fotos: 4,
+    layers: 2,
+    layerNames: ["Estofado Claro", "Moldura Externa"],
+    sizes: ["Casal", "Queen", "King"],
+    d: "Estofado claro com nove painéis acolchoados e moldura externa. Um design sofisticado que emoldura a cama e eleva o padrão de conforto e beleza do seu quarto.",
+    s: [["Estrutura", "9 painéis com moldura"], ["Revestimento", "Tecido claro premium"], ["Design", "Clássico sofisticado"], ["Instalação", "Fixação na parede"]]
+  },
+  {
+    n: "Cabeceira Malu",
+    tag: "Capitonê Clássico",
+    cat: "cabeceiras",
+    imgTpl: "cabeceiramalu/malu{idx}.webp",
+    fotos: 5,
+    layers: 2,
+    layerNames: ["Estofado Marrom", "Botões Clássicos"],
+    sizes: ["Casal", "Queen", "King"],
+    d: "Cabeceira capitonê em tom marrom com visual elegante e aconchegante. O acabamento com botões profundos cria um visual clássico e atemporal para a sua cama.",
+    s: [["Estrutura", "Painel Estofado"], ["Revestimento", "Suede Marrom"], ["Design", "Capitonê"], ["Instalação", "Fixação na parede"]]
+  }
 ];
 
 const WA_ICON = `<img src="${WA_GIT_ICON}" alt="WhatsApp" class="wa-custom-ico" width="20" height="20" decoding="async">`;
@@ -2331,8 +2372,8 @@ function initResilientVideo() {
 
 initResilientVideo();
 
-let lbImgTpl = "";
-let lbTotal = 0;
+let lbImagesArr = [];
+let lbCurrentIdx = 0;
 let lbCardImgRef = null;
 
 const lb = document.getElementById("lightbox");
@@ -2347,14 +2388,15 @@ function preloadImage(url) {
 }
 
 function updateLbImg(index) {
-  const newSrc = lbImgTpl.replace("{idx}", index);
+  lbCurrentIdx = index;
+  const newSrc = lbImagesArr[lbCurrentIdx];
   lbImg.src = newSrc;
   if (lbCardImgRef) {
-    lbCardImgRef.dataset.index = index;
+    lbCardImgRef.dataset.index = lbCurrentIdx;
     lbCardImgRef.src = newSrc;
   }
-  const nextIdx = index >= lbTotal ? 1 : index + 1;
-  preloadImage(lbImgTpl.replace("{idx}", nextIdx));
+  const nextIdx = (lbCurrentIdx + 1) % lbImagesArr.length;
+  preloadImage(lbImagesArr[nextIdx]);
 }
 
 function closeLightbox() {
@@ -2368,30 +2410,27 @@ lb.addEventListener("click", e => {
 });
 
 lbNext.onclick = () => {
-  if (!lbCardImgRef) return;
-  let index = parseInt(lbCardImgRef.dataset.index, 10);
-  if (index === lbTotal) {
+  if (!lbCardImgRef || lbImagesArr.length === 0) return;
+  let nextIdx = lbCurrentIdx + 1;
+  if (nextIdx >= lbImagesArr.length) {
     lbImg.classList.add("anim-out");
     setTimeout(() => {
       lb.classList.remove("active");
       setTimeout(() => {
         lbImg.classList.remove("anim-out");
-        lbCardImgRef.dataset.index = 1;
-        lbCardImgRef.src = lbImgTpl.replace("{idx}", 1);
+        updateLbImg(0);
       }, 300);
     }, 500);
   } else {
-    index++;
-    updateLbImg(index);
+    updateLbImg(nextIdx);
   }
 };
 
 lbPrev.onclick = () => {
-  if (!lbCardImgRef) return;
-  let index = parseInt(lbCardImgRef.dataset.index, 10);
-  index--;
-  if (index < 1) index = lbTotal;
-  updateLbImg(index);
+  if (!lbCardImgRef || lbImagesArr.length === 0) return;
+  let prevIdx = lbCurrentIdx - 1;
+  if (prevIdx < 0) prevIdx = lbImagesArr.length - 1;
+  updateLbImg(prevIdx);
 };
 
 let lbTouchStartX = 0;
@@ -2426,10 +2465,22 @@ function renderProducts(filter = "all") {
     card.style.transitionDelay = `${i * .06}s`;
 
     let artContent = "";
-    if (p.imgTpl) {
+    let imagesList = [];
+    let isExplicitArray = false;
+
+    if (p.images) {
+      imagesList = p.images;
+      isExplicitArray = true;
+    } else if (p.imgTpl) {
+      for (let idx = 1; idx <= p.fotos; idx++) {
+        imagesList.push(p.imgTpl.replace("{idx}", idx));
+      }
+    }
+
+    if (imagesList.length > 0) {
       artContent = `
         <button type="button" class="seta seta-esq" aria-label="Imagem anterior">&#10094;</button>
-        <img src="${p.imgTpl.replace("{idx}", 1)}" alt="${p.n}" class="imagem-ativa" data-index="1" loading="lazy" decoding="async">
+        <img src="${imagesList[0]}" alt="${p.n}" class="imagem-ativa" data-index="0" loading="lazy" decoding="async">
         <button type="button" class="seta seta-dir" aria-label="Próxima imagem">&#10095;</button>
       `;
     } else {
@@ -2456,20 +2507,21 @@ function renderProducts(filter = "all") {
       </div>
     `;
 
-    if (p.imgTpl) {
+    if (imagesList.length > 0) {
       const artBox = card.querySelector(".art");
       const imgElement = card.querySelector(".imagem-ativa");
       const btnEsq = card.querySelector(".seta-esq");
       const btnDir = card.querySelector(".seta-dir");
 
       const changeCardImg = (dir) => {
-        let idx = parseInt(imgElement.dataset.index, 10) + dir;
-        if (idx > p.fotos) idx = 1;
-        if (idx < 1) idx = p.fotos;
-        imgElement.dataset.index = idx;
-        imgElement.src = p.imgTpl.replace("{idx}", idx);
-        const nextPreload = idx >= p.fotos ? 1 : idx + 1;
-        preloadImage(p.imgTpl.replace("{idx}", nextPreload));
+        let curIdx = parseInt(imgElement.dataset.index, 10);
+        let nextIdx = curIdx + dir;
+        if (nextIdx >= imagesList.length) nextIdx = 0;
+        if (nextIdx < 0) nextIdx = imagesList.length - 1;
+        imgElement.dataset.index = nextIdx;
+        imgElement.src = imagesList[nextIdx];
+        const preloadNext = (nextIdx + 1) % imagesList.length;
+        preloadImage(imagesList[preloadNext]);
       };
 
       btnDir.addEventListener("click", e => {
@@ -2497,8 +2549,7 @@ function renderProducts(filter = "all") {
       }, { passive: true });
 
       imgElement.addEventListener("click", () => {
-        lbImgTpl = p.imgTpl;
-        lbTotal = p.fotos;
+        lbImagesArr = imagesList;
         lbCardImgRef = imgElement;
         const currentIndex = parseInt(imgElement.dataset.index, 10);
         updateLbImg(currentIndex);
